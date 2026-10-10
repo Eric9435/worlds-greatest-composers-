@@ -13,21 +13,19 @@ jobs:
           node-version: '22'
       - name: Check JavaScript syntax
         run: |
-          node --check curriculum.js
-          node --check enhancements.js
-          node --check academy.js
+          node --check history.js
           node --check sw.js
       - name: Check app assets and HTML references
         run: |
           node - <<'NODE'
           const fs=require('fs');
           const html=fs.readFileSync('index.html','utf8');
-          for(const f of ['curriculum.js','enhancements.js','academy.js','sw.js','manifest.webmanifest']){
+          for(const f of ['history.js','sw.js','manifest.webmanifest']){
             if(!fs.existsSync(f)) throw Error('Missing '+f);
             if(!html.includes(f)) throw Error('Not referenced in index: '+f);
           }
           const sw=fs.readFileSync('sw.js','utf8');
-          for(const f of ['curriculum.js','enhancements.js','academy.js']) if(!sw.includes(f)) throw Error('Not cached: '+f);
+          for(const f of ['history.js']) if(!sw.includes(f)) throw Error('Not cached: '+f);
           JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));
           console.log('Static checks passed');
           NODE
