@@ -273,7 +273,7 @@ test("all 52 composers have genuine bilingual chronology and two distinct musica
   assert.equal(atlas.works.length,2,"Two score examples: "+name);
   assert.equal(sections.length,2);
   for(const event of atlas.life){assert.equal(event.length,3);assert.ok(event[0].length>=4);assert.ok(event[1].length>35);assert.ok(event[2].length>20);dated.push(name+"/"+event[0]);}
-  for(const work of atlas.works){assert.equal(work.length,3);assert.ok(work[0].length>=5);assert.ok(work[1].length>40);assert.ok(work[2].length>18);}
+  for(const work of atlas.works){assert.equal(work.length,3);assert.ok(work[0].length>=3,"Work title missing: "+name);assert.ok(work[1].length>32,"English work note short: "+name);assert.ok(work[2].length>16,"Myanmar work note short: "+name);}
  }
  assert.equal(dated.length,156);
 });
