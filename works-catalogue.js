@@ -28,6 +28,79 @@ const catalogueSupplement={
   {title:"Nocturne in B major, Op. 9 No. 3",genre:"Keyboard"}
  ]
 };
+
+/* Authenticated-looking numbering must never be auto-filled from an implied count.
+ * Only explicitly listed titles and numbers below are offered while offline.
+ * These are additional selected pieces, not exhaustive series/catalogues. */
+(function addDocumentedNumberedPieces(){
+ const add=(name,titles)=>{
+  const entries=catalogueSupplement[name]||(catalogueSupplement[name]=[]);
+  for(const title of titles){
+   if(!entries.some(w=>catalogueIdentitySafe(w.title)===catalogueIdentitySafe(title))){
+    entries.push({title,genre:"Keyboard"});
+   }
+  }
+ };
+ const catalogueIdentitySafe=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]/g,"");
+ add("Ludwig van Beethoven",[
+  "Piano Sonata No. 1 in F minor, Op. 2 No. 1","Piano Sonata No. 2 in A major, Op. 2 No. 2",
+  "Piano Sonata No. 3 in C major, Op. 2 No. 3","Piano Sonata No. 5 in C minor, Op. 10 No. 1",
+  "Piano Sonata No. 6 in F major, Op. 10 No. 2","Piano Sonata No. 7 in D major, Op. 10 No. 3",
+  "Piano Sonata No. 16 in G major, Op. 31 No. 1","Piano Sonata No. 17 in D minor, Op. 31 No. 2 (Tempest)",
+  "Piano Sonata No. 18 in E-flat major, Op. 31 No. 3",
+  "Piano Sonata No. 19 in G minor, Op. 49 No. 1","Piano Sonata No. 20 in G major, Op. 49 No. 2"
+ ]);
+ const etude10=["C major","A minor","E major","C-sharp minor","G-flat major","E-flat minor","C major","F major","F minor","A-flat major","E-flat major","C minor"];
+ const etude25=["A-flat major","F minor","F major","A minor","E minor","G-sharp minor","C-sharp minor","D-flat major","G-flat major","B minor","A minor","C minor"];
+ const preludes28=["C major","A minor","G major","E minor","D major","B minor","A major","F-sharp minor","E major","C-sharp minor","B major","G-sharp minor","F-sharp major","E-flat minor","D-flat major","B-flat minor","A-flat major","F minor","E-flat major","C minor","B-flat major","G minor","F major","D minor"];
+ add("Frédéric Chopin",[
+ ...etude10.map((key,i)=>"Étude in "+key+", Op. 10 No. "+(i+1)),
+ ...etude25.map((key,i)=>"Étude in "+key+", Op. 25 No. "+(i+1)),
+ ...preludes28.map((key,i)=>"Prelude in "+key+", Op. 28 No. "+(i+1))
+ ]);
+ const kinderszenen=["Von fremden Ländern und Menschen","Kuriose Geschichte","Hasche-Mann","Bittendes Kind","Glückes genug","Wichtige Begebenheit","Träumerei","Am Kamin","Ritter vom Steckenpferd","Fast zu ernst","Fürchtenmachen","Kind im Einschlummern","Der Dichter spricht"];
+ add("Robert Schumann",kinderszenen.map((title,i)=>title+", Kinderszenen, Op. 15 No. "+(i+1)));
+ const liszt=["Preludio","Molto vivace","Paysage","Mazeppa","Feux follets","Vision","Eroica","Wilde Jagd","Ricordanza","Allegro agitato molto","Harmonies du soir","Chasse-neige"];
+ add("Franz Liszt",liszt.map((title,i)=>title+", Transcendental Études, S. 139 No. "+(i+1)));
+ add("Johannes Brahms",[
+  "Intermezzo in A minor, Op. 118 No. 1","Intermezzo in A major, Op. 118 No. 2",
+  "Ballade in G minor, Op. 118 No. 3","Intermezzo in F minor, Op. 118 No. 4",
+  "Romanze in F major, Op. 118 No. 5","Intermezzo in E-flat minor, Op. 118 No. 6"
+ ]);
+ add("Johann Sebastian Bach",[
+ "Prelude and Fugue in C major, BWV 846","Prelude and Fugue in C minor, BWV 847",
+ "Goldberg Variations, BWV 988","Mass in B minor, BWV 232",
+ "Brandenburg Concerto No. 1, BWV 1046","Brandenburg Concerto No. 2, BWV 1047",
+ "Brandenburg Concerto No. 3, BWV 1048","Brandenburg Concerto No. 4, BWV 1049",
+ "Brandenburg Concerto No. 5, BWV 1050","Brandenburg Concerto No. 6, BWV 1051"
+ ]);
+ add("Wolfgang Amadeus Mozart",[
+ "Piano Sonata No. 11 in A major, K. 331","Piano Sonata No. 16 in C major, K. 545",
+ "Piano Concerto No. 21 in C major, K. 467","Piano Concerto No. 23 in A major, K. 488",
+ "Symphony No. 40 in G minor, K. 550","Symphony No. 41 in C major, K. 551"
+ ]);
+ add("George Frideric Handel",[
+ "Messiah, HWV 56","Water Music Suite No. 1, HWV 348","Water Music Suite No. 2, HWV 349",
+ "Water Music Suite No. 3, HWV 350","Music for the Royal Fireworks, HWV 351"
+ ]);
+ add("Antonio Vivaldi",[
+  "La primavera (Spring), RV 269, Op. 8 No. 1",
+  "L'estate (Summer), RV 315, Op. 8 No. 2",
+  "L'autunno (Autumn), RV 293, Op. 8 No. 3",
+  "L'inverno (Winter), RV 297, Op. 8 No. 4"
+ ]);
+ add("Franz Schubert",[
+ "Winterreise, D. 911","Impromptu in C minor, D. 899, Op. 90 No. 1",
+ "Impromptu in E-flat major, D. 899, Op. 90 No. 2",
+ "Impromptu in G-flat major, D. 899, Op. 90 No. 3",
+ "Impromptu in A-flat major, D. 899, Op. 90 No. 4"
+ ]);
+ add("Joseph Haydn",[
+ "Symphony No. 94 in G major, Hob. I:94",
+ "Symphony No. 104 in D major, Hob. I:104",
+ "Piano Sonata in E-flat major, Hob. XVI:52"
+ ]);
+})();
 const catalogueMemory=new Map();
 const catalogueState={composer:null,works:[],source:"local",view:"families",family:"",group:"",selectedId:"",search:"",genre:"all",busy:false,message:"",requestId:0};
 function catalogueIdentity(s){
