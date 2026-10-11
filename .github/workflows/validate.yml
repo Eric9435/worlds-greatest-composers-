@@ -25,6 +25,7 @@ jobs:
           node --check biographies-b.js
           node --check biographies-c.js
           node --check biographies-d.js
+          node --check biography-sources.js
           node --check reader.js
           node --check portraits.js
           node --check app.js
