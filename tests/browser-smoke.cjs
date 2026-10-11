@@ -28,7 +28,7 @@ const server=http.createServer((req,res)=>{
   assert.ok(await bachTile.count());
   assert.ok(await bachTile.locator('img.composer-portrait-sprite').count());
   await bachTile.click();
-  assert.ok(await page.getByRole("heading",{name:"Johann Sebastian Bach"}).count(),"Bach click debug: "+JSON.stringify(await page.evaluate(()=>({tab,selected,selectedEra,window:!!document.getElementById("readingWindow"),detail:document.getElementById("detail")?.textContent?.slice(0,150),content:document.getElementById("content")?.textContent?.slice(0,150),error:document.querySelector(".reading-window")?.outerHTML?.slice(0,280)})))+" errors="+JSON.stringify(errors));
+  assert.ok(await page.getByRole("heading",{name:"Johann Sebastian Bach"}).count(),"Bach visible debug: "+JSON.stringify(await page.evaluate(()=>{const h=document.querySelector("#readingWindow .reading-header h2"),a=h?.closest(".reading-article"),header=h?.closest(".reading-header"),p=document.querySelector(".reading-window-panel");return{html:h?.outerHTML,articleClass:a?.className,articleDisplay:getComputedStyle(a).display,headingDisplay:getComputedStyle(h).display,headerDisplay:getComputedStyle(header).display,headerVisibility:getComputedStyle(header).visibility,headingRect:h?.getBoundingClientRect().toJSON(),panelRect:p?.getBoundingClientRect().toJSON(),ariaHidden:h?.closest("[aria-hidden]")?.outerHTML?.slice(0,80)}}))+" errors="+JSON.stringify(errors));
   assert.equal(await page.locator("#readingWindow[role=dialog]").count(),1);
   assert.equal(await page.evaluate(()=>document.body.classList.contains("reader-window-open")),true);
   await page.locator("#readingWindow .reading-window-close").click();
