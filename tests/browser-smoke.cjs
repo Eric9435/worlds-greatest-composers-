@@ -160,7 +160,7 @@ const server=http.createServer((req,res)=>{
   await worksPage.goto("http://127.0.0.1:"+server.address().port,{waitUntil:"networkidle"});
   await worksPage.getByRole("button",{name:"Composers",exact:true}).click();
   await worksPage.getByRole("textbox",{name:"Search composers"}).fill("Beethoven");
-  await worksPage.getByRole("button",{name:/Works · Op/}).click();
+  await worksPage.locator(".composer-catalogue-link").first().click();
   assert.equal(await worksPage.locator("#worksCatalogueWindow[role=dialog]").count(),1);
   await worksPage.getByText("3 Open Opus entries").first().waitFor();
   await worksPage.locator(".works-family-card").filter({hasText:"Op."}).first().click();
