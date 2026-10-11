@@ -25,7 +25,7 @@ function composerPortrait(name,kind="card"){
     const alternative=esc(name+" — "+shortLabel);
     const loading=kind==="hero"?"eager":"lazy";
     const failedInitial=esc(name.split(" ").filter(Boolean).map(p=>p.charAt(0).toUpperCase()).slice(0,2).join(""));
-    return '<div class="composer-visual '+(kind==="hero"?"composer-visual-hero":"")+'">'+
+    return '<div class="composer-visual '+(kind==="hero"?"composer-visual-hero":"")+'" data-composer="'+esc(name)+'">'+
       '<div class="composer-portrait composer-portrait-crop">'+
       '<img class="composer-portrait-sprite" src="'+composerPortraitPath+'" alt="'+alternative+'" '+
       'loading="'+loading+'" decoding="async" width="600" height="240" '+
@@ -36,7 +36,7 @@ function composerPortrait(name,kind="card"){
       '</div>';
   }
   const initial=name.split(" ").filter(Boolean).map(s=>s.charAt(0).toUpperCase()).slice(0,2).join("");
-  return '<div class="composer-visual '+(kind==="hero"?"composer-visual-hero":"")+'">'+
+  return '<div class="composer-visual '+(kind==="hero"?"composer-visual-hero":"")+'" data-composer="'+esc(name)+'">'+
     '<div class="composer-portrait composer-portrait-placeholder" aria-label="'+esc(t("Portrait not yet available","ဓာတ်ပုံမရှိသေးပါ"))+'">'+esc(initial)+'</div>'+
     (kind==="hero"?'<span class="portrait-disclaimer">'+t("Portrait coming later","နောက်ပိုင်း ပုံထည့်မည်")+'</span>':'')+
     '</div>';
