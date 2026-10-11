@@ -352,3 +352,102 @@ Object.assign(composerChapters,{
     ]
   }
 });
+
+/* Distinct analytical and historical chapters, Scarlatti to Mahler. */
+for(const [name,en,my,legacyEn,legacyMy] of [
+  [
+    "Domenico Scarlatti",
+    "Play the opening of K. 141 slowly and identify how repeated-note technique creates both rhythmic energy and technical difficulty. Compare it with the singing quality of K. 380. In either sonata, mark the midpoint cadence and the return toward the home key in the second part; the binary structure can be heard even amid rapid ornament.",
+    "K. 141 ၏ repeated-note passage ကို ဖြည်းဖြည်းတီး၍ rhythm နှင့် technical demand ကို စူးစမ်းပါ။ K. 380 ၏ lyrical melody နှင့် နှိုင်းယှဉ်ပါ။ Binary form ၏ midpoint cadence နှင့် home key ပြန်လာပုံကို မှတ်သားပါ။",
+    "Keyboard sonatas attributed to Scarlatti survive through complex manuscript transmission and were not all published during his lifetime. Kirkpatrick numbering is a modern cataloging convention, not the composer's chronological opus sequence. Studying the harpsichord context clarifies questions of articulation, ornament and the translation of touch to the modern piano.",
+    "Scarlatti ၏ sonata များကို လက်ရေးစာမူအမျိုးမျိုးမှ သိရှိရပြီး Kirkpatrick နံပါတ်သည် နောက်ပိုင်း catalogue ဖြစ်သည်။ မူရင်း harpsichord အတွက် ရေးဖွဲ့မှုကို သိထားလျှင် piano ခေတ်သစ်၏ articulation နှင့် touch ကို ပိုမိုကောင်းစွာ ဆုံးဖြတ်နိုင်သည်။"
+  ],
+  [
+    "C. P. E. Bach",
+    "Select a sudden pause in a Prussian Sonata and ask whether the silence feels like a phrase ending or an interruption. Trace changes in dynamics, register and harmonic direction over a few measures. Compare the unpredictable emotional character of such a passage with a more regular Classical phrase; the contrast illuminates the sensitive style.",
+    "Prussian Sonata တွင် silence ရုတ်တရက်ပေါ်လာသည့်နေရာကို ရွေး၍ phrase အဆုံးသတ်လား interruption လား စဉ်းစားပါ။ Dynamic၊ register နှင့် harmony ပြောင်းလဲမှုကို measure အနည်းငယ်ဖြင့် လေ့လာပါ။ Classical phrase နှင့် နှိုင်းယှဉ်ပါ။",
+    "His treatise provided influential guidance about keyboard fingering, ornamentation and expression during a period of instrument change. Later histories sometimes cast him only as a predecessor of Haydn, obscuring his independent reputation and compositional choices. His Hamburg career also reveals links between church music, public concerts and musical publishing.",
+    "C. P. E. Bach ၏ keyboard treatise သည် fingering၊ ornament နှင့် expression အတွက် အရေးပါသည်။ Haydn ၏ ရှေ့ပြေးအဖြစ်သာ မမြင်ဘဲ သူ၏သီးခြားအနုပညာကို လေ့လာသင့်သည်။ Hamburg ရှိ ဘုရားကျောင်းနှင့် public concert အလုပ်များကလည်း အရေးပါသည်။"
+  ],
+  [
+    "Christoph Willibald Gluck",
+    "Listen to the opening scenes of Orfeo ed Euridice and compare the dramatic work of chorus, orchestra and solo voice. Identify when an aria expresses a sustained emotional state and when music pushes the plot into new action. In a contrasting earlier opera seria example, listen for virtuoso display and ask how Gluck's aesthetic priorities differ.",
+    "Orfeo ed Euridice ၏ opening တွင် chorus၊ orchestra နှင့် solo voice ၏ drama အခန်းကဏ္ဍကို ခွဲခြားပါ။ Aria သည် ခံစားချက်တစ်ခုကို ရပ်တန့်ဖော်ပြသလား၊ ဇာတ်လမ်းကို ဆက်လက်ရွှေ့သလား စူးစမ်းပါ။ Opera seria အဟောင်းနှင့် နှိုင်းယှဉ်ပါ။",
+    "The language of operatic 'reform' arose from aesthetic debate and changing theatre institutions. Gluck's innovations depended on collaborators, singers and staged production rather than a composer working alone. His reception in Paris and Vienna shows how disputes over national taste could become as important as the music's formal details.",
+    "Opera reform သည် လက်ရာတစ်ဦးတည်းကြောင့် ဖြစ်လာခြင်းမဟုတ်ဘဲ theatre၊ singer နှင့် librettist ပူးပေါင်းမှုကြောင့် ဖြစ်သည်။ Vienna နှင့် Paris တွင် အမျိုးသားစတိုင်အပေါ် အငြင်းပွားမှုများရှိခဲ့သည်။ သမိုင်းနောက်ခံကို ထည့်သွင်းနားလည်ပါ။"
+  ],
+  [
+    "Muzio Clementi",
+    "Use an Op. 36 sonatina to practice locating exposition, contrasting tonal region and return, rather than playing only for finger dexterity. In a Gradus ad Parnassum study, distinguish technical pattern from melodic shape and voice-leading responsibility. Compare articulation possibilities on an early piano with those of a modern instrument.",
+    "Op. 36 sonatina တွင် exposition၊ key contrast နှင့် return ကို ရှာပါ။ Gradus ad Parnassum study တွင် finger technique သာမဟုတ်ဘဲ melodic shape နှင့် voice leading ကို လေ့လာပါ။ Early piano နှင့် modern piano articulation ကွာခြားမှုကို သတိထားပါ။",
+    "Clementi's legacy extends from composition to instruction, publishing and instrument manufacture. The market for domestic piano learning shaped which technical exercises were circulated and preserved. He was part of a network of many keyboard innovators, so celebratory titles such as 'father of the pianoforte' should not be interpreted literally.",
+    "Clementi ၏သက်ရောက်မှုမှာ composition အပြင် သင်ကြားရေး၊ publishing နှင့် piano manufacturing ပါဝင်သည်။ အိမ်တွင်း piano ပညာရေးလိုအပ်ချက်က သူ၏သင်ခန်းစာများ ပျံ့နှံ့စေခဲ့သည်။ Piano ၏ တစ်ဦးတည်းသော တီထွင်သူဟု မဆိုသင့်ပါ။"
+  ],
+  [
+    "Felix Mendelssohn",
+    "Compare a Song Without Words with a vocal song by another Romantic composer: does the piano suggest text or tell a story through phrase and texture alone? In The Hebrides, follow the oscillating opening figure and notice how changing orchestral colors evoke movement. Listen for contrapuntal passages underneath seemingly seamless melodic surfaces.",
+    "Songs Without Words နှင့် Lied တစ်ပုဒ်ကို နှိုင်းယှဉ်ပါ။ စာသားမပါဘဲ piano phrase နှင့် texture က အကြောင်းအရာကို ဘယ်လိုဖော်ပြသလဲ စူးစမ်းပါ။ The Hebrides ၏ opening figure နှင့် orchestra timbre ပြောင်းလဲမှုကို နားထောင်ပါ။",
+    "Mendelssohn's role in reviving Bach contributed to the modern idea of a historical concert canon. His own reputation fluctuated with changing musical and political values, including antisemitism in later reception. Studying his compositions alongside his conducting and institutional work gives a fuller picture than the stereotype of effortless elegance.",
+    "Mendelssohn ၏ Bach revival သည် historical concert canon အပေါ် သက်ရောက်ခဲ့သည်။ နောက်ပိုင်း သူ့အပေါ် antisemitic အမြင်များလည်း သက်ရောက်ခဲ့သဖြင့် reception သမိုင်းကို လေ့လာသင့်သည်။ Composer နှင့် conductor နှစ်မျိုးလုံး အရေးပါသည်။"
+  ],
+  [
+    "Hector Berlioz",
+    "Create a listening map of the idée fixe through several movements of Symphonie fantastique: record its register, instrumentation, rhythm and emotional context. In the march and witches' sabbath, compare how the theme is distorted rather than simply repeated. These transformations connect the work's program to audible compositional techniques.",
+    "Symphonie fantastique ၏ idée fixe ကို movement များအလိုက် register၊ timbre၊ rhythm နှင့် drama အခြေအနေဖြင့် ဇယားပြုလုပ်ပါ။ March နှင့် witches' sabbath တွင် theme ကို ပုံစံပြောင်းအသုံးပြုပုံကို နှိုင်းယှဉ်ပါ။",
+    "Berlioz's orchestration treatise and conducting activity influenced later thinking about the orchestra as a dramatic resource. His career depended on changing concert institutions and the logistics of large performing forces. When reading the written program of a symphony, separate the narrative supplied by the composer from what can be demonstrated by musical analysis.",
+    "Berlioz ၏ orchestration treatise သည် နောက်ပိုင်း composer များကို သက်ရောက်စေခဲ့သည်။ Orchestra အဖွဲ့ကြီးအသုံးပြုမှုသည် စီးပွားရေးနှင့် concert institution များနှင့်လည်း ဆက်စပ်သည်။ ဇာတ်လမ်းစာသားနှင့် score မှ အထောက်အထားကို ခွဲခြားသုံးသပ်ပါ။"
+  ],
+  [
+    "Giuseppe Verdi",
+    "Choose a scene from La traviata and identify how an orchestral transition prepares a singer's entrance. Compare the vocal writing of Violetta at different points in the opera, noting changes in pacing, range and ensemble context. In the final acts of Otello, ask how music can sustain psychological pressure without stopping for a conventional display aria.",
+    "La traviata မှ scene တစ်ခုတွင် orchestra transition က singer ဝင်လာရန် ဘယ်လိုပြင်ဆင်သလဲ နားထောင်ပါ။ Violetta ၏ scene မတူသည့်အခါ range၊ tempo နှင့် ensemble context ပြောင်းလဲမှုကို နှိုင်းယှဉ်ပါ။ Otello တွင် continuous drama ကို လေ့လာပါ။",
+    "Verdi's work became deeply embedded in Italian and international operatic culture, but political interpretations differ according to time and production. Modern staging may change how audiences understand gender, class and public judgment in his stories. A music-historical reading should connect dramatic character with vocal and orchestral evidence rather than biography alone.",
+    "Verdi opera များကို ပြဇာတ်စင်ပုံစံသစ်များဖြင့် ဖျော်ဖြေရာတွင် လူမှုအတန်းအစားနှင့် ကျားမဆိုင်ရာအမြင်များ ပြောင်းလဲနိုင်သည်။ နိုင်ငံရေးအဓိပ္ပာယ်ကို လက်ရာတစ်ခုစီအလိုက် အထောက်အထားဖြင့် သုံးသပ်သင့်သည်။ Vocal နှင့် orchestra evidence ကို ဦးစားပေးပါ။"
+  ],
+  [
+    "Richard Wagner",
+    "In the prelude to Tristan und Isolde, follow phrases that appear to demand resolution but instead move toward further instability. When a leitmotif returns in the Ring cycle, note changes in instrumental setting and dramatic association. The listener should trace development across scenes rather than expecting every motif to correspond to a single fixed label.",
+    "Tristan und Isolde prelude တွင် cadence မပြည့်စုံဘဲ tension ဆက်သွားပုံကို နားထောင်ပါ။ Ring cycle ၏ leitmotif ပြန်လာချိန် orchestration နှင့် drama အဓိပ္ပာယ်ပြောင်းလဲမှုကို မှတ်သားပါ။ Leitmotif ကို label တစ်ခုတည်းဖြင့် မသတ်မှတ်သင့်ပါ။",
+    "Wagner shaped later music drama and harmony, yet his antisemitic polemics are a serious part of his historical record and reception. Distinguish musical influence from moral endorsement. The design of the Bayreuth festival theatre and its performance practices also reveal how architecture and institutions could shape the experience of a composition.",
+    "Wagner ၏ musical innovation များကို လေ့လာရာတွင် antisemitic ရေးသားချက်များကိုလည်း သမိုင်းမှ ဖယ်ရှားမထားသင့်ပါ။ ဂီတသက်ရောက်မှုကို အသိအမှတ်ပြုခြင်းသည် အယူအဆဆိုးများကို ထောက်ခံခြင်းမဟုတ်ပါ။ Bayreuth theatre ၏ design က performance ကို သက်ရောက်စေသည်။"
+  ],
+  [
+    "Anton Bruckner",
+    "Take the Adagio from Symphony No. 7 and divide the movement into broad harmonic and dynamic phases rather than short themes alone. Track the long crescendos, brass entrances and moments of suspended motion. Compare recordings using different editions to hear how revision and editorial choices can affect the proportions of a musical work.",
+    "Symphony No. 7 Adagio တွင် တိုတောင်းသော theme အစား harmony နှင့် dynamic phase အကြီးများကို ခွဲခြားပါ။ Crescendo ရှည်လျားမှု၊ brass ဝင်လာပုံနှင့် silence ကို နားထောင်ပါ။ Edition မတူသော recording များကို နှိုင်းယှဉ်ပါ။",
+    "Bruckner's symphonies entered the canon through a complicated publication and revision history. Performers and scholars still compare competing versions. This is an important case study in why the score of a 'work' is not always a single definitive object; editorial decisions can alter the music audiences recognize.",
+    "Bruckner ၏ symphony များတွင် revision များစွာရှိသဖြင့် definitive score တစ်ခုတည်းကို သတ်မှတ်ရခက်သည်။ Conductor နှင့် researcher များသည် version မတူမှုကို ဆက်လက်နှိုင်းယှဉ်ကြသည်။ Edition ရွေးချယ်မှုသည် နားထောင်ပုံကို သက်ရောက်စေသည်။"
+  ],
+  [
+    "Pyotr Ilyich Tchaikovsky",
+    "In The Nutcracker, compare two short dances to identify how instrumentation, meter and register create contrasting characters. In Symphony No. 6, trace the relation between lyrical episodes and darker orchestral textures. The subdued ending changes the expected trajectory of a symphony; compare the final impression with a conventional triumphant finale.",
+    "The Nutcracker ၏ dance နှစ်ပုဒ်ကို နှိုင်းယှဉ်ကာ meter၊ timbre နှင့် register က character ကို ဘယ်လိုဖန်တီးသလဲ လေ့လာပါ။ Symphony No. 6 ၏ subdued ending ကို ထုံးစံ triumphant finale နှင့် နှိုင်းယှဉ်ပါ။",
+    "Tchaikovsky's work helped elevate ballet music as a substantial orchestral art while remaining influential in symphonic and operatic repertories. Biographical narratives about his private life and emotional struggles are often repeated too confidently; the sources and their limitations should be considered. His craftsmanship in formal pacing deserves equal weight.",
+    "Tchaikovsky ၏ ballet music သည် orchestra အနုပညာအဖြစ် တန်ဖိုးမြင့်တက်စေခဲ့သည်။ ကိုယ်ရေးကိုယ်တာဘဝနှင့် ဝမ်းနည်းမှုများကို သမိုင်းအမှန်အဖြစ် အလွန်အမင်း ချဲ့ကားမဖော်ပြသင့်ပါ။ Formal pacing နှင့် orchestration ကိုလည်း ဦးစားပေးလေ့လာပါ။"
+  ],
+  [
+    "Antonín Dvořák",
+    "In the New World Symphony, follow how themes from different movements balance contrasting rhythmic identities and orchestral colors. Compare the broad slow-movement melody with the more insistent pulse of the finale. Ask what can be established about influences from his American encounters and what remains speculative about specific borrowed melodies.",
+    "New World Symphony တွင် movement အလိုက် theme၊ rhythm နှင့် timbre ကွာခြားမှုကို နားထောင်ပါ။ Slow movement melody နှင့် finale rhythm ကို နှိုင်းယှဉ်ပါ။ အမေရိကန်ဂီတလွှမ်းမိုးမှုကို အထောက်အထားရှိသလောက်သာ ဖော်ပြသင့်သည်။",
+    "Dvořák's American career opened complex discussions about who could define a national art music and which musical traditions were valued by institutions. His own views have been interpreted in different historical contexts. Study the symphony's reception with attention to the African American and Indigenous traditions mentioned in contemporary debates, without inventing direct quotations.",
+    "Dvořák ၏ အမေရိကန်အလုပ်က national music ၏ အဓိပ္ပာယ်နှင့် ယဉ်ကျေးမှုမျိုးစုံ၏တန်ဖိုးအပေါ် ဆွေးနွေးမှုများ ပေါ်စေခဲ့သည်။ African American နှင့် Indigenous tradition များအပေါ် အစဉ်အလာအမြင်ကို သမိုင်းနောက်ခံဖြင့် သုံးသပ်ပါ။"
+  ],
+  [
+    "Edvard Grieg",
+    "Take a short Lyric Piece and identify its modal inflections and patterned accompaniment; explain why its scale or cadence differs from a conventional Classical example. Compare a dance-like miniature with the sweeping opening of Grieg's piano concerto. Avoid assuming that a national character can be recognized by one rhythmic figure alone.",
+    "Lyric Piece တစ်ပုဒ်တွင် mode၊ cadence နှင့် accompaniment pattern ကို စူးစမ်းပါ။ Dance miniature နှင့် piano concerto ၏ opening ကို နှိုင်းယှဉ်ပါ။ Rhythm တစ်မျိုးတည်းကြောင့် နော်ဝေစတိုင်ဟု အတည်မပြုသင့်ပါ။",
+    "Grieg's association with Norwegian identity formed through artistic choices and changing cultural politics, not an unchanging folk essence. His songs and incidental music sit alongside better-known piano works in an important national and international reception history. Discuss the distinction between actual traditional materials and the composer's imaginative stylization.",
+    "Grieg ၏ Norwegian identity ကို အနုပညာနှင့် နိုင်ငံရေးယဉ်ကျေးမှုအခြေအနေက ဖန်တီးခဲ့သည်။ ရိုးရာသံစဉ်တစ်ပုဒ်ကို တိုက်ရိုက်ယူခြင်းနှင့် folk style ကို စိတ်ကူးပြောင်းလဲခြင်းကို ခွဲခြားပါ။ သူ၏ song နှင့် theatre music များကိုလည်း အရေးထားလေ့လာပါ။"
+  ],
+  [
+    "Gustav Mahler",
+    "Listen to the opening funeral march of Symphony No. 5 and chart rhythmic returns against shifts in orchestral size. Compare its dense dramatic episodes with the delicate texture of the Adagietto. When a song-like idea returns transformed, ask what has changed: tempo, harmony, instrument, emotional association or position in the large design.",
+    "Symphony No. 5 opening funeral march ကို rhythm pattern နှင့် orchestration ပြောင်းလဲပုံဖြင့် chart ပြုလုပ်ပါ။ Adagietto ၏ ပေါ့ပါးသော texture နှင့် နှိုင်းယှဉ်ပါ။ Song-like theme ပြန်လာချိန် tempo၊ harmony နှင့် emotional context ဘာပြောင်းသလဲ လေ့လာပါ။",
+    "Mahler's fame as a conductor intersected with the performing institutions that later sustained his symphonies. His music was interpreted very differently across the twentieth century, including major revivals and changing views of irony and emotional excess. Rather than reading every musical gesture as autobiographical, combine historical evidence with careful analysis of orchestral detail.",
+    "Mahler ၏ conductor ဘဝနှင့် orchestra institution များသည် symphony reception ကို သက်ရောက်စေခဲ့သည်။ ၂၀ ရာစုအတွင်း သူ၏လက်ရာများကို အမြင်မတူစွာ ပြန်လည်ဖျော်ဖြေခဲ့ကြသည်။ Music gesture တိုင်းကို ကိုယ်ရေးအတ္ထုပ္ပတ္တိဖြင့်သာ မရှင်းလင်းဘဲ score ကို သေချာလေ့လာပါ။"
+  ]
+]){
+ const x=composerChapters[name];if(!x)throw Error('Unknown composer '+name);
+ x.sections.push(['Close reading and performance practice','လက်ရာအသေးစိတ်နှင့် တီးခတ်ဖော်ပြမှု',en,my]);
+ x.sections.push(['Reception, influence and critical context','သက်ရောက်မှု၊ လက်ခံမှုနှင့် သမိုင်းဆိုင်ရာသုံးသပ်ချက်',legacyEn,legacyMy]);
+}
