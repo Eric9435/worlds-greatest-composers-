@@ -7,7 +7,7 @@ const eras=[
 {id:"classical",en:"Classical",my:"ကလက်စစ်ခေတ်",dates:"c. 1750–1820",descEn:"Balanced phrasing, sonata forms, symphonies, quartets and the mature piano.",descMy:"ညီမျှသောသံစဉ်ဖွဲ့စည်းမှု၊ ဆိုနာတာပုံစံ၊ ဆင်ဖိုနီနှင့် ပီယာနိုဂီတ ထွန်းကားလာသည်။"},
 {id:"romantic",en:"Romantic",my:"ရိုမန်တစ်ခေတ်",dates:"c. 1820–1900",descEn:"Expressive chromatic harmony, virtuoso piano music and programmatic works.",descMy:"ခံစားချက်ပြင်းထန်သော ခရိုမက်တစ်ဟာမိုနီ၊ ပီယာနိုစွမ်းရည်ပြလက်ရာများနှင့် ဇာတ်ကြောင်းပါဂီတများ။"},
 {id:"modern",en:"Modern & 20th Century",my:"ခေတ်သစ်နှင့် ၂၀ ရာစု",dates:"c. 1900–2000",descEn:"Impressionist colors, atonality, neoclassicism, jazz influences, electronic and minimalist music.",descMy:"အရောင်အသွေးကြွယ်ဝသောဟာမိုနီ၊ သံအခြေမဲ့ရေးဖွဲ့မှု၊ ဂျက်ဇ်လွှမ်းမိုးမှု၊ အီလက်ထရွန်နစ်နှင့် မီနီမယ်ဂီတ။"},
-{id:"contemporary",en:"Contemporary",my:"မျက်မှောက်ခေတ်",dates:"2000–present",descEn:"Diverse global practices, mixed media, digital composition and new performance techniques.",descMy:"ကမ္ဘာတစ်ဝန်းရှိ စတိုင်မျိုးစုံ၊ ဒစ်ဂျစ်တယ်ရေးဖွဲ့မှုနှင့် တီးခတ်နည်းအသစ်များ။"}];
+{id:"contemporary",en:"Contemporary",my:"မျက်မှောက်ခေတ်",dates:"c. 1960–present (overlaps with Modern)",descEn:"Diverse global practices, mixed media, digital composition and new performance techniques.",descMy:"ကမ္ဘာတစ်ဝန်းရှိ စတိုင်မျိုးစုံ၊ ဒစ်ဂျစ်တယ်ရေးဖွဲ့မှုနှင့် တီးခတ်နည်းအသစ်များ။"}];
 const composers=[
 ["Hildegard von Bingen","ဟီလ်ဒီဂါ့ဒ် ဖွန် ဘင်ဂန်","medieval","1098–1179","Ordo Virtutum","Religious songs and visionary musical drama.","ဘာသာရေးသီချင်းများနှင့် ဂီတပြဇာတ်ရေးဖွဲ့ခဲ့သည်။"],
 ["Guillaume de Machaut","ဂီယုမ်း ဒ မာရှိုး","medieval","c. 1300–1377","Messe de Nostre Dame","A major figure in fourteenth-century French polyphony.","၁၄ ရာစု ပြင်သစ်အသံစုံဂီတ၏ အရေးပါသောပုဂ္ဂိုလ်ဖြစ်သည်။"],
@@ -45,6 +45,20 @@ refs.push(
 ["Understanding Music: Past and Present — Open Textbook Library","https://open.umn.edu/opentextbooks/textbooks/understanding-music-past-and-present","Bibliography, chapter outline, license and independent textbook reviews."],
 ["Yale University — Listening to Music (MUSI 112)","https://oyc.yale.edu/music/musi-112","University lecture series on listening, fugue, sonata form, opera, Baroque, Romantic and twentieth-century music."],
 ["University of North Georgia Press — Understanding Music","https://ung.edu/university-press/books/understanding-music-past-and-present.php","Official publisher page and free digital edition."]
+);
+refs.push(
+["The Cambridge Companion to Bach","https://www.cambridge.org/core/books/cambridge-companion-to-bach/BB71E9799CBE6751307BE0ECBC24C132","Cambridge University Press: historical setting, compositional styles, performance and reception. Some chapters require access."],
+["The Cambridge Companion to Handel, ed. Donald Burrows","https://www.cambridge.org/core/books/cambridge-companion-to-handel/2A375CDDFD16A5ED1816655E05A06182","Cambridge University Press: biography, opera, oratorio and the London musical world."],
+["The Cambridge Companion to Haydn, ed. Caryl Clark","https://www.cambridge.org/core/books/the-cambridge-companion-to-haydn/CBC5CE1F766D6FF9CB2B204FF637EB7F","Cambridge University Press: Haydn's musical work and cultural environment."],
+["The Cambridge Companion to Mozart, ed. Simon P. Keefe","https://www.cambridge.org/core/books/the-cambridge-companion-to-mozart/DE05DD0786DC2E28F6FF6BE46CD9E99D","Cambridge University Press: biography, musical genres, performance and reception."],
+["The Cambridge Companion to Beethoven, ed. Glenn Stanley","https://www.cambridge.org/core/books/the-cambridge-companion-to-beethoven/F82EB4588B7BC42FAF3F270383CF2592","Cambridge University Press: Beethoven's career, composition, genres and historical contexts."],
+["The Cambridge Companion to Chopin, ed. Jim Samson","https://www.cambridge.org/core/books/cambridge-companion-to-chopin/C69DCE19622F4FE179777DC8634F966F","Cambridge University Press: Chopin biography, music, performance and reception."],
+["The Cambridge Companion to Debussy, ed. Simon Trezise","https://www.cambridge.org/core/books/cambridge-companion-to-debussy/E3A1915027340795EEDB97D211804D05","Cambridge University Press: cultural setting, sonority, harmony, rhythm, performance."],
+["The Cambridge Companion to Stravinsky, ed. Jonathan Cross","https://www.cambridge.org/core/books/the-cambridge-companion-to-stravinsky/04E4A6B5ED2E9E22F232848C8A337632","Cambridge University Press: Russian, neoclassical, serial work and reception."],
+["Florence Price Papers — University of Arkansas Libraries","https://digitalcollections.uark.edu/digital/collection/p17212coll3","Institutional digitized archives useful for checking manuscript evidence."],
+["Florence Price Biography by Michael J. Cooper","https://florenceprice.com/biography/","Extended scholarly biographical account emphasizing Price's piano repertory."],
+["Kaija Saariaho — IRCAM Composer Resource","https://resources.ircam.fr/en/composer/kaija-saariaho/biography","Institutional biographical research and selective bibliography."],
+["Unsuk Chin — Boosey & Hawkes Composer Biography","https://www.boosey.com/pages/cr/composer/composer_main?composerid=2754&langid=1&site-lang=en&ttype=biography","Publisher's detailed composer biography and catalog orientation."]
 );
 let lang=localStorage.getItem("pfa-lang")==="my"?"my":"en",tab="eras",query="",eraFilter="all",selected=null,selectedEra=null;
 const t=(en,my)=>lang==="en"?en:my;
