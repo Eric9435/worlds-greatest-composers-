@@ -32,6 +32,7 @@ function chapterMarkup(kind,record,study) {
     '<h2>'+title+'</h2><p>'+metadata+'</p>'+
     '<p class="reading-intro">'+esc(isEra?t(record.descEn,record.descMy):t(record.en,record.descMy))+'</p>'+
     '<div class="reading-meta">'+enrichedSections.length+' '+t("study sections","အပိုင်း")+' · '+t("English / Myanmar","အင်္ဂလိပ် / မြန်မာ")+'</div></div></header>'+
+    (isEra?'':'<div class="works-catalogue-launch"><button type="button" class="works-launch-btn" onclick="openWorksCatalogue('+record.id+')">♫ '+t("Complete Works Catalogue · Op. / BWV / K. / D.","လက်ရာစာရင်း · Op. / BWV / K. / D.")+' →</button><small>'+t("Numbered works, individual pieces and available movement details","နံပါတ်အလိုက် လက်ရာများ၊ Piece များနှင့် Movement အသေးစိတ်")+'</small></div>')+
     '<div class="reader-topic-picker"><label for="readerTopicSelect">'+t("Choose topic — opens here without scrolling","ခေါင်းစဉ်ရွေးပါ — ဆွဲချစရာမလိုဘဲ ဤနေရာတွင်ဖွင့်မည်")+'</label><select id="readerTopicSelect" onchange="selectReadingTopic(Number(this.value))">'+pickerOptions+'</select></div>'+
     '<div class="reader-columns"><aside class="reader-outline" aria-label="Chapter contents"><h3>'+t("In this chapter","ဤသင်ခန်းစာတွင်")+'</h3><input type="search" class="reader-section-search" aria-label="'+t("Search chapter topics","သင်ခန်းစာအကြောင်းအရာရှာရန်")+'" placeholder="'+t("Find a topic…","အကြောင်းအရာရှာရန်…")+'" oninput="filterReadingOutline(this.value)">'+outline+'</aside>'+
     '<div class="reader-main">'+sections+extendedContextMarkup(kind,record)+(isEra?'':composerStudySupplement(record))+relatedMarkup+
@@ -118,6 +119,7 @@ function showComposer(id){
  openReadingWindow();
 }
 function closeReading(){
+ if(typeof closeWorksCatalogue==="function"&&document.getElementById("worksCatalogueWindow"))closeWorksCatalogue();
  const modal=document.getElementById("readingWindow");
  if(modal)modal.remove();
  document.body?.classList?.remove("reader-window-open");
@@ -157,7 +159,7 @@ function filterReadingOutline(term){
 if(typeof document!=="undefined"&&typeof document.addEventListener==="function")document.addEventListener("keydown",event=>{
  const modal=document.getElementById("readingWindow");
  if(!modal)return;
- if(event.key==="Escape"){event.preventDefault();closeReading();return}
+ if(event.key==="Escape"){event.preventDefault();if(document.getElementById("worksCatalogueWindow"))closeWorksCatalogue();else closeReading();return}
  if(event.key!=="Tab")return;
  const focusable=Array.from(modal.querySelectorAll('button:not([disabled]),a[href]:not([hidden]),input:not([disabled]),select:not([disabled]),[tabindex="0"]')).filter(el=>el.getClientRects().length);
  if(!focusable.length)return;
