@@ -26,7 +26,12 @@ jobs:
           node --check biographies-c.js
           node --check biographies-d.js
           node --check biography-sources.js
-          node --check composer-atlas-1.js\n          node --check composer-atlas-2.js\n          node --check composer-atlas-3.js\n          node --check composer-atlas-4.js\n          node --check composer-chronology.js\n          node --check reader.js
+          node --check composer-atlas-1.js
+          node --check composer-atlas-2.js
+          node --check composer-atlas-3.js
+          node --check composer-atlas-4.js
+          node --check composer-chronology.js
+          node --check reader.js
           node --check portraits.js
           node --check app.js
           node --check history.js
