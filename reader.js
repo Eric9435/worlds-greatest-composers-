@@ -75,7 +75,7 @@ function showComposer(id){
 function closeReading(){
  const modal=document.getElementById("readingWindow");
  if(modal)modal.remove();
- document.body.classList.remove("reader-window-open");
+ document.body?.classList?.remove("reader-window-open");
  selected=null;selectedEra=null;
  renderContent();
  if(readingReturnFocus&&readingReturnFocus.isConnected)readingReturnFocus.focus();
