@@ -1,11 +1,19 @@
 {
   "name": "World's Greatest Composers by Piano For ALL",
-  "short_name": "Piano For ALL",
-  "description": "Bilingual music history, theory and piano learning",
+  "short_name": "Composers",
+  "description": "Bilingual English–Myanmar music history: eight eras and 52 concise composer profiles",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f5f6fa",
   "theme_color": "#151a31",
-  "lang": "en"
+  "lang": "en",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
 }
