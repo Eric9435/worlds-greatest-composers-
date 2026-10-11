@@ -33,11 +33,11 @@ const catalogueSupplement={
  * Only explicitly listed titles and numbers below are offered while offline.
  * These are additional selected pieces, not exhaustive series/catalogues. */
 (function addDocumentedNumberedPieces(){
- const add=(name,titles)=>{
+ const add=(name,titles,genre="Keyboard")=>{
   const entries=catalogueSupplement[name]||(catalogueSupplement[name]=[]);
   for(const title of titles){
    if(!entries.some(w=>catalogueIdentitySafe(w.title)===catalogueIdentitySafe(title))){
-    entries.push({title,genre:"Keyboard"});
+    entries.push({title,genre});
    }
   }
  };
@@ -69,37 +69,31 @@ const catalogueSupplement={
  ]);
  add("Johann Sebastian Bach",[
  "Prelude and Fugue in C major, BWV 846","Prelude and Fugue in C minor, BWV 847",
- "Goldberg Variations, BWV 988","Mass in B minor, BWV 232",
+ "Goldberg Variations, BWV 988"]);
+ add("Johann Sebastian Bach",["Mass in B minor, BWV 232"],"Vocal");
+ add("Johann Sebastian Bach",[
  "Brandenburg Concerto No. 1, BWV 1046","Brandenburg Concerto No. 2, BWV 1047",
  "Brandenburg Concerto No. 3, BWV 1048","Brandenburg Concerto No. 4, BWV 1049",
  "Brandenburg Concerto No. 5, BWV 1050","Brandenburg Concerto No. 6, BWV 1051"
- ]);
- add("Wolfgang Amadeus Mozart",[
- "Piano Sonata No. 11 in A major, K. 331","Piano Sonata No. 16 in C major, K. 545",
- "Piano Concerto No. 21 in C major, K. 467","Piano Concerto No. 23 in A major, K. 488",
- "Symphony No. 40 in G minor, K. 550","Symphony No. 41 in C major, K. 551"
- ]);
- add("George Frideric Handel",[
- "Messiah, HWV 56","Water Music Suite No. 1, HWV 348","Water Music Suite No. 2, HWV 349",
- "Water Music Suite No. 3, HWV 350","Music for the Royal Fireworks, HWV 351"
- ]);
+ ],"Orchestral");
+ add("Wolfgang Amadeus Mozart",["Piano Sonata No. 11 in A major, K. 331","Piano Sonata No. 16 in C major, K. 545"]);
+ add("Wolfgang Amadeus Mozart",["Piano Concerto No. 21 in C major, K. 467","Piano Concerto No. 23 in A major, K. 488","Symphony No. 40 in G minor, K. 550","Symphony No. 41 in C major, K. 551"],"Orchestral");
+ add("George Frideric Handel",["Messiah, HWV 56"],"Vocal");
+ add("George Frideric Handel",["Water Music Suite No. 1, HWV 348","Water Music Suite No. 2, HWV 349","Water Music Suite No. 3, HWV 350","Music for the Royal Fireworks, HWV 351"],"Orchestral");
  add("Antonio Vivaldi",[
   "La primavera (Spring), RV 269, Op. 8 No. 1",
   "L'estate (Summer), RV 315, Op. 8 No. 2",
   "L'autunno (Autumn), RV 293, Op. 8 No. 3",
   "L'inverno (Winter), RV 297, Op. 8 No. 4"
- ]);
- add("Franz Schubert",[
- "Winterreise, D. 911","Impromptu in C minor, D. 899, Op. 90 No. 1",
+ ],"Orchestral");
+ add("Franz Schubert",["Winterreise, D. 911"],"Vocal");
+ add("Franz Schubert",["Impromptu in C minor, D. 899, Op. 90 No. 1",
  "Impromptu in E-flat major, D. 899, Op. 90 No. 2",
  "Impromptu in G-flat major, D. 899, Op. 90 No. 3",
- "Impromptu in A-flat major, D. 899, Op. 90 No. 4"
- ]);
- add("Joseph Haydn",[
- "Symphony No. 94 in G major, Hob. I:94",
- "Symphony No. 104 in D major, Hob. I:104",
- "Piano Sonata in E-flat major, Hob. XVI:52"
- ]);
+ "Impromptu in A-flat major, D. 899, Op. 90 No. 4"]);
+ add("Joseph Haydn",["Symphony No. 94 in G major, Hob. I:94",
+ "Symphony No. 104 in D major, Hob. I:104"],"Orchestral");
+ add("Joseph Haydn",["Piano Sonata in E-flat major, Hob. XVI:52"]);
 })();
 const catalogueMemory=new Map();
 const catalogueState={composer:null,works:[],source:"local",view:"families",family:"",group:"",selectedId:"",search:"",genre:"all",busy:false,message:"",requestId:0};
