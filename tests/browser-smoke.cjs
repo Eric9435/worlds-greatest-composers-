@@ -30,6 +30,10 @@ const server=http.createServer((req,res)=>{
   assert.equal(themeResponse.status(),200);
   assert.match(themeResponse.headers()["content-type"],/text\/css/);
   assert.equal(await page.locator(".hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(255, 255, 255)");
+  assert.equal(await page.getByText("Choose topic — opens here without scrolling").count(),0);
+  assert.equal(await page.getByText("ဆွဲချစရာမလိုဘဲ", {exact:false}).count(),0);
+  assert.ok(await page.locator(".top").evaluate(x=>getComputedStyle(x).backdropFilter.includes("blur")),"Native-like header blur should be enabled");
+  assert.ok(await page.locator(".hero").evaluate(x=>parseFloat(getComputedStyle(x).borderRadius)>16),"Native-like app cards require rounded corners");
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+2),"Mobile layout overflows horizontally");
 
   assert.ok(await page.locator('.composer-visual[data-composer]').count()>30);
@@ -41,6 +45,8 @@ const server=http.createServer((req,res)=>{
   assert.equal(await page.locator("#readingWindow[role=dialog]").count(),1);
   assert.equal(await page.locator("#readingWindow #readerTopicSelect").count(),1);
   assert.equal(await page.locator("#readingWindow label[for=readerTopicSelect]").textContent(),"Chapters");
+  assert.equal(await page.locator("#readingWindow").getByText("ဆွဲချစရာမလိုဘဲ",{exact:false}).count(),0);
+  assert.equal(await page.locator("#readingWindow .reader-topic-picker select").evaluate(x=>getComputedStyle(x).minHeight),"44px");
   assert.ok(await page.locator("#readingWindow .reader-outline").evaluate(x=>getComputedStyle(x).display)==="none","Mobile uses chapter picker rather than duplicate scroll navigation");
 
   assert.equal(await page.evaluate(()=>document.body.classList.contains("reader-window-open")),true);
@@ -163,6 +169,8 @@ const server=http.createServer((req,res)=>{
   await worksPage.locator(".composer-catalogue-link").first().click();
   assert.equal(await worksPage.locator("#worksCatalogueWindow[role=dialog]").count(),1);
   await worksPage.getByText("3 Open Opus entries").first().waitFor();
+  assert.equal(await worksPage.locator("#worksCatalogueWindow").getByText("Select Op., BWV, K., D., etc.",{exact:false}).count(),0);
+  assert.equal(await worksPage.locator("#worksCatalogueWindow .works-catalogue-hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(255, 255, 255)");
   await worksPage.locator(".works-family-card").filter({hasText:"Op."}).first().click();
   await worksPage.locator(".works-group-card").filter({hasText:"Op. 27"}).first().click();
   assert.ok(await worksPage.locator(".works-work-card").count()>=2);
