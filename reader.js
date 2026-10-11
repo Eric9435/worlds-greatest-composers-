@@ -68,8 +68,8 @@ function showEra(id){
 function showComposer(id){
  const found=composers.find(c=>c.id===Number(id));
  if(!found)return;
- selected=found.id;selectedEra=null;
- renderContent();
+ tab="composers";selected=found.id;selectedEra=null;
+ render();
  openReadingWindow();
 }
 function closeReading(){
