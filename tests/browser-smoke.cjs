@@ -3,7 +3,7 @@ const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path");
 const root=path.join(__dirname,"..");
-const files=new Set(["index.html","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","reader.js","portraits.js","composer-portraits.webp","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
+const files=new Set(["index.html","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","portraits.js","composer-portraits.webp","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
 const server=http.createServer((req,res)=>{
  const file=req.url==="/"?"index.html":decodeURIComponent(req.url.slice(1).split("?")[0]);
  if(!files.has(file)){res.writeHead(404);return res.end();}
@@ -72,6 +72,13 @@ const server=http.createServer((req,res)=>{
   assert.ok(await page.getByRole("img",{name:/Wolfgang Amadeus Mozart.*AI-generated artistic illustration/}).count());
 
   assert.ok(await page.getByText("Piano Concerto No. 21").count());
+  const mozartAtlas=page.locator("#readingWindow #readerTopicSelect option").filter({hasText:"Life chronology"});
+  assert.equal(await mozartAtlas.count(),1);
+  await page.locator("#readingWindow #readerTopicSelect").selectOption("2");
+  assert.ok(await page.locator("#readingWindow .reader-topic-section:not(.is-inactive-topic)").textContent().then(x=>x.includes("1781")));
+  await page.locator("#readingWindow #readerTopicSelect").selectOption("3");
+  assert.ok(await page.locator("#readingWindow .reader-topic-section:not(.is-inactive-topic)").textContent().then(x=>x.includes("The Marriage of Figaro")));
+
   await page.locator("#readingWindow .reading-window-lang button[data-lang='my']").click();
   assert.equal(await page.locator("html").getAttribute("lang"),"my");
   await page.locator("#readingWindow .reading-window-close").click();
