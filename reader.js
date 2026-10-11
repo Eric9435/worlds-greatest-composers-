@@ -7,7 +7,8 @@ function chapterMarkup(kind,record,study) {
   const enrichedSections=(kind==="composer"?composerBiographicalSections(record):[])
     .concat(study.sections,kind==="composer"?composerStudyExpansion(record,study).concat(advancedComposerLaboratory(record)):[]);
   const outline=enrichedSections.map((section,i)=>
-    '<a href="#chapter-section-'+i+'">'+(i+1)+'. '+esc(t(section[0],section[1]))+'</a>'
+    '<button type="button" class="reader-topic-link" data-topic-index="'+i+'" aria-pressed="'+String(i===0)+'" onclick="selectReadingTopic('+i+')">'+
+     (i+1)+'. '+esc(t(section[0],section[1]))+'</button>'
   ).join("");
   const sections=enrichedSections.map((section,i)=>
     '<section class="chapter-section reader-topic-section '+(i===0?'':'is-inactive-topic')+'" data-topic-index="'+i+'" id="chapter-section-'+i+'">'+
@@ -124,11 +125,27 @@ function closeReading(){
  else document.querySelector?.(".tabs button.active")?.focus?.();
  readingReturnFocus=null;
 }
+function selectReadingTopic(index){
+ const modal=document.getElementById("readingWindow");
+ if(!modal)return;
+ const reading=modal.querySelector("#readingWindowBody");
+ const sections=Array.from(reading.querySelectorAll(".reader-topic-section"));
+ if(!Number.isInteger(index)||index<0||index>=sections.length)return;
+ sections.forEach((section,i)=>section.classList.toggle("is-inactive-topic",i!==index));
+ reading.querySelectorAll(".reader-topic-link").forEach(link=>{
+  link.setAttribute("aria-pressed",String(Number(link.dataset.topicIndex)===index));
+ });
+ const selector=reading.querySelector("#readerTopicSelect");
+ if(selector)selector.value=String(index);
+ const article=reading.querySelector(".reading-article");
+ if(article)article.classList.add("has-selected-topic");
+ reading.scrollTop=0;
+}
 function filterReadingOutline(term){
  const modal=document.getElementById("readingWindow");
  if(!modal)return;
  const q=String(term).trim().toLocaleLowerCase();
- modal.querySelectorAll(".reader-outline a").forEach(a=>{a.hidden=!!q&&!a.textContent.toLocaleLowerCase().includes(q)});
+ modal.querySelectorAll(".reader-topic-link").forEach(a=>{a.hidden=!!q&&!a.textContent.toLocaleLowerCase().includes(q)});
 }
 if(typeof document!=="undefined"&&typeof document.addEventListener==="function")document.addEventListener("keydown",event=>{
  const modal=document.getElementById("readingWindow");
