@@ -127,7 +127,9 @@ test("ten composer illustrations map to matching names without collisions",()=>{
   assert.equal(vm.runInContext("composers.filter(c=>c.name==="+JSON.stringify(name)+").length",ctx),1);
   const html=vm.runInContext("composerPortrait("+JSON.stringify(name)+")",ctx);
   assert.match(html,/class="composer-portrait"/);
-  assert.match(html,/background-position:\d+% \d+%/);
+  assert.match(html,/<img class="composer-portrait-sprite"/);
+  assert.match(html,/src="\.\/composer-portraits\.webp\?v=9"/);
+  assert.match(html,/style="transform:translate\(-\d+%,-\d+%\)"/);
   assert.match(html,/AI-generated artistic illustration/);
  }
  const coords=vm.runInContext("Object.values(composerPortraitPositions).map(v=>v.join(','))",ctx);
@@ -138,16 +140,16 @@ test("unillustrated composer renders a neutral initial placeholder, never anothe
  const markup=vm.runInContext('composerPortrait("Hildegard von Bingen","hero")',ctx);
  assert.match(markup,/composer-portrait-placeholder/);
  assert.match(markup,/HV/);
- assert.doesNotMatch(markup,/background-position/);
+ assert.doesNotMatch(markup,/composer-portrait-sprite/);
 });
 test("composer card and expanded biography display matching portrait illustrations",()=>{
  const {ctx,els}=startApp();
  vm.runInContext('setTab("composers");setSearch("Mozart")',ctx);
  assert.match(els.content.innerHTML,/Wolfgang Amadeus Mozart/);
- assert.match(els.content.innerHTML,/background-position:75% 0%/);
+ assert.match(els.content.innerHTML,/transform:translate\(-60%,-0%\)/);
  vm.runInContext('setSearch("");showComposer(composers.find(c=>c.name==="Johann Sebastian Bach").id)',ctx);
  assert.match(els.content.innerHTML,/Johann Sebastian Bach/);
- assert.match(els.content.innerHTML,/background-position:0% 0%/);
+ assert.match(els.content.innerHTML,/transform:translate\(-0%,-0%\)/);
  assert.match(els.content.innerHTML,/AI-generated artistic illustration/);
 });
 test("WebP asset is valid and included in production offline cache",()=>{
@@ -155,7 +157,7 @@ test("WebP asset is valid and included in production offline cache",()=>{
  assert.ok(asset.length>2500 && asset.length<100000);
  assert.equal(asset.toString("ascii",0,4),"RIFF");
  assert.equal(asset.toString("ascii",8,12),"WEBP");
- assert.match(read("sw.js"),/composer-portraits\.webp/);
+ assert.match(read("sw.js"),/composer-portraits\.webp\?v=9/);
  assert.match(read("sw.js"),/portraits\.js/);
  assert.match(read("index.html"),/portraits\.js/);
 });
