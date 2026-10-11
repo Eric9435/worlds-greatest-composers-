@@ -4,10 +4,10 @@ function chapterMarkup(kind,record,study) {
   const isEra=kind==="era";
   const title=esc(isEra?t(record.en,record.my):t(record.name,record.my));
   const metadata=esc(isEra?record.dates:record.years+" · "+t((eras.find(e=>e.id===record.era)||{}).en||"", (eras.find(e=>e.id===record.era)||{}).my||""));
-  const outline=study.sections.concat(kind==='composer'?composerStudyExpansion(record,study):[]).map((section,i)=>
+  const outline=study.sections.concat(kind==='composer'?composerStudyExpansion(record,study).concat(advancedComposerLaboratory(record)):[]).map((section,i)=>
     '<a href="#chapter-section-'+i+'">'+(i+1)+'. '+esc(t(section[0],section[1]))+'</a>'
   ).join("");
-  const enrichedSections=study.sections.concat(kind==='composer'?composerStudyExpansion(record,study):[]);
+  const enrichedSections=study.sections.concat(kind==='composer'?composerStudyExpansion(record,study).concat(advancedComposerLaboratory(record)):[]);
   const sections=enrichedSections.map((section,i)=>
     '<section class="chapter-section" id="chapter-section-'+i+'">'+
     '<span class="section-number">'+String(i+1).padStart(2,"0")+'</span>'+
