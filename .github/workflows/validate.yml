@@ -20,6 +20,12 @@ jobs:
           node --check chapters-composers-4.js
           node --check extended-context.js
           node --check composer-expansion.js
+          node --check advanced-musicology.js
+          node --check biographies-a.js
+          node --check biographies-b.js
+          node --check biographies-c.js
+          node --check biographies-d.js
+          node --check biography-sources.js
           node --check reader.js
           node --check portraits.js
           node --check app.js

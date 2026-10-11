@@ -3,7 +3,7 @@ const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path");
 const root=path.join(__dirname,"..");
-const files=new Set(["index.html","app.js","extended-context.js","composer-expansion.js","reader.js","portraits.js","composer-portraits.webp","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
+const files=new Set(["index.html","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","reader.js","portraits.js","composer-portraits.webp","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
 const server=http.createServer((req,res)=>{
  const file=req.url==="/"?"index.html":decodeURIComponent(req.url.slice(1).split("?")[0]);
  if(!files.has(file)){res.writeHead(404);return res.end();}
@@ -28,17 +28,24 @@ const server=http.createServer((req,res)=>{
   assert.ok(await bachTile.count());
   assert.ok(await bachTile.locator('img.composer-portrait-sprite').count());
   await bachTile.click();
-  assert.ok(await page.getByRole("heading",{name:"Johann Sebastian Bach"}).count());
-  await page.getByRole("button",{name:"Back to library"}).click();
+  assert.ok(await page.getByRole("heading",{name:"Johann Sebastian Bach"}).count(),"Bach visible debug: "+JSON.stringify(await page.evaluate(()=>{const h=document.querySelector("#readingWindow .reading-header h2"),a=h?.closest(".reading-article"),header=h?.closest(".reading-header"),p=document.querySelector(".reading-window-panel");return{html:h?.outerHTML,articleClass:a?.className,articleDisplay:getComputedStyle(a).display,headingDisplay:getComputedStyle(h).display,headerDisplay:getComputedStyle(header).display,headerVisibility:getComputedStyle(header).visibility,headingRect:h?.getBoundingClientRect().toJSON(),panelRect:p?.getBoundingClientRect().toJSON(),ariaHidden:h?.closest("[aria-hidden]")?.outerHTML?.slice(0,80)}}))+" errors="+JSON.stringify(errors));
+  assert.equal(await page.locator("#readingWindow[role=dialog]").count(),1);
+  assert.equal(await page.evaluate(()=>document.body.classList.contains("reader-window-open")),true);
+  await page.locator("#readingWindow .reading-window-close").click();
   await page.getByRole("button",{name:"Timeline"}).click();
   await page.getByRole("button",{name:"Read full chapter"}).first().click();
   assert.ok(await page.getByRole("heading",{name:"Sources and the limits of evidence"}).count());
   assert.ok(await page.getByText("Music existed long before surviving musical notation.",{exact:false}).count());
-  await page.getByRole("button",{name:"မြန်မာ"}).click();
+  assert.equal(await page.locator("#readingWindow #readerTopicSelect").count(),1);
+  await page.locator("#readingWindow #readerTopicSelect").selectOption("1");
+  assert.equal(await page.locator("#readingWindow .reader-topic-section:not(.is-inactive-topic)").count(),1);
+  assert.equal(await page.locator("#readingWindow .reader-topic-section[data-topic-index='1'].is-inactive-topic").count(),0);
+  await page.locator("#readingWindow .reading-window-lang button").nth(1).click();
   assert.equal(await page.locator("html").getAttribute("lang"),"my");
-  assert.ok(await page.getByRole("heading",{name:"အထောက်အထားနှင့် သမိုင်းလေ့လာမှုကန့်သတ်ချက်"}).count());
+  assert.equal(await page.locator("#readingWindow #readerTopicSelect").inputValue(),"1");
+  assert.equal(await page.locator("#readingWindow .reader-topic-section:not(.is-inactive-topic)").count(),1);
+  await page.locator("#readingWindow .reading-window-close").click();
   await page.getByRole("button",{name:"EN",exact:true}).click();
-  await page.getByRole("button",{name:"Back to library"}).click();
   await page.getByRole("button",{name:"Composers",exact:true}).click();
   await page.getByRole("textbox",{name:"Search composers"}).fill("Mozart");
   assert.equal(await page.getByText("Johann Sebastian Bach").count(),0);
@@ -65,8 +72,9 @@ const server=http.createServer((req,res)=>{
   assert.ok(await page.getByRole("img",{name:/Wolfgang Amadeus Mozart.*AI-generated artistic illustration/}).count());
 
   assert.ok(await page.getByText("Piano Concerto No. 21").count());
-  await page.getByRole("button",{name:"မြန်မာ"}).click();
+  await page.locator("#readingWindow .reading-window-lang button[data-lang='my']").click();
   assert.equal(await page.locator("html").getAttribute("lang"),"my");
+  await page.locator("#readingWindow .reading-window-close").click();
   await page.getByRole("button",{name:"ကိုးကားချက်"}).click();
   assert.ok(await page.getByText("Open Music Theory (Viva Pressbooks)").count());
   assert.deepEqual(errors,[]);

@@ -19,6 +19,9 @@ function startApp(){
  vm.runInContext(read("chapters-composers-4.js"),ctx,{filename:"chapters-composers-4.js"});
  vm.runInContext(read("extended-context.js"),ctx,{filename:"extended-context.js"});
  vm.runInContext(read("composer-expansion.js"),ctx,{filename:"composer-expansion.js"});
+ vm.runInContext(read("advanced-musicology.js"),ctx,{filename:"advanced-musicology.js"});
+ for(const p of ["biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js"])vm.runInContext(read(p),ctx,{filename:p});
+ vm.runInContext(read("biography-sources.js"),ctx,{filename:"biography-sources.js"});
  vm.runInContext(read("reader.js"),ctx,{filename:"reader.js"});
  vm.runInContext(read("portraits.js"),ctx,{filename:"portraits.js"});
  vm.runInContext(read("app.js"),ctx,{filename:"app.js"});
@@ -198,4 +201,61 @@ test("all eight eras receive original bilingual contextual history",()=>{
  const {ctx}=startApp();
  assert.equal(vm.runInContext("Object.keys(extendedEraNotes).length",ctx),8);
  assert.equal(vm.runInContext('eras.filter(e=>extendedContextMarkup("era",e).includes("academic-context")).length',ctx),8);
+});
+
+test("all 52 composers have nine original advanced bilingual musicology lessons",()=>{
+ const {ctx}=startApp();
+ const count=vm.runInContext('composers.filter(c=>advancedComposerLaboratory(c).length===9).length',ctx);
+ assert.equal(count,52);
+ const sample=vm.runInContext('advancedComposerLaboratory(composers.find(c=>c.name==="Frédéric Chopin"))',ctx);
+ assert.equal(sample.length,9);
+ for(const part of sample){assert.equal(part.length,4);assert.ok(part[2].length>220);assert.ok(part[3].length>90)}
+});
+test("composer chapter renders additional advanced analytical sections in bilingual view",()=>{
+ const {ctx,els}=startApp();
+ vm.runInContext('showComposer(composers.find(c=>c.name==="Johann Sebastian Bach").id)',ctx);
+ assert.match(els.content.innerHTML,/Manuscript, edition and provenance/);
+ assert.match(els.content.innerHTML,/Scholarly writing and source evaluation/);
+ assert.match(els.content.innerHTML,/Keyboard technique and pedagogy/);
+ vm.runInContext('setLang("my")',ctx);
+ assert.match(els.content.innerHTML,/စာမူ၊ edition နှင့် မူရင်းအထောက်အထား/);
+});
+
+test("every one of the 52 composers has two substantive, unique bilingual biographical essays",()=>{
+ const {ctx}=startApp();
+ const data=vm.runInContext("composers.map(c=>({name:c.name,essay:composerBiographicalStudies[c.name],sections:composerBiographicalSections(c)}))",ctx);
+ assert.equal(data.length,52);
+ const texts=[];
+ for(const {name,essay,sections} of data){
+  assert.ok(Array.isArray(essay),"Missing biography for "+name);
+  assert.equal(essay.length,4,"Missing bilingual fields for "+name);
+  assert.ok(essay[0].length>350,"Career paragraph too short: "+name);
+  assert.ok(essay[2].length>350,"Compositional paragraph too short: "+name);
+  assert.ok(essay[1].length>100,"Myanmar career paragraph too short: "+name);
+  assert.ok(essay[3].length>100,"Myanmar works paragraph too short: "+name);
+  assert.equal(sections.length,2);
+  for(const text of essay) assert.doesNotMatch(text,/<script|javascript:/i,"Unsafe biography markup "+name);
+  texts.push(essay[0],essay[2]);
+ }
+ assert.equal(new Set(texts).size,104,"Biographies must be individually written, not duplicates");
+});
+test("long biography reader exposes a one-topic-at-a-time selector, no anchor jumps",()=>{
+ const {ctx,els}=startApp();
+ vm.runInContext('showComposer(composers.find(c=>c.name==="Wolfgang Amadeus Mozart").id)',ctx);
+ assert.match(els.content.innerHTML,/readerTopicSelect/);
+ assert.match(els.content.innerHTML,/reader-topic-link/);
+ assert.match(els.content.innerHTML,/is-inactive-topic/);
+ assert.match(els.content.innerHTML,/Biographical study: career/);
+ assert.match(els.content.innerHTML,/Mozart/);
+ assert.doesNotMatch(els.content.innerHTML,/href="#chapter-section-/);
+});
+test("verified specialist biography books and composer archives display for their composers",()=>{
+ const {ctx}=startApp();
+ const ids=vm.runInContext("Object.keys(composerSpecialistReading)",ctx);
+ assert.ok(ids.length>=11);
+ for(const name of ids){
+  const result=vm.runInContext("composerSourceLinks("+JSON.stringify(name)+")",ctx);
+  assert.match(result,/https:\/\//);
+  assert.match(result,/noopener noreferrer/);
+ }
 });
