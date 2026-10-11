@@ -295,6 +295,10 @@ test("Opus grouping groups separate numbered works within one opus correctly",()
  assert.equal(parsed[0].group,"Op. 27");assert.equal(parsed[0].subNumber,"2");
  assert.equal(parsed[1].group,"Op. 9");
  assert.equal(parsed[2].group,"BWV 846");
+ const woO=vm.runInContext('parseWorkReference("Für Elise, WoO 59")',ctx);
+ assert.equal(woO.group,"WoO 59");
+ const ims=vm.runInContext('wikiComposerWorksUrl(composers.find(c=>c.name==="Ludwig van Beethoven"))',ctx);
+ assert.match(ims,/List_of_works_by_Ludwig_van_Beethoven/);
 });
 test("composer matching never mistakes Johann Sebastian Bach for Carl Philipp Emanuel Bach",()=>{
  const {ctx}=startApp();
@@ -305,7 +309,7 @@ test("all 52 composers have an offline-only featured works selection and externa
  const {ctx}=startApp();
  const rows=vm.runInContext('composers.map(c=>({name:c.name,works:localCatalogueWorks(c),url:wikiComposerWorksUrl(c)}))',ctx);
  assert.equal(rows.length,52);
- for(const x of rows){assert.ok(x.works.length>=2,"Missing local works for "+x.name);assert.match(x.url,/imslp.org\/wiki\/Special:Search\?/);}
+ for(const x of rows){assert.ok(x.works.length>=2,"Missing local works for "+x.name);assert.match(x.url,/https:\/\/imslp.org\/wiki\//);}
  const grouped=vm.runInContext('groupsForFamily(localCatalogueWorks(composers.find(c=>c.name==="Ludwig van Beethoven")),"Op.").map(([g,works])=>[g,works.length])',ctx);
  assert.ok(grouped.some(x=>x[0]==="Op. 27"&&x[1]===2));
 });
