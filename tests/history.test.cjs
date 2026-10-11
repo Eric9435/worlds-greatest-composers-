@@ -22,6 +22,8 @@ function startApp(){
  vm.runInContext(read("advanced-musicology.js"),ctx,{filename:"advanced-musicology.js"});
  for(const p of ["biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js"])vm.runInContext(read(p),ctx,{filename:p});
  vm.runInContext(read("biography-sources.js"),ctx,{filename:"biography-sources.js"});
+ for(const f of ["composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js"])
+  vm.runInContext(read(f),ctx,{filename:f});
  vm.runInContext(read("reader.js"),ctx,{filename:"reader.js"});
  vm.runInContext(read("portraits.js"),ctx,{filename:"portraits.js"});
  vm.runInContext(read("app.js"),ctx,{filename:"app.js"});
@@ -258,4 +260,29 @@ test("verified specialist biography books and composer archives display for thei
   assert.match(result,/https:\/\//);
   assert.match(result,/noopener noreferrer/);
  }
+});
+
+test("all 52 composers have genuine bilingual chronology and two distinct musical studies",()=>{
+ const {ctx}=startApp();
+ const data=vm.runInContext('composers.map(c=>({name:c.name,atlas:composerChronologyData[c.name],sections:composerChronologySections(c)}))',ctx);
+ assert.equal(data.length,52);
+ const dated=[];
+ for(const {name,atlas,sections} of data){
+  assert.ok(atlas,"Missing composer chronology: "+name);
+  assert.equal(atlas.life.length,3,"Three chronology milestones: "+name);
+  assert.equal(atlas.works.length,2,"Two score examples: "+name);
+  assert.equal(sections.length,2);
+  for(const event of atlas.life){assert.equal(event.length,3);assert.ok(event[0].length>=4);assert.ok(event[1].length>35);assert.ok(event[2].length>20);dated.push(name+"/"+event[0]);}
+  for(const work of atlas.works){assert.equal(work.length,3);assert.ok(work[0].length>=5);assert.ok(work[1].length>40);assert.ok(work[2].length>18);}
+ }
+ assert.equal(dated.length,156);
+});
+test("composer reader displays dated chronology and annotated compositions in English and Myanmar",()=>{
+ const {ctx,els}=startApp();
+ vm.runInContext('showComposer(composers.find(c=>c.name==="Ludwig van Beethoven").id)',ctx);
+ assert.match(els.content.innerHTML,/Heiligenstadt Testament/);
+ assert.match(els.content.innerHTML,/Symphony No. 9, Op. 125/);
+ assert.match(els.content.innerHTML,/composer-atlas-paragraph/);
+ vm.runInContext('setLang("my")',ctx);
+ assert.match(els.content.innerHTML,/ဘဝသမိုင်း အချိန်စဉ်/);
 });
