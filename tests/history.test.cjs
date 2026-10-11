@@ -21,6 +21,7 @@ function startApp(){
  vm.runInContext(read("composer-expansion.js"),ctx,{filename:"composer-expansion.js"});
  vm.runInContext(read("advanced-musicology.js"),ctx,{filename:"advanced-musicology.js"});
  for(const p of ["biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js"])vm.runInContext(read(p),ctx,{filename:p});
+ vm.runInContext(read("biography-sources.js"),ctx,{filename:"biography-sources.js"});
  vm.runInContext(read("reader.js"),ctx,{filename:"reader.js"});
  vm.runInContext(read("portraits.js"),ctx,{filename:"portraits.js"});
  vm.runInContext(read("app.js"),ctx,{filename:"app.js"});
