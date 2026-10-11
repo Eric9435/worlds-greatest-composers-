@@ -4,7 +4,7 @@ function chapterMarkup(kind,record,study) {
   const isEra=kind==="era";
   const title=esc(isEra?t(record.en,record.my):t(record.name,record.my));
   const metadata=esc(isEra?record.dates:record.years+" · "+t((eras.find(e=>e.id===record.era)||{}).en||"", (eras.find(e=>e.id===record.era)||{}).my||""));
-  const enrichedSections=(kind==="composer"?composerBiographicalSections(record):[])
+  const enrichedSections=(kind==="composer"?composerBiographicalSections(record).concat(composerChronologySections(record)):[])
     .concat(study.sections,kind==="composer"?composerStudyExpansion(record,study).concat(advancedComposerLaboratory(record)):[]);
   const outline=enrichedSections.map((section,i)=>
     '<button type="button" class="reader-topic-link" data-topic-index="'+i+'" aria-pressed="'+String(i===0)+'" onclick="selectReadingTopic('+i+')">'+
@@ -14,7 +14,7 @@ function chapterMarkup(kind,record,study) {
     '<section class="chapter-section reader-topic-section '+(i===0?'':'is-inactive-topic')+'" data-topic-index="'+i+'" id="chapter-section-'+i+'">'+
     '<span class="section-number">'+String(i+1).padStart(2,"0")+'</span>'+
     '<h3>'+esc(t(section[0],section[1]))+'</h3>'+
-    '<p>'+esc(t(section[2],section[3]))+'</p></section>'
+    '<p class="'+(section[4]?"composer-atlas-paragraph":"")+'">'+esc(t(section[2],section[3]))+'</p></section>'
   ).join("");
   const pickerOptions=enrichedSections.map((section,i)=>'<option value="'+i+'">'+(i+1)+'. '+esc(t(section[0],section[1]))+'</option>').join("");
   const related=isEra?composers.filter(c=>c.era===record.id).slice(0,18):[];
@@ -37,7 +37,7 @@ function chapterMarkup(kind,record,study) {
     '<div class="reader-main">'+sections+extendedContextMarkup(kind,record)+(isEra?'':composerStudySupplement(record))+relatedMarkup+
     '<section class="chapter-sources"><h3>'+t("Academic reading and verification","ပညာရပ်ဆိုင်ရာ ကိုးကားရင်းမြစ်များ")+'</h3>'+
     '<p>'+t("Original educational synthesis. These external resources provide historical context and further reading; they are not page-level citations for every statement.","ဤအကြောင်းအရာသည် ကိုယ်ပိုင်ရေးသားထားသော ပညာရေးရှင်းလင်းချက်ဖြစ်သည်။ အောက်ပါရင်းမြစ်များသည် ဆက်လက်လေ့လာရန်ဖြစ်ပြီး စာကြောင်းတိုင်းအတွက် တိုက်ရိုက်စာမျက်နှာကိုးကားချက် မဟုတ်ပါ။")+'</p>'+
-    '<ul>'+sourceLinks+(isEra?'':composerSourceLinks(record.name))+'</ul></section>'+
+    '<ul>'+sourceLinks+(isEra?'':composerSourceLinks(record.name))+additionalResearchLinks(isEra?{era:record.id,name:''}:record)+'</ul></section>'+
     '<button type="button" class="primary return-button" onclick="closeReading()">← '+t("Return to chapter library","သင်ခန်းစာစာရင်းသို့ပြန်ရန်")+'</button>'+
     '</div></div></article>';
 }
