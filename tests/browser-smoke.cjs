@@ -69,7 +69,7 @@ const server=http.createServer((req,res)=>{
   assert.equal(assetResponse.status(),200);
   assert.match(assetResponse.headers()["content-type"],/image\/webp/);
   assert.equal((await assetResponse.body()).subarray(8,12).toString(),"WEBP");
-  await page.getByRole("button",{name:"Read profile"}).click();
+  await page.getByRole("button",{name:"Biography",exact:true}).click();
   assert.ok(await page.getByRole("img",{name:/Wolfgang Amadeus Mozart.*AI-generated artistic illustration/}).count());
 
   assert.ok(await page.getByText("Piano Concerto No. 21").count());
