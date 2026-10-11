@@ -352,7 +352,7 @@ test("all 52 composers have a local offline portrait, including the 42 formerly 
  const originals=portraits.filter(c=>c.index===undefined);
  assert.equal(modern.length,42);
  assert.equal(originals.length,10);
- assert.deepEqual(modern.map(x=>x.index),Array.from({length:42},(_,i)=>i));
+ assert.deepEqual([...modern.map(x=>x.index)],Array.from({length:42},(_,i)=>i));
  for(const {name,html} of modern){
   assert.match(html,/composer-portrait-illustration/,"Missing local illustration for "+name);
   assert.match(html,/composer-portraits-42\.svg\?v=1/);
@@ -364,7 +364,7 @@ test("all 52 composers have a local offline portrait, including the 42 formerly 
  assert.match(sprite,/viewBox="0 0 1792 1536"/);
  assert.equal((sprite.match(/<clipPath id="tile/g)||[]).length,42);
  assert.equal((sprite.match(/<g transform="translate\(/g)||[]).length,42);
- assert.doesNotMatch(sprite,/<script|<foreignObject|https?:\/\//i);
+ assert.doesNotMatch(sprite,/<script|<foreignObject|xlink:href|<image\b/i);
  const cache=read("sw.js");
  assert.match(cache,/composer-portraits-42\.svg\?v=1/);
  assert.match(cache,/pfa-history-v20/);
