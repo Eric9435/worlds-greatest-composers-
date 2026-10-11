@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Piano For ALL music history">
+<rect width="512" height="512" rx="108" fill="#151a31"/>
+<circle cx="256" cy="256" r="185" fill="none" stroke="#aeb8f5" stroke-width="10" opacity=".65"/>
+<path d="M293 101v225c-16-11-48-12-73-1-27 12-40 34-30 55 10 21 46 26 75 12 24-11 38-30 38-55V187l95-23v155c-16-11-48-12-73-1-27 13-40 34-30 55 10 21 47 26 75 12 24-11 38-30 38-55V105z" fill="#e7d9ab"/>
+</svg>
