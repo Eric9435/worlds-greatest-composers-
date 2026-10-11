@@ -32,6 +32,7 @@ jobs:
           node --check composer-atlas-4.js
           node --check composer-chronology.js
           node --check reader.js
+          node --check licensed-portraits.js
           node --check portraits.js
           node --check app.js
           node --check history.js
