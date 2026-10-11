@@ -3,13 +3,13 @@ const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path");
 const root=path.join(__dirname,"..");
-const files=new Set(["index.html","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","works-catalogue.js","portraits.js","licensed-portraits.js","composer-portraits.webp","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
+const files=new Set(["index.html","app-theme.css","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","works-catalogue.js","portraits.js","licensed-portraits.js","composer-portraits.webp","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
 const server=http.createServer((req,res)=>{
  const file=req.url==="/"?"index.html":decodeURIComponent(req.url.slice(1).split("?")[0]);
  if(!files.has(file)){res.writeHead(404);return res.end();}
  fs.readFile(path.join(root,file),(err,bytes)=>{
   if(err){res.writeHead(404);return res.end();}
-  res.writeHead(200,{"content-type":file.endsWith(".html")?"text/html; charset=utf-8":file.endsWith(".js")?"text/javascript; charset=utf-8":file.endsWith(".svg")?"image/svg+xml":file.endsWith(".webp")?"image/webp":"application/manifest+json"});
+  res.writeHead(200,{"content-type":file.endsWith(".html")?"text/html; charset=utf-8":file.endsWith(".js")?"text/javascript; charset=utf-8":file.endsWith(".css")?"text/css; charset=utf-8":file.endsWith(".svg")?"image/svg+xml":file.endsWith(".webp")?"image/webp":"application/manifest+json"});
   res.end(bytes);
  });
 });
@@ -24,6 +24,14 @@ const server=http.createServer((req,res)=>{
   assert.equal(await page.locator("#composerCount").textContent(),"52");
   assert.equal(await page.locator("#eraCount").textContent(),"8");
   assert.ok(await page.locator('.era-composer-tile').count()>15);
+  assert.equal(await page.getByRole("heading",{name:"Music History"}).count(),1);
+  assert.equal(await page.locator('link[href="./app-theme.css"]').count(),1);
+  const themeResponse=await page.request.get("http://127.0.0.1:"+server.address().port+"/app-theme.css");
+  assert.equal(themeResponse.status(),200);
+  assert.match(themeResponse.headers()["content-type"],/text\/css/);
+  assert.equal(await page.locator(".hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(255, 255, 255)");
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+2),"Mobile layout overflows horizontally");
+
   assert.ok(await page.locator('.composer-visual[data-composer]').count()>30);
   const bachTile=page.getByRole("button",{name:"Read about Johann Sebastian Bach"});
   assert.ok(await bachTile.count());
@@ -31,10 +39,14 @@ const server=http.createServer((req,res)=>{
   await bachTile.click();
   assert.ok(await page.getByRole("heading",{name:"Johann Sebastian Bach"}).count(),"Bach visible debug: "+JSON.stringify(await page.evaluate(()=>{const h=document.querySelector("#readingWindow .reading-header h2"),a=h?.closest(".reading-article"),header=h?.closest(".reading-header"),p=document.querySelector(".reading-window-panel");return{html:h?.outerHTML,articleClass:a?.className,articleDisplay:getComputedStyle(a).display,headingDisplay:getComputedStyle(h).display,headerDisplay:getComputedStyle(header).display,headerVisibility:getComputedStyle(header).visibility,headingRect:h?.getBoundingClientRect().toJSON(),panelRect:p?.getBoundingClientRect().toJSON(),ariaHidden:h?.closest("[aria-hidden]")?.outerHTML?.slice(0,80)}}))+" errors="+JSON.stringify(errors));
   assert.equal(await page.locator("#readingWindow[role=dialog]").count(),1);
+  assert.equal(await page.locator("#readingWindow #readerTopicSelect").count(),1);
+  assert.equal(await page.locator("#readingWindow label[for=readerTopicSelect]").textContent(),"Chapters");
+  assert.ok(await page.locator("#readingWindow .reader-outline").evaluate(x=>getComputedStyle(x).display)==="none","Mobile uses chapter picker rather than duplicate scroll navigation");
+
   assert.equal(await page.evaluate(()=>document.body.classList.contains("reader-window-open")),true);
   await page.locator("#readingWindow .reading-window-close").click();
   await page.getByRole("button",{name:"Timeline"}).click();
-  await page.getByRole("button",{name:"Read full chapter"}).first().click();
+  await page.locator(".era-actions .primary").first().click();
   assert.ok(await page.getByRole("heading",{name:"Sources and the limits of evidence"}).count());
   assert.ok(await page.getByText("Music existed long before surviving musical notation.",{exact:false}).count());
   assert.equal(await page.locator("#readingWindow #readerTopicSelect").count(),1);
@@ -85,6 +97,12 @@ const server=http.createServer((req,res)=>{
   await page.locator("#readingWindow .reading-window-close").click();
   await page.getByRole("button",{name:"ကိုးကားချက်"}).click();
   assert.ok(await page.getByText("Open Music Theory (Viva Pressbooks)").count());
+  const desk=await browser.newPage({viewport:{width:1280,height:800}});
+  await desk.goto("http://127.0.0.1:"+server.address().port,{waitUntil:"networkidle"});
+  assert.equal(await desk.getByRole("heading",{name:"Music History"}).count(),1);
+  assert.equal(await desk.locator(".hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(255, 255, 255)");
+  assert.ok(await desk.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),"Desktop layout overflows horizontally");
+  await desk.close();
   assert.deepEqual(errors,[]);
   // Exercise online high-resolution portrait enrichment without depending on Wikimedia uptime.
   const portraitPage=await browser.newPage({viewport:{width:390,height:844}});
@@ -142,7 +160,7 @@ const server=http.createServer((req,res)=>{
   await worksPage.goto("http://127.0.0.1:"+server.address().port,{waitUntil:"networkidle"});
   await worksPage.getByRole("button",{name:"Composers",exact:true}).click();
   await worksPage.getByRole("textbox",{name:"Search composers"}).fill("Beethoven");
-  await worksPage.getByRole("button",{name:/Works · Op/}).click();
+  await worksPage.locator(".composer-catalogue-link").first().click();
   assert.equal(await worksPage.locator("#worksCatalogueWindow[role=dialog]").count(),1);
   await worksPage.getByText("3 Open Opus entries").first().waitFor();
   await worksPage.locator(".works-family-card").filter({hasText:"Op."}).first().click();

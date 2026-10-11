@@ -321,13 +321,13 @@ function drawWorksCatalogue(keepFocus=false){
  const searchOptions='<option value="all">'+catalogLabel("All genres","အမျိုးအစားအားလုံး")+'</option>'+genres.map(g=>'<option value="'+escCatalogue(g)+'"'+(g===s.genre?' selected':'')+'>'+escCatalogue(g)+'</option>').join("");
  let title="",body="";
  if(s.view==="families"){
-  title=catalogLabel("Select numbering system","Catalogue နံပါတ်စနစ်ရွေးရန်");
+  title=catalogLabel("Catalogues","ကတ်တလောက်များ");
   const families=familiesFromWorks(visible);
   body=families.length?'<div class="works-family-grid">'+families.map(([f,count])=>
    '<button type="button" class="works-family-card" onclick="catalogueChangeView(\'groups\',\''+escCatalogue(f)+'\')"><strong>'+escCatalogue(f==="Other"?"Unnumbered / by title":f)+'</strong><span>'+count+' '+catalogLabel("works","လက်ရာ")+'</span><span aria-hidden="true">→</span></button>'
   ).join("")+'</div>':'<p class="works-empty">'+catalogLabel("No matching titles.","ကိုက်ညီသော လက်ရာမရှိပါ။")+'</p>';
  }else if(s.view==="groups"){
-  title=s.family+" · "+catalogLabel("Choose a number","နံပါတ်ရွေးပါ");
+  title=s.family+" · "+catalogLabel("Numbers","နံပါတ်များ");
   const groups=groupsForFamily(s.works,s.family,search,s.genre);
   body=groups.length?'<div class="works-group-grid">'+groups.map(([g,items])=>
   '<button type="button" class="works-group-card" onclick="catalogueChangeView(\'works\',\''+escCatalogue(s.family)+'\',\''+escCatalogue(g)+'\')"><strong>'+escCatalogue(g)+'</strong><span>'+items.length+' '+catalogLabel("listed entries","စာရင်းဝင်လက်ရာ")+'</span><span aria-hidden="true">→</span></button>'
@@ -354,23 +354,23 @@ function drawWorksCatalogue(keepFocus=false){
   title=catalogLabel("Search results","ရှာဖွေမှုရလဒ်များ");
   body='<div class="works-entries">'+(catalogueButtons(visible)||'<p class="works-empty">'+catalogLabel("No matching works.","ကိုက်ညီသောလက်ရာ မတွေ့ပါ။")+'</p>')+'</div>';
  }
- const placeholder=catalogLabel("Search title, Op., BWV, K., D., RV…","ခေါင်းစဉ်၊ Op., BWV, K., D., RV… ရှာရန်");
+ const placeholder=catalogLabel("Search works…","လက်ရာရှာရန်…");
  const subinfo=catalogueInfoText();
  const top=
  '<div class="works-window-top"><button class="works-window-back" type="button" onclick="catalogueGoBack()" aria-label="'+catalogLabel("Back one level","နောက်တစ်ဆင့်ပြန်ရန်")+'">← '+catalogLabel("Back","ပြန်ရန်")+'</button>'+
- '<span class="works-window-brand">'+catalogLabel("Works Catalogue","လက်ရာစာရင်း")+'</span>'+
- '<button class="works-window-done" type="button" onclick="closeWorksCatalogue()">'+catalogLabel("Biography","ဘဝသမိုင်း")+' ✕</button></div>';
- el.innerHTML=top+'<div class="works-language-toolbar"><span>'+catalogLabel("Language","ဘာသာစကား")+'</span><button type="button" aria-pressed="'+String(typeof lang!=="undefined"&&lang==="en")+'" onclick="switchCatalogueLanguage(\'en\')">EN</button><button type="button" aria-pressed="'+String(typeof lang!=="undefined"&&lang==="my")+'" onclick="switchCatalogueLanguage(\'my\')">မြန်မာ</button></div>'+
- '<div class="works-catalogue-scroll"><div class="works-catalogue-hero"><span class="works-eyebrow">Piano For ALL · '+catalogLabel("Works & Opus numbers","လက်ရာ / Opus နံပါတ်")+'</span><h2>'+escCatalogue(compose.name)+'</h2>'+
- '<p>'+catalogLabel("Select Op., BWV, K., D., etc. → number → individual work.","Op., BWV, K., D. စသည်ကိုရွေးပြီး နံပါတ် → လက်ရာ အသေးစိတ် ဖွင့်ပါ။")+'</p>'+
- '<div class="works-catalogue-stats">'+n+' '+catalogLabel("displayed entries","ပြသထားသောလက်ရာ")+' · '+identified+' '+catalogLabel("Open Opus entries","Open Opus စာရင်းဝင်လက်ရာ")+(s.busy?' · '+catalogLabel("Loading online catalogue…","အွန်လိုင်းစာရင်း ရယူနေသည်…"):'')+'</div>'+
- '<p class="works-disclaimer">'+escCatalogue(subinfo)+'</p>'+
+ '<span class="works-window-brand">'+catalogLabel("Works","လက်ရာများ")+'</span>'+
+ '<button class="works-window-done" type="button" onclick="closeWorksCatalogue()">'+catalogLabel("Done","ပြီးပြီ")+' ✕</button></div>';
+ el.innerHTML=top+'<div class="works-language-toolbar" role="group" aria-label="Language"><button type="button" aria-pressed="'+String(typeof lang!=="undefined"&&lang==="en")+'" onclick="switchCatalogueLanguage(\'en\')">EN</button><button type="button" aria-pressed="'+String(typeof lang!=="undefined"&&lang==="my")+'" onclick="switchCatalogueLanguage(\'my\')">မြန်မာ</button></div>'+
+ '<div class="works-catalogue-scroll"><div class="works-catalogue-hero"><span class="works-eyebrow">Piano For ALL · '+catalogLabel("Works","လက်ရာများ")+'</span><h2>'+escCatalogue(compose.name)+'</h2>'+
+ 
+ '<div class="works-catalogue-stats">'+n+' '+catalogLabel("works","လက်ရာ")+' · '+identified+' '+catalogLabel("Open Opus entries","Open Opus စာရင်းဝင်လက်ရာ")+(s.busy?' · '+catalogLabel("Loading online catalogue…","အွန်လိုင်းစာရင်း ရယူနေသည်…"):'')+'</div>'+
+ 
  '</div><div class="works-catalogue-controls"><input id="worksCatalogueSearch" type="search" autocomplete="off" aria-label="'+catalogLabel("Search works and opus numbers","လက်ရာနှင့် Opus နံပါတ်ရှာရန်")+'" placeholder="'+placeholder+'" value="'+escCatalogue(s.search)+'" oninput="catalogueChangeSearch(this.value)"/>'+
  '<select id="worksCatalogueGenre" aria-label="'+catalogLabel("Filter genre","အမျိုးအစားရွေးရန်")+'" onchange="catalogueSetGenre(this.value)">'+searchOptions+'</select></div>'+
  '<div class="works-catalogue-inner"><h3>'+escCatalogue(title)+'</h3>'+body+
- '<div class="works-catalogue-bottom"><p>'+escCatalogue(s.message)+'</p>'+
- '<a target="_blank" rel="noopener noreferrer" href="'+wikiComposerWorksUrl(compose)+'">'+catalogLabel("Search the larger IMSLP score catalogue ↗","ပိုကြီးမားသော IMSLP Score Catalogue တွင် ရှာရန် ↗")+'</a>'+
- '<a target="_blank" rel="noopener noreferrer" href="https://github.com/openopus-org/openopus_api/blob/master/USAGE.md">Open Opus API · '+catalogLabel("database coverage notes","စာရင်းအကျုံးဝင်မှု")+' ↗</a></div></div></div>';
+ '<div class="works-catalogue-bottom"><p class="works-disclaimer">'+escCatalogue(subinfo)+'</p><p>'+escCatalogue(s.message)+'</p>'
+ '<a target="_blank" rel="noopener noreferrer" href="'+wikiComposerWorksUrl(compose)+'">'+catalogLabel("IMSLP ↗","IMSLP ↗")+'</a>'+
+ '<a target="_blank" rel="noopener noreferrer" href="https://github.com/openopus-org/openopus_api/blob/master/USAGE.md">Open Opus API · '+catalogLabel("About","အကြောင်း")+' ↗</a></div></div></div>';
  if(keepFocus){const f=el.querySelector("#worksCatalogueSearch");f?.focus();f?.setSelectionRange(s.search.length,s.search.length);}
 }
 async function loadOnlineCatalogue(composer){
