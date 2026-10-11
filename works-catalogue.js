@@ -113,7 +113,14 @@ function parseWorkReference(title){
  const s=String(title||"");
  const patterns=[
   ["Op.",/\b(?:op(?:us)?)[.\s]*([0-9]+[a-z]?)(?!\d)/i],
-  ["BWV",/\bBWV\s*([0-9]+[a-z]?)/i],
+  ["WoO",/\bWoO[.\s]*([0-9]+[a-z]?)/i],
+  ["Hess",/\bHess[.\s]*([0-9]+[a-z]?)/i],
+  ["BWV Anh.",/\bBWV\s+Anh[.\s]*([0-9]+[a-z]?)/i],
+  ["KK",/\bKK[.\s]*([0-9]+[a-z]?)/i],
+  ["NJE",/\bNJE[.\s]*([0-9]+[a-z]?)/i],
+  ["CD",/\bCD[.\s]*([0-9]+[a-z]?)/i],
+  ["M.",/\bM[.\s]*([0-9]+[a-z]?)/i],
+    ["BWV",/\bBWV\s*([0-9]+[a-z]?)/i],
   ["HWV",/\bHWV\s*([0-9]+[a-z]?)/i],
   ["RV",/\bRV\s*([0-9]+[a-z]?)/i],
   ["K.",/\b(?:K|KV)[.\s]*([0-9]+[a-z]?)/i],
@@ -181,7 +188,7 @@ function catalogLabel(en,my){return typeof t==="function"?t(en,my):en}
 function familiesFromWorks(works){
  const groups=new Map();
  for(const w of works)groups.set(w.ref.family,(groups.get(w.ref.family)||0)+1);
- const priority=["Op.","BWV","K.","D.","Hob.","RV","HWV","S.","L.","WAB","WWV","TWV","Sz.","BB","FP","H.","R.","Other","Catalogue"];
+ const priority=["Op.","WoO","Hess","BWV","BWV Anh.","KK","NJE","CD","M.","K.","D.","Hob.","RV","HWV","S.","L.","WAB","WWV","TWV","Sz.","BB","FP","H.","R.","Other","Catalogue"];
  return [...groups.entries()].sort((a,b)=>{
   const ai=priority.indexOf(a[0]),bi=priority.indexOf(b[0]);
   return (ai<0?100:ai)-(bi<0?100:bi)||a[0].localeCompare(b[0]);
@@ -201,8 +208,15 @@ function groupsForFamily(works,family,search="",genre="all"){
   return k(a)-k(b)||a.localeCompare(b,undefined,{numeric:true});
  });
 }
+const fullIMSLPCatalogues={
+ "Johann Sebastian Bach":"https://imslp.org/wiki/List_of_works_by_Johann_Sebastian_Bach",
+ "Ludwig van Beethoven":"https://imslp.org/wiki/List_of_works_by_Ludwig_van_Beethoven",
+ "Frédéric Chopin":"https://imslp.org/wiki/List_of_works_by_Fr%C3%A9d%C3%A9ric_Chopin",
+ "Wolfgang Amadeus Mozart":"https://imslp.org/wiki/List_of_compositions_by_Mozart"
+};
 function wikiComposerWorksUrl(composer){
- return "https://imslp.org/wiki/Special:Search?search="+encodeURIComponent(composer.name);
+ return fullIMSLPCatalogues[composer.name]||
+ "https://imslp.org/wiki/Special:Search?search="+encodeURIComponent(composer.name);
 }
 function closeWorksCatalogue(){
  const win=document.getElementById("worksCatalogueWindow");
