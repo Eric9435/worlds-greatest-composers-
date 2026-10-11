@@ -178,7 +178,7 @@ test("timeline shows composer portrait tiles for each era and opens selected bio
 
 test("all 52 biographies include new bilingual guided score and performance study",()=>{
  const {ctx}=startApp();
- const result=vm.runInContext('composers.map(c=>({name:c.name,en:composerStudySupplement(c),my:(lang="my",composerStudySupplement(c))}))',ctx);
+ const result=vm.runInContext('composers.map(c=>({name:c.name,en:(lang="en",composerStudySupplement(c)),my:(lang="my",composerStudySupplement(c))}))',ctx);
  assert.equal(result.length,52);
  for(const item of result){
   assert.match(item.en,/composer-deep-dive/);
