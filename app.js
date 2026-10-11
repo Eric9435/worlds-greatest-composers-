@@ -33,6 +33,7 @@ const composers=[
 ["Arvo Pärt","အာဗို ပဲတ်","contemporary","1935–","Für Alina","Known for a spare, resonant tintinnabuli style.","ရိုးရှင်းပြီး ပဲ့တင်သံကြွယ်ဝသော tintinnabuli စတိုင်ဖြင့် ထင်ရှားသည်။"]
 ].map((x,i)=>({id:i,name:x[0],my:x[1],era:x[2],years:x[3],work:x[4],en:x[5],descMy:x[6]}));
 const refs=[
+["Wikimedia Commons — image licenses, reuse and credit requirements","https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia","Online portraits may be sourced from Wikimedia Commons when the file metadata supplies an acceptable license and creator credit. Browser image requests contact Wikimedia. Offline or missing artwork retains the built-in fallback."],
 ["Open Music Theory (Viva Pressbooks)","https://viva.pressbooks.pub/openmusictheory/","Open educational textbook for theory, notation, harmony and form."],
 ["Understanding Music: Past and Present (University of North Georgia)","https://oer.galileo.usg.edu/arts-textbooks/1/","Open textbook covering Western music history and listening."],
 ["Yale Open Courses: Listening to Music","https://oyc.yale.edu/music/musi-112","University lecture series on listening, history and musical structures."],
