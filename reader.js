@@ -41,7 +41,7 @@ function chapterMarkup(kind,record,study) {
 let readingReturnFocus=null;
 function openReadingWindow(){
  const detail=document.getElementById("detail");
- if(!detail)return;
+ if(!detail||typeof document.createElement!=="function")return;
  readingReturnFocus=document.activeElement;
  let modal=document.getElementById("readingWindow");
  if(!modal){
@@ -81,7 +81,7 @@ function closeReading(){
  if(readingReturnFocus&&readingReturnFocus.isConnected)readingReturnFocus.focus();
  readingReturnFocus=null;
 }
-if(typeof document!=="undefined")document.addEventListener("keydown",event=>{
+if(typeof document!=="undefined"&&typeof document.addEventListener==="function")document.addEventListener("keydown",event=>{
  if(event.key==="Escape"&&document.getElementById("readingWindow")){event.preventDefault();closeReading();}
  if(event.key==="Tab"){
   const modal=document.getElementById("readingWindow");
