@@ -25,7 +25,7 @@ function composerPortrait(name,kind="card"){
       (kind==="hero"?'<span class="portrait-disclaimer">'+shortLabel+'</span>':'')+
       '</div>';
   }
-  const initial=name.split(" ").filter(Boolean).map(s=>s.charAt(0)).slice(0,2).join("");
+  const initial=name.split(" ").filter(Boolean).map(s=>s.charAt(0).toUpperCase()).slice(0,2).join("");
   return '<div class="composer-visual '+(kind==="hero"?"composer-visual-hero":"")+'">'+
     '<div class="composer-portrait composer-portrait-placeholder" aria-label="'+esc(t("Portrait not yet available","ဓာတ်ပုံမရှိသေးပါ"))+'">'+esc(initial)+'</div>'+
     (kind==="hero"?'<span class="portrait-disclaimer">'+t("Portrait coming later","နောက်ပိုင်း ပုံထည့်မည်")+'</span>':'')+
