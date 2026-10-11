@@ -28,7 +28,7 @@ const server=http.createServer((req,res)=>{
   assert.ok(await bachTile.count());
   assert.ok(await bachTile.locator('img.composer-portrait-sprite').count());
   await bachTile.click();
-  assert.ok(await page.getByRole("heading",{name:"Johann Sebastian Bach"}).count());
+  assert.ok(await page.getByRole("heading",{name:"Johann Sebastian Bach"}).count(),"Bach click debug: "+JSON.stringify(await page.evaluate(()=>({tab,selected,selectedEra,window:!!document.getElementById("readingWindow"),detail:document.getElementById("detail")?.textContent?.slice(0,150),content:document.getElementById("content")?.textContent?.slice(0,150),error:document.querySelector(".reading-window")?.outerHTML?.slice(0,280)})))+" errors="+JSON.stringify(errors));
   assert.equal(await page.locator("#readingWindow[role=dialog]").count(),1);
   assert.equal(await page.evaluate(()=>document.body.classList.contains("reader-window-open")),true);
   await page.locator("#readingWindow .reading-window-close").click();
