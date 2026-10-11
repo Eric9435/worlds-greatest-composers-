@@ -14,6 +14,31 @@ const composerSpecialistReading={
 "Kaija Saariaho":[["IRCAM Composer Resource — Saariaho Biography","https://resources.ircam.fr/en/composer/kaija-saariaho/biography"],["Kaija Saariaho Estate — Biography","https://saariaho.org/about"]],
 "Unsuk Chin":[["Unsuk Chin — Publisher Biography (Boosey & Hawkes)","https://www.boosey.com/pages/cr/composer/composer_main?composerid=2754&langid=1&site-lang=en&ttype=biography"]]
 };
+/* Verified Oxford Academic publisher catalogue entries, accessed October 2026.
+   These provide era-level further reading, not sentence-by-sentence citations. */
+const oxfordVolumes={
+ medieval:["Richard Taruskin — The Oxford History of Western Music, Vol. 1: Earliest Notations to the Sixteenth Century","https://academic.oup.com/book/60817"],
+ renaissance:["Richard Taruskin — The Oxford History of Western Music, Vol. 1: Earliest Notations to the Sixteenth Century","https://academic.oup.com/book/60817"],
+ baroque:["Richard Taruskin — The Oxford History of Western Music, Vol. 2: Seventeenth and Eighteenth Centuries","https://academic.oup.com/book/60818"],
+ classical:["Richard Taruskin — The Oxford History of Western Music, Vol. 2: Seventeenth and Eighteenth Centuries","https://academic.oup.com/book/60818"],
+ romantic:["Richard Taruskin — The Oxford History of Western Music, Vol. 3: Nineteenth Century","https://academic.oup.com/book/60831"],
+ modern:["Richard Taruskin — The Oxford History of Western Music, Vol. 4: Early Twentieth Century","https://academic.oup.com/book/60829"],
+ contemporary:["Richard Taruskin — The Oxford History of Western Music, Vol. 5: Late Twentieth Century","https://academic.oup.com/book/60819"],
+ ancient:["N. A. Clark et al. — Understanding Music: Past and Present (open textbook)","https://oer.galileo.usg.edu/arts-textbooks/1/"]
+};
+const verifiedComposerArchives={
+ "Johann Sebastian Bach":[["Bach-Archiv Leipzig — research collections and Bach digital","https://www.bacharchivleipzig.de/en/bach-archiv"]],
+ "Wolfgang Amadeus Mozart":[["Mozarteum Salzburg — Digital Mozart Edition, scores and letters","https://mozarteum.at/en/digital-mozart-edition"]],
+ "Ludwig van Beethoven":[["Beethoven-Haus Bonn — digital manuscripts, letters and portraits","https://www.beethoven.de/en/archive"]],
+ "Frédéric Chopin":[["Chopin Online — annotated catalogue of Chopin's first editions","https://chopinonline.ac.uk/aco/catalogue/"]],
+ "Felix Mendelssohn":[["The Cambridge Companion to Mendelssohn (ed. Peter Mercer-Taylor) — publisher front matter","https://assets.cambridge.org/052182/6039/frontmatter/0521826039_frontmatter.htm"]]
+};
+function additionalResearchLinks(record){
+ const volume=oxfordVolumes[record.era];
+ const archive=verifiedComposerArchives[record.name]||[];
+ const sources=(volume?[volume]:[]).concat(archive);
+ return sources.map(item=>'<li><a target="_blank" rel="noopener noreferrer" href="'+esc(item[1])+'">'+esc(item[0])+' ↗</a></li>').join("");
+}
 function composerSourceLinks(name){
  const extras=composerSpecialistReading[name]||[];
  const reading=extras.concat([["Grove Music Online (Oxford University Press) — institutional access may be needed","https://www.oxfordmusiconline.com/"]]);
