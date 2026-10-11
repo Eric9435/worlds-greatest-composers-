@@ -14,6 +14,56 @@ const composerPortraitPositions = Object.freeze({
   "Claude Debussy":[4,1]
 });
 const composerPortraitPath="./composer-portraits.webp?v=9";
+/* Complete offline editorial gallery. Each vector tile is deliberately labelled
+   as an original illustration, not an archival photograph or exact likeness.
+   Order matches composer-portraits-42.svg, 7 columns × 6 rows. */
+const composerIllustrationOrder=Object.freeze([
+  "Hildegard von Bingen",
+  "Guillaume de Machaut",
+  "Josquin des Prez",
+  "Giovanni Pierluigi da Palestrina",
+  "Claudio Monteverdi",
+  "Antonio Vivaldi",
+  "Robert Schumann",
+  "Sergei Rachmaninoff",
+  "Igor Stravinsky",
+  "John Cage",
+  "Philip Glass",
+  "Arvo Pärt",
+  "Guillaume Dufay",
+  "Orlando di Lasso",
+  "Jean-Baptiste Lully",
+  "Henry Purcell",
+  "Domenico Scarlatti",
+  "C. P. E. Bach",
+  "Christoph Willibald Gluck",
+  "Muzio Clementi",
+  "Felix Mendelssohn",
+  "Hector Berlioz",
+  "Giuseppe Verdi",
+  "Richard Wagner",
+  "Anton Bruckner",
+  "Pyotr Ilyich Tchaikovsky",
+  "Antonín Dvořák",
+  "Edvard Grieg",
+  "Gustav Mahler",
+  "Alexander Scriabin",
+  "Arnold Schoenberg",
+  "Maurice Ravel",
+  "Béla Bartók",
+  "Florence Price",
+  "Sergei Prokofiev",
+  "Dmitri Shostakovich",
+  "Olivier Messiaen",
+  "Benjamin Britten",
+  "György Ligeti",
+  "Steve Reich",
+  "Kaija Saariaho",
+  "Unsuk Chin"
+]);
+const composerIllustrationIndex=new Map(composerIllustrationOrder.map((name,index)=>[name,index]));
+const composerIllustrationPath="./composer-portraits-42.svg?v=1";
+
 function composerPortrait(name,kind="card"){
   const position=composerPortraitPositions[name];
   const shortLabel=t("AI-generated artistic illustration","AI ဖြင့်ဖန်တီးထားသော သရုပ်ဖော်ပုံ");
@@ -33,6 +83,23 @@ function composerPortrait(name,kind="card"){
       'onerror="this.style.display=\'none\';this.parentElement.classList.add(\'composer-portrait-placeholder\');this.parentElement.textContent=\''+failedInitial+'\'">'+
       '</div>'+
       (kind==="hero"?'<span class="portrait-disclaimer">'+shortLabel+'</span>':'')+
+      '</div>';
+  }
+  const illustrationIndex=composerIllustrationIndex.get(name);
+  if(Number.isInteger(illustrationIndex)){
+    const col=illustrationIndex%7,row=Math.floor(illustrationIndex/7);
+    const positionX=(col*100/7).toFixed(6),positionY=(row*100/6).toFixed(6);
+    const label=t("Original artistic illustration · not a historical likeness","မူရင်းသရုပ်ဖော်ပုံ · သမိုင်းဝင်ပုံအစစ်မဟုတ်ပါ");
+    const initial=name.split(" ").filter(Boolean).map(part=>part.charAt(0).toUpperCase()).slice(0,2).join("");
+    const accessible=esc(name+" — "+label);
+    return '<div class="composer-visual '+(kind==="hero"?"composer-visual-hero":"")+'" data-composer="'+esc(name)+'" data-portrait-panel="'+illustrationIndex+'">'+
+      '<div class="composer-portrait composer-portrait-illustration-frame">'+
+      '<img class="composer-portrait-illustration" src="'+composerIllustrationPath+'" alt="'+accessible+'" '+
+      'loading="'+(kind==="hero"?"eager":"lazy")+'" decoding="async" width="1792" height="1536" '+
+      'style="transform:translate(-'+positionX+'%,-'+positionY+'%)" '+
+      'onerror="this.style.display=\'none\';this.parentElement.classList.add(\'composer-portrait-placeholder\');this.parentElement.textContent=\''+esc(initial)+'\'">'+
+      '</div>'+
+      (kind==="hero"?'<span class="portrait-disclaimer">'+label+'</span>':'')+
       '</div>';
   }
   const initial=name.split(" ").filter(Boolean).map(s=>s.charAt(0).toUpperCase()).slice(0,2).join("");
