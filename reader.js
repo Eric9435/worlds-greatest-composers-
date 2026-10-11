@@ -99,20 +99,6 @@ function switchReadingLanguage(next){
  modal.querySelector(".reading-window-close").setAttribute("aria-label",t("Close reader","စာဖတ်ဝင်းဒိုးပိတ်ရန်"));
  updateReadingWindowLanguageButtons();
 }
-function selectReadingTopic(index){
- const modal=document.getElementById("readingWindow");
- const article=modal?.querySelector("#detail")||document.getElementById("detail");
- if(!article||typeof article.querySelectorAll!=="function")return;
- const sections=Array.from(article.querySelectorAll(".reader-topic-section"));
- if(!Number.isInteger(index)||index<0||index>=sections.length)return;
- selectedReadingTopic=index;
- sections.forEach((el,i)=>el.classList.toggle("is-inactive-topic",i!==index));
- article.querySelectorAll("[data-topic-button]").forEach(btn=>btn.setAttribute("aria-pressed",String(Number(btn.dataset.topicButton)===index)));
- const picker=article.querySelector("#readerTopicSelect");
- if(picker)picker.value=String(index);
- const area=modal?.querySelector("#readingWindowBody");
- if(area)area.scrollTop=0;
-}
 function showEra(id){
  if(!eraChapters[id])return;
  rememberReadingOrigin();
@@ -149,6 +135,7 @@ function selectReadingTopic(index){
  const reading=modal.querySelector("#readingWindowBody");
  const sections=Array.from(reading.querySelectorAll(".reader-topic-section"));
  if(!Number.isInteger(index)||index<0||index>=sections.length)return;
+ selectedReadingTopic=index;
  sections.forEach((section,i)=>section.classList.toggle("is-inactive-topic",i!==index));
  reading.querySelectorAll(".reader-topic-link").forEach(link=>{
   link.setAttribute("aria-pressed",String(Number(link.dataset.topicIndex)===index));
