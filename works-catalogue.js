@@ -206,7 +206,12 @@ function wikiComposerWorksUrl(composer){
 }
 function closeWorksCatalogue(){
  const win=document.getElementById("worksCatalogueWindow");
- if(win)win.remove();
+ if(win){
+  const parent=win.parentElement;
+  win.remove();
+  parent?.querySelector(".reading-window-body")?.removeAttribute("inert");
+  parent?.querySelector(".reading-window-top")?.removeAttribute("inert");
+ }
  catalogueState.requestId++;
  catalogueState.composer=null;
  const original=document.querySelector("#readingWindow .reading-window-close");
@@ -232,6 +237,10 @@ function openWorksCatalogue(id){
  windowEl.setAttribute("aria-modal","true");
  windowEl.setAttribute("aria-label",composer.name+" Works Catalogue");
  parent.appendChild(windowEl);
+ const behind=parent.querySelector(".reading-window-body");
+ const toolbar=parent.querySelector(".reading-window-top");
+ behind?.setAttribute("inert","");
+ toolbar?.setAttribute("inert","");
  drawWorksCatalogue();
  windowEl.querySelector(".works-window-back")?.focus();
  loadOnlineCatalogue(composer);
@@ -337,7 +346,8 @@ function drawWorksCatalogue(keepFocus=false){
  '<div class="works-window-top"><button class="works-window-back" type="button" onclick="catalogueGoBack()" aria-label="'+catalogLabel("Back one level","နောက်တစ်ဆင့်ပြန်ရန်")+'">← '+catalogLabel("Back","ပြန်ရန်")+'</button>'+
  '<span class="works-window-brand">'+catalogLabel("Works Catalogue","လက်ရာစာရင်း")+'</span>'+
  '<button class="works-window-done" type="button" onclick="closeWorksCatalogue()">'+catalogLabel("Biography","ဘဝသမိုင်း")+' ✕</button></div>';
- el.innerHTML=top+'<div class="works-catalogue-scroll"><div class="works-catalogue-hero"><span class="works-eyebrow">Piano For ALL · '+catalogLabel("Works & Opus numbers","လက်ရာ / Opus နံပါတ်")+'</span><h2>'+escCatalogue(compose.name)+'</h2>'+
+ el.innerHTML=top+'<div class="works-language-toolbar"><span>'+catalogLabel("Language","ဘာသာစကား")+'</span><button type="button" aria-pressed="'+String(typeof lang!=="undefined"&&lang==="en")+'" onclick="switchCatalogueLanguage(\'en\')">EN</button><button type="button" aria-pressed="'+String(typeof lang!=="undefined"&&lang==="my")+'" onclick="switchCatalogueLanguage(\'my\')">မြန်မာ</button></div>'+
+ '<div class="works-catalogue-scroll"><div class="works-catalogue-hero"><span class="works-eyebrow">Piano For ALL · '+catalogLabel("Works & Opus numbers","လက်ရာ / Opus နံပါတ်")+'</span><h2>'+escCatalogue(compose.name)+'</h2>'+
  '<p>'+catalogLabel("Select Op., BWV, K., D., etc. → number → individual work.","Op., BWV, K., D. စသည်ကိုရွေးပြီး နံပါတ် → လက်ရာ အသေးစိတ် ဖွင့်ပါ။")+'</p>'+
  '<div class="works-catalogue-stats">'+n+' '+catalogLabel("displayed entries","ပြသထားသောလက်ရာ")+' · '+identified+' '+catalogLabel("Open Opus entries","Open Opus စာရင်းဝင်လက်ရာ")+(s.busy?' · '+catalogLabel("Loading online catalogue…","အွန်လိုင်းစာရင်း ရယူနေသည်…"):'')+'</div>'+
  '<p class="works-disclaimer">'+escCatalogue(subinfo)+'</p>'+
