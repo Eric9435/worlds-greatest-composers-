@@ -48,8 +48,26 @@
     if(composerName&&typeof file==="string"&&file.length<300)commonsFiles.set(normalizeFile(file),composerName);
    }
   }
+  /* Wikidata P18 is absent for some biographies. English Wikipedia pageimages
+     can supply another *filename*; it still must pass Commons license checks. */
+  const alreadyCovered=new Set(commonsFiles.values());
+  const missingPages=[...requested.entries()].filter(([,composer])=>!alreadyCovered.has(composer));
+  for(const batch of chunks(missingPages,20)){
+   try{
+    const args=new URLSearchParams({action:"query",prop:"pageimages",piprop:"name",titles:batch.map(e=>e[0]).join("|"),format:"json",origin:"*"});
+    const result=await mediaWikiJson("https://en.wikipedia.org/w/api.php?"+args);
+    for(const page of Object.values(result.query?.pages||{})){
+     const composer=requested.get(page.title);
+     const file=page.pageimage;
+     if(composer&&typeof file==="string"&&file.length<300){
+      const normalized=normalizeFile(file);
+      if(!commonsFiles.has(normalized))commonsFiles.set(normalized,composer);
+     }
+    }
+   }catch(_){/* A blocked Wikipedia request never prevents P18 portraits. */}
+  }
   for(const names of chunks([...commonsFiles.keys()],12)){
-   const args=new URLSearchParams({action:"query",prop:"imageinfo",titles:names.map(n=>"File:"+n).join("|"),iiprop:"url|extmetadata",iiurlwidth:"700",format:"json",origin:"*"});
+   const args=new URLSearchParams({action:"query",prop:"imageinfo",titles:names.map(n=>"File:"+n).join("|"),iiprop:"url|extmetadata",iiurlwidth:"1000",format:"json",origin:"*"});
    const result=await mediaWikiJson("https://commons.wikimedia.org/w/api.php?"+args);
    for(const page of Object.values(result.query?.pages||{})){
     const composerName=commonsFiles.get(normalizeFile(page.title));
@@ -84,6 +102,11 @@
    img.referrerPolicy="no-referrer";
    img.onload=()=>{
     portrait.classList.add("commons-photo-loaded");
+    // Accessible image and credit replace the stale low-resolution illustration.
+    const original=portrait.querySelector(".composer-portrait-sprite");
+    if(original)original.setAttribute("aria-hidden","true");
+    const oldDisclaimer=visual.querySelector(".portrait-disclaimer");
+    if(oldDisclaimer)oldDisclaimer.textContent="Wikimedia Commons · "+metadata.license;
     const label=document.createElement("span");
     label.className="commons-portrait-credit";
     label.textContent=(metadata.artist+" · "+metadata.license).slice(0,170);

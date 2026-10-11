@@ -149,5 +149,72 @@ body.reader-window-open{overflow:hidden;overscroll-behavior:none}
 .commons-portrait-source,.commons-portrait-license{display:inline-block;margin:3px 9px 0 0;color:inherit;font-size:11px;overflow-wrap:anywhere}
 .era-composer-tile .commons-portrait-credit{font-size:9px;line-height:1.2}
 @media(prefers-reduced-motion:reduce){.commons-portrait{transition:none}}
+
+/* Windowed works encyclopedia: era -> composer -> numbering family -> Op. -> piece. */
+.composer-card-actions{display:flex;gap:8px;flex-wrap:wrap}
+.composer-card-actions button{flex:1 1 auto;font-size:12px;min-height:42px}
+.works-catalogue-launch{background:#f0f3fb;padding:14px 22px;border-bottom:1px solid #dce3f0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.works-launch-btn{appearance:none;cursor:pointer;padding:13px 17px;min-height:48px;background:#303b73;color:white;border:0;border-radius:12px;font-size:14px;font-weight:750;text-align:left;box-shadow:0 6px 15px #202b501e}
+.works-launch-btn:focus-visible{outline:3px solid #daae71;outline-offset:3px}
+.works-catalogue-launch small{font-size:12px;color:#53607b}
+.works-catalogue-window{position:absolute;inset:0;z-index:30;display:flex;flex-direction:column;background:#f6f8fc;color:#21283b;min-width:0;overflow:hidden}
+.works-window-top{flex:0 0 auto;background:white;border-bottom:1px solid #e0e5ef;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.works-window-top button{border:1px solid #d4d9e9;background:#f4f5fc;color:#29365d;min-height:43px;padding:8px 13px;border-radius:10px;font-size:13px;font-weight:750;cursor:pointer}
+.works-window-brand{font-weight:800;font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.works-catalogue-scroll{min-height:0;flex:1;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.works-catalogue-hero{background:linear-gradient(120deg,#192340,#414e85);color:white;padding:24px clamp(16px,4vw,45px)}
+.works-eyebrow{color:#d6dffa;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:800}
+.works-catalogue-hero h2{font-size:clamp(22px,3vw,34px);line-height:1.2;margin:8px 0 12px}
+.works-catalogue-hero p{font-size:13px;line-height:1.6;max-width:830px;margin:8px 0}
+.works-catalogue-stats{font-size:13px;font-weight:750;margin-top:12px;color:#f8eed8}
+.works-catalogue-hero .works-disclaimer{font-size:11px;color:#d6dffa}
+.works-catalogue-controls{position:sticky;top:0;z-index:5;display:flex;gap:10px;padding:12px clamp(14px,3vw,35px);background:rgba(255,255,255,.98);border-bottom:1px solid #e0e5ef}
+.works-catalogue-controls input,.works-catalogue-controls select{appearance:auto;min-height:44px;padding:9px 12px;border:1px solid #c9d0e0;border-radius:11px;background:#fff;color:#252e47;font:inherit;font-size:14px}
+.works-catalogue-controls input{flex:1;min-width:0}
+.works-catalogue-controls select{flex:0 0 auto;max-width:40%}
+.works-catalogue-inner{max-width:1050px;margin:0 auto;padding:18px clamp(14px,3vw,35px) 55px}
+.works-catalogue-inner h3{font-size:19px;line-height:1.3;margin:3px 0 19px}
+.works-family-grid,.works-group-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:11px}
+.works-family-card,.works-group-card{width:100%;min-width:0;min-height:100px;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;gap:10px;background:white;border:1px solid #dce3ef;color:#202b48;text-align:left;border-radius:14px;padding:16px;box-shadow:0 2px 12px #222d4710}
+.works-family-card strong,.works-group-card strong{font-size:19px}
+.works-family-card span,.works-group-card span{font-size:12px;color:#54617b}
+.works-family-card:hover,.works-group-card:hover,.works-work-card:hover{border-color:#7383af;background:#f9fbff}
+.works-family-card:focus-visible,.works-group-card:focus-visible,.works-work-card:focus-visible{outline:3px solid #7383af;outline-offset:2px}
+.works-entries{display:flex;flex-direction:column;gap:9px}
+.works-work-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 12px;min-width:0;width:100%;align-items:center;text-align:left;background:white;color:#273554;border:1px solid #dfe5f0;border-radius:12px;padding:13px 16px;cursor:pointer}
+.works-work-card strong{grid-column:1;font-size:14px;line-height:1.35;overflow-wrap:anywhere}
+.works-work-card .works-work-no{grid-column:1;color:#7d613c;font-size:12px}
+.works-work-card small{grid-column:1;color:#5d6c84}
+.works-work-card>span:last-child{grid-column:2;grid-row:1/4;font-size:25px}
+.works-detail{border:1px solid #dbe2ef;background:white;border-radius:18px;padding:clamp(15px,3vw,32px);line-height:1.7}
+.works-detail h3{font-size:clamp(19px,3vw,26px)}
+.works-detail h4{font-size:15px;margin:20px 0 6px}
+.works-detail li{margin:9px 0}
+.works-work-no{color:#826b4d;font-size:13px;font-weight:800}
+.works-muted,.works-empty{color:#68758b;font-size:14px}
+.works-source-actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.works-source-actions a,.works-catalogue-bottom a{display:inline-block;padding:9px 12px;background:#edf0f9;border-radius:9px;color:#2c3d70;font-size:13px;font-weight:650;overflow-wrap:anywhere}
+.works-catalogue-bottom{border-top:1px solid #dfe3ec;margin-top:24px;padding-top:16px;display:flex;flex-wrap:wrap;gap:10px}
+.works-catalogue-bottom p{flex:1 1 100%;font-size:13px;color:#68758b}
+@media(max-width:600px){
+ .works-window-top{padding:max(9px,env(safe-area-inset-top)) 10px 8px;gap:6px}
+ .works-window-top button{font-size:12px;padding:7px 9px}
+ .works-window-brand{font-size:12px}
+ .works-catalogue-hero{padding:18px 15px}
+ .works-catalogue-controls{flex-direction:column;padding:9px 12px}
+ .works-catalogue-controls select{max-width:none;width:100%}
+ .works-family-grid,.works-group-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .works-family-card,.works-group-card{min-height:86px;padding:12px}
+ .works-family-card strong,.works-group-card strong{font-size:16px}
+ .works-catalogue-inner{padding:15px 12px 60px}
+ .works-catalogue-launch{padding:12px 14px}
+ .works-launch-btn{width:100%}
+}
+
+.works-language-toolbar{display:flex;gap:7px;align-items:center;justify-content:flex-end;padding:6px 20px;background:#f4f5fa;border-bottom:1px solid #e0e5ef;flex:0 0 auto}
+.works-language-toolbar span{font-size:11px;color:#66728a;margin-right:5px}
+.works-language-toolbar button{min-height:34px;padding:6px 10px;border:1px solid #d0d8e8;border-radius:8px;background:#fff;color:#394763;font-size:12px;font-weight:750;cursor:pointer}
+.works-language-toolbar button[aria-pressed="true"]{background:#303b73;color:#fff;border-color:#303b73}
+@media(max-width:600px){.works-language-toolbar{padding:5px 12px}}
 </style><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"></head><body><main class="shell"><header class="top"><div class="brand">♫ Piano For ALL <div class="muted" style="font-size:12px;font-weight:500">World's Greatest Composers</div></div><div class="toggle" role="group" aria-label="Language"><button id="en" class="active" aria-pressed="true" onclick="setLang('en')">EN</button><button id="my" aria-pressed="false" onclick="setLang('my')">မြန်မာ</button></div></header><section class="hero"><span class="eyebrow" id="subtitle">Music history</span><h1 id="heroTitle">Explore music across the centuries.</h1><p id="heroText">Explore historical eras and the composers who shaped classical music.</p><div class="stats"><div class="stat"><b id="eraCount"></b><span id="eraLabel">Eras</span></div><div class="stat"><b id="composerCount"></b><span id="composerLabel">Composers</span></div></div></section><nav class="tabs" aria-label="Sections" id="tabs"></nav><section id="content" aria-live="polite"></section><footer class="footer">World's Greatest Composers · Piano For ALL<br>Educational original summaries · <span id="copyright">References provided separately</span></footer></main>
-<script src="./chapters-eras.js" defer></script><script src="./chapters-composers-1.js" defer></script><script src="./chapters-composers-2.js" defer></script><script src="./chapters-composers-3.js" defer></script><script src="./chapters-composers-4.js" defer></script><script src="./extended-context.js" defer></script><script src="./composer-expansion.js" defer></script><script src="./advanced-musicology.js" defer></script><script src="./biographies-a.js" defer></script><script src="./biographies-b.js" defer></script><script src="./biographies-c.js" defer></script><script src="./biographies-d.js" defer></script><script src="./biography-sources.js" defer></script><script src="./composer-atlas-1.js" defer></script><script src="./composer-atlas-2.js" defer></script><script src="./composer-atlas-3.js" defer></script><script src="./composer-atlas-4.js" defer></script><script src="./composer-chronology.js" defer></script><script src="./reader.js" defer></script><script src="./portraits.js" defer></script><script src="./app.js" defer></script><script src="./history.js" defer></script><script src="./licensed-portraits.js" defer></script><script>if("serviceWorker" in navigator && location.protocol==="https:"){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}</script></body></html>
+<script src="./chapters-eras.js" defer></script><script src="./chapters-composers-1.js" defer></script><script src="./chapters-composers-2.js" defer></script><script src="./chapters-composers-3.js" defer></script><script src="./chapters-composers-4.js" defer></script><script src="./extended-context.js" defer></script><script src="./composer-expansion.js" defer></script><script src="./advanced-musicology.js" defer></script><script src="./biographies-a.js" defer></script><script src="./biographies-b.js" defer></script><script src="./biographies-c.js" defer></script><script src="./biographies-d.js" defer></script><script src="./biography-sources.js" defer></script><script src="./composer-atlas-1.js" defer></script><script src="./composer-atlas-2.js" defer></script><script src="./composer-atlas-3.js" defer></script><script src="./composer-atlas-4.js" defer></script><script src="./composer-chronology.js" defer></script><script src="./reader.js" defer></script><script src="./portraits.js" defer></script><script src="./app.js" defer></script><script src="./history.js" defer></script><script src="./licensed-portraits.js" defer></script><script src="./works-catalogue.js" defer></script><script>if("serviceWorker" in navigator && location.protocol==="https:"){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}</script></body></html>

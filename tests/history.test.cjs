@@ -24,6 +24,7 @@ function startApp(){
  vm.runInContext(read("biography-sources.js"),ctx,{filename:"biography-sources.js"});
  for(const f of ["composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js"])
   vm.runInContext(read(f),ctx,{filename:f});
+ vm.runInContext(read("works-catalogue.js"),ctx,{filename:"works-catalogue.js"});
  vm.runInContext(read("reader.js"),ctx,{filename:"reader.js"});
  vm.runInContext(read("portraits.js"),ctx,{filename:"portraits.js"});
  vm.runInContext(read("app.js"),ctx,{filename:"app.js"});
@@ -285,4 +286,45 @@ test("composer reader displays dated chronology and annotated compositions in En
  assert.match(els.content.innerHTML,/composer-atlas-paragraph/);
  vm.runInContext('setLang("my")',ctx);
  assert.match(els.content.innerHTML,/ဘဝသမိုင်း အချိန်စဉ်/);
+});
+
+test("Opus grouping groups separate numbered works within one opus correctly",()=>{
+ const {ctx}=startApp();
+ const parsed=vm.runInContext('[parseWorkReference("Piano Sonata no. 14 in C-sharp minor, op. 27, no. 2"),parseWorkReference("Nocturne in E-flat major, Op. 9 No. 2"),parseWorkReference("Prelude and Fugue, BWV 846"),parseWorkReference("Piano Sonata, K. 331"),parseWorkReference("Symphony in D, D. 200"),parseWorkReference("Symphony no. 4, WAB 104"),parseWorkReference("Symphony no. 10, Hob. I:10")]',ctx);
+ assert.deepEqual([...parsed.map(x=>x.family)],["Op.","Op.","BWV","K.","D.","WAB","Hob."]);
+ assert.equal(parsed[0].group,"Op. 27");assert.equal(parsed[0].subNumber,"2");
+ assert.equal(parsed[1].group,"Op. 9");
+ assert.equal(parsed[2].group,"BWV 846");
+ const woO=vm.runInContext('parseWorkReference("Für Elise, WoO 59")',ctx);
+ assert.equal(woO.group,"WoO 59");
+ const ims=vm.runInContext('wikiComposerWorksUrl(composers.find(c=>c.name==="Ludwig van Beethoven"))',ctx);
+ assert.match(ims,/List_of_works_by_Ludwig_van_Beethoven/);
+});
+test("composer matching never mistakes Johann Sebastian Bach for Carl Philipp Emanuel Bach",()=>{
+ const {ctx}=startApp();
+ const result=vm.runInContext(`[matchCatalogueComposer("Johann Sebastian Bach",[{id:"1",complete_name:"Carl Philipp Emanuel Bach"},{id:"87",complete_name:"Johann Sebastian Bach"}]),matchCatalogueComposer("C. P. E. Bach",[{id:"87",complete_name:"Johann Sebastian Bach"},{id:"12",complete_name:"Carl Philipp Emanuel Bach"}]),matchCatalogueComposer("Josquin des Prez",[{id:"99",complete_name:"Johannes Brahms"}])]`,ctx);
+ assert.equal(result[0].id,"87");assert.equal(result[1].id,"12");assert.equal(result[2],null);
+});
+test("all 52 composers have an offline-only featured works selection and external source",()=>{
+ const {ctx}=startApp();
+ const rows=vm.runInContext('composers.map(c=>({name:c.name,works:localCatalogueWorks(c),url:wikiComposerWorksUrl(c)}))',ctx);
+ assert.equal(rows.length,52);
+ for(const x of rows){assert.ok(x.works.length>=2,"Missing local works for "+x.name);assert.match(x.url,/https:\/\/imslp.org\/wiki\//);}
+ const grouped=vm.runInContext('groupsForFamily(localCatalogueWorks(composers.find(c=>c.name==="Ludwig van Beethoven")),"Op.").map(([g,works])=>[g,works.length])',ctx);
+ assert.ok(grouped.some(x=>x[0]==="Op. 27"&&x[1]===2));
+});
+test("catalogue provides movement detail only when explicitly documented",()=>{
+ const {ctx}=startApp();
+ const rows=vm.runInContext('catalogueSupplement["Ludwig van Beethoven"]',ctx);
+ assert.equal(rows[1].parts.length,3);
+ const none=vm.runInContext('catalogueSupplement["Frédéric Chopin"]',ctx);
+ assert.ok(none.every(w=>w.parts===undefined));
+});
+
+test("offline collections preserve all Chopin Op. 10/25 études and Op. 28 preludes as separately numbered pieces",()=>{
+ const {ctx}=startApp();
+ const groups=vm.runInContext('["Op. 10","Op. 25","Op. 28"].map(g=>groupsForFamily(localCatalogueWorks(composers.find(c=>c.name==="Frédéric Chopin")),"Op.").find(x=>x[0]===g)?.[1]?.filter(w=>w.ref.subNumber)?.length||0)',ctx);
+ assert.deepEqual([...groups],[12,12,24]);
+ const items=vm.runInContext('groupsForFamily(localCatalogueWorks(composers.find(c=>c.name==="Robert Schumann")),"Op.").find(x=>x[0]==="Op. 15")[1].length',ctx);
+ assert.equal(items,13);
 });
