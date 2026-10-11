@@ -3,7 +3,7 @@ const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path");
 const root=path.join(__dirname,"..");
-const files=new Set(["index.html","app.js","history.js","sw.js","manifest.webmanifest","icon.svg"]);
+const files=new Set(["index.html","app.js","reader.js","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
 const server=http.createServer((req,res)=>{
  const file=req.url==="/"?"index.html":decodeURIComponent(req.url.slice(1).split("?")[0]);
  if(!files.has(file)){res.writeHead(404);return res.end();}
@@ -23,6 +23,14 @@ const server=http.createServer((req,res)=>{
   await page.goto("http://127.0.0.1:"+server.address().port,{waitUntil:"networkidle"});
   assert.equal(await page.locator("#composerCount").textContent(),"52");
   assert.equal(await page.locator("#eraCount").textContent(),"8");
+  await page.getByRole("button",{name:"Read full chapter"}).first().click();
+  assert.ok(await page.getByRole("heading",{name:"Sources and the limits of evidence"}).count());
+  assert.ok(await page.getByText("Music existed long before surviving musical notation.",{exact:false}).count());
+  await page.getByRole("button",{name:"မြန်မာ"}).click();
+  assert.equal(await page.locator("html").getAttribute("lang"),"my");
+  assert.ok(await page.getByRole("heading",{name:"အထောက်အထားနှင့် သမိုင်းလေ့လာမှုကန့်သတ်ချက်"}).count());
+  await page.getByRole("button",{name:"EN",exact:true}).click();
+  await page.getByRole("button",{name:"Back to library"}).click();
   await page.getByRole("button",{name:"Composers",exact:true}).click();
   await page.getByRole("textbox",{name:"Search composers"}).fill("Mozart");
   assert.equal(await page.getByText("Johann Sebastian Bach").count(),0);
