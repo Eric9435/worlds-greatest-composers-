@@ -200,3 +200,21 @@ test("all eight eras receive original bilingual contextual history",()=>{
  assert.equal(vm.runInContext("Object.keys(extendedEraNotes).length",ctx),8);
  assert.equal(vm.runInContext('eras.filter(e=>extendedContextMarkup("era",e).includes("academic-context")).length',ctx),8);
 });
+
+test("all 52 composers have nine original advanced bilingual musicology lessons",()=>{
+ const {ctx}=startApp();
+ const count=vm.runInContext('composers.filter(c=>advancedComposerLaboratory(c).length===9).length',ctx);
+ assert.equal(count,52);
+ const sample=vm.runInContext('advancedComposerLaboratory(composers.find(c=>c.name==="Frédéric Chopin"))',ctx);
+ assert.equal(sample.length,9);
+ for(const part of sample){assert.equal(part.length,4);assert.ok(part[2].length>220);assert.ok(part[3].length>90)}
+});
+test("composer chapter renders additional advanced analytical sections in bilingual view",()=>{
+ const {ctx,els}=startApp();
+ vm.runInContext('showComposer(composers.find(c=>c.name==="Johann Sebastian Bach").id)',ctx);
+ assert.match(els.content.innerHTML,/Manuscript, edition and provenance/);
+ assert.match(els.content.innerHTML,/Scholarly writing and source evaluation/);
+ assert.match(els.content.innerHTML,/Keyboard technique and pedagogy/);
+ vm.runInContext('setLang("my")',ctx);
+ assert.match(els.content.innerHTML,/စာမူ၊ edition နှင့် မူရင်းအထောက်အထား/);
+});
