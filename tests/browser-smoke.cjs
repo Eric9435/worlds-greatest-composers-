@@ -3,7 +3,7 @@ const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path");
 const root=path.join(__dirname,"..");
-const files=new Set(["index.html","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","portraits.js","licensed-portraits.js","composer-portraits.webp","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
+const files=new Set(["index.html","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","works-catalogue.js","portraits.js","licensed-portraits.js","composer-portraits.webp","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
 const server=http.createServer((req,res)=>{
  const file=req.url==="/"?"index.html":decodeURIComponent(req.url.slice(1).split("?")[0]);
  if(!files.has(file)){res.writeHead(404);return res.end();}
@@ -119,6 +119,46 @@ const server=http.createServer((req,res)=>{
   assert.match(await portraitPage.locator("#readingWindow .commons-portrait-license").first().getAttribute("href"),/creativecommons.org\/licenses\/by-sa\/4.0/);
   await portraitPage.close();
   console.log("Attribution and remote-image fallback integration passed");
+
+  // Deterministic Open Opus integration: an opus number opens its numbered works,
+  // then a selected work opens its movement details without scrolling the page.
+  const worksPage=await browser.newPage({viewport:{width:390,height:844}});
+  await worksPage.route("https://api.openopus.org/**",async route=>{
+   const u=route.request().url();
+   let data={};
+   if(u.includes("/composer/list/search/beethoven.json")){
+    data={composers:[{id:"145",complete_name:"Ludwig van Beethoven"}]};
+   }else if(u.includes("/work/list/composer/145/genre/all.json")){
+    data={composer:{id:"145",complete_name:"Ludwig van Beethoven"},works:[
+     {id:"16001",title:"Piano Sonata no. 13 in E flat major, op. 27, no. 1",genre:"Keyboard"},
+     {id:"16002",title:"Piano Sonata no. 14 in C sharp minor, op. 27, no. 2",genre:"Keyboard"},
+     {id:"16003",title:"Piano Sonata no. 8 in C minor, op. 13",genre:"Keyboard"}
+    ]};
+   }else if(u.includes("/work/detail/")){
+    data={work:{id:"16002",subtitle:"Sonata quasi una fantasia"}};
+   }
+   await route.fulfill({status:200,contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:JSON.stringify(data)});
+  });
+  await worksPage.goto("http://127.0.0.1:"+server.address().port,{waitUntil:"networkidle"});
+  await worksPage.getByRole("button",{name:"Composers",exact:true}).click();
+  await worksPage.getByRole("textbox",{name:"Search composers"}).fill("Beethoven");
+  await worksPage.getByRole("button",{name:/Works · Op/}).click();
+  assert.equal(await worksPage.locator("#worksCatalogueWindow[role=dialog]").count(),1);
+  await worksPage.getByText("3 Open Opus entries").first().waitFor();
+  await worksPage.locator(".works-family-card").filter({hasText:"Op."}).first().click();
+  await worksPage.locator(".works-group-card").filter({hasText:"Op. 27"}).first().click();
+  assert.ok(await worksPage.locator(".works-work-card").count()>=2);
+  await worksPage.locator(".works-work-card").filter({hasText:"Moonlight"}).click();
+  assert.ok(await worksPage.locator(".works-detail").getByText("I. Adagio sostenuto").count());
+  assert.ok(await worksPage.locator(".works-detail").getByText("III. Presto agitato").count());
+  assert.equal(await worksPage.evaluate(()=>document.body.classList.contains("reader-window-open")),true);
+  await worksPage.locator(".works-window-done").click();
+  assert.equal(await worksPage.locator("#worksCatalogueWindow").count(),0);
+  assert.ok(await worksPage.locator("#readingWindow").count());
+  await worksPage.locator("#readingWindow .reading-window-close").click();
+  assert.ok(await worksPage.getByRole("textbox",{name:"Search composers"}).count());
+  await worksPage.close();
+  console.log("Opus hierarchy and nested iPhone window browser test passed");
   console.log("Chromium mobile smoke test passed");
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error);server.close();process.exitCode=1});
