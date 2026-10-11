@@ -1,5 +1,5 @@
 "use strict";
-const CACHE="pfa-history-v12";
+const CACHE="pfa-history-v13";
 const ASSETS=["./","./index.html","./chapters-eras.js","./chapters-composers-1.js","./chapters-composers-2.js","./chapters-composers-3.js","./chapters-composers-4.js","./extended-context.js","./composer-expansion.js","./advanced-musicology.js","./reader.js","./portraits.js","./composer-portraits.webp?v=9","./app.js","./history.js","./manifest.webmanifest","./icon.svg"];
 self.addEventListener("install",event=>{
  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
