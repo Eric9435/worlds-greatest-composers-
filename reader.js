@@ -24,10 +24,10 @@ function chapterMarkup(kind,record,study) {
   return '<article id="detail" class="reading-article" tabindex="-1">'+
     '<div class="reader-tools"><button type="button" class="secondary" onclick="closeReading()">← '+t("Back to library","စာရင်းသို့ပြန်ရန်")+'</button>'+
     '<span class="muted">'+t("Long-form study","အသေးစိတ်သင်ခန်းစာ")+'</span></div>'+
-    '<header class="reading-header"><span class="eyebrow">'+t(isEra?"HISTORICAL CHAPTER":"COMPOSER CHAPTER",isEra?"သမိုင်းခေတ် သင်ခန်းစာ":"တေးရေးဆရာ သင်ခန်းစာ")+'</span>'+
+    '<header class="reading-header '+(isEra?'':'composer-reading-header')+'">'+(isEra?'':composerPortrait(record.name,'hero'))+'<div class="reading-heading"><span class="eyebrow">'+t(isEra?"HISTORICAL CHAPTER":"COMPOSER CHAPTER",isEra?"သမိုင်းခေတ် သင်ခန်းစာ":"တေးရေးဆရာ သင်ခန်းစာ")+'</span>'+
     '<h2>'+title+'</h2><p>'+metadata+'</p>'+
     '<p class="reading-intro">'+esc(isEra?t(record.descEn,record.descMy):t(record.en,record.descMy))+'</p>'+
-    '<div class="reading-meta">'+study.sections.length+' '+t("study sections","အပိုင်း")+' · '+t("English / Myanmar","အင်္ဂလိပ် / မြန်မာ")+'</div></header>'+
+    '<div class="reading-meta">'+study.sections.length+' '+t("study sections","အပိုင်း")+' · '+t("English / Myanmar","အင်္ဂလိပ် / မြန်မာ")+'</div></div></header>'+
     '<div class="reader-columns"><aside class="reader-outline" aria-label="Chapter contents"><h3>'+t("In this chapter","ဤသင်ခန်းစာတွင်")+'</h3>'+outline+'</aside>'+
     '<div class="reader-main">'+sections+relatedMarkup+
     '<section class="chapter-sources"><h3>'+t("Academic reading and verification","ပညာရပ်ဆိုင်ရာ ကိုးကားရင်းမြစ်များ")+'</h3>'+
