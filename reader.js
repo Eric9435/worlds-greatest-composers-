@@ -5,15 +5,16 @@ function chapterMarkup(kind,record,study) {
   const title=esc(isEra?t(record.en,record.my):t(record.name,record.my));
   const metadata=esc(isEra?record.dates:record.years+" · "+t((eras.find(e=>e.id===record.era)||{}).en||"", (eras.find(e=>e.id===record.era)||{}).my||""));
   const outline=study.sections.concat(kind==='composer'?composerBiographicalSections(record).concat(composerStudyExpansion(record,study),advancedComposerLaboratory(record)):[]).map((section,i)=>
-    '<a href="#chapter-section-'+i+'">'+(i+1)+'. '+esc(t(section[0],section[1]))+'</a>'
+    '<button type="button" class="reader-topic-link" data-topic-button="'+i+'" aria-pressed="'+(i===0?'true':'false')+'" onclick="selectReadingTopic('+i+')">'+(i+1)+'. '+esc(t(section[0],section[1]))+'</button>'
   ).join("");
   const enrichedSections=study.sections.concat(kind==='composer'?composerBiographicalSections(record).concat(composerStudyExpansion(record,study),advancedComposerLaboratory(record)):[]);
   const sections=enrichedSections.map((section,i)=>
-    '<section class="chapter-section" id="chapter-section-'+i+'">'+
+    '<section class="chapter-section reader-topic-section '+(i===0?'':'is-inactive-topic')+'" data-topic-index="'+i+'" id="chapter-section-'+i+'">'+
     '<span class="section-number">'+String(i+1).padStart(2,"0")+'</span>'+
     '<h3>'+esc(t(section[0],section[1]))+'</h3>'+
     '<p>'+esc(t(section[2],section[3]))+'</p></section>'
   ).join("");
+  const pickerOptions=enrichedSections.map((section,i)=>'<option value="'+i+'">'+(i+1)+'. '+esc(t(section[0],section[1]))+'</option>').join("");
   const related=isEra?composers.filter(c=>c.era===record.id).slice(0,18):[];
   const relatedMarkup=!isEra?"":'<section class="chapter-related"><h3>'+t("Composers in this period","ဤခေတ်မှ တေးရေးဆရာများ")+'</h3>'+
     (related.length?'<div class="related-list">'+related.map(c=>
@@ -29,6 +30,7 @@ function chapterMarkup(kind,record,study) {
     '<h2>'+title+'</h2><p>'+metadata+'</p>'+
     '<p class="reading-intro">'+esc(isEra?t(record.descEn,record.descMy):t(record.en,record.descMy))+'</p>'+
     '<div class="reading-meta">'+enrichedSections.length+' '+t("study sections","အပိုင်း")+' · '+t("English / Myanmar","အင်္ဂလိပ် / မြန်မာ")+'</div></div></header>'+
+    '<div class="reader-topic-picker"><label for="readerTopicSelect">'+t("Choose topic — opens here without scrolling","ခေါင်းစဉ်ရွေးပါ — ဆွဲချစရာမလိုဘဲ ဤနေရာတွင်ဖွင့်မည်")+'</label><select id="readerTopicSelect" onchange="selectReadingTopic(Number(this.value))">'+pickerOptions+'</select></div>'+
     '<div class="reader-columns"><aside class="reader-outline" aria-label="Chapter contents"><h3>'+t("In this chapter","ဤသင်ခန်းစာတွင်")+'</h3>'+outline+'</aside>'+
     '<div class="reader-main">'+sections+extendedContextMarkup(kind,record)+(isEra?'':composerStudySupplement(record))+relatedMarkup+
     '<section class="chapter-sources"><h3>'+t("Academic reading and verification","ပညာရပ်ဆိုင်ရာ ကိုးကားရင်းမြစ်များ")+'</h3>'+
@@ -39,28 +41,54 @@ function chapterMarkup(kind,record,study) {
 }
 /* Native-style full-screen reading window: the library never scrolls away. */
 let readingReturnFocus=null;
+let activeReaderTopic=0;
+let readingOrigin=null;
 function openReadingWindow(){
  const detail=document.getElementById("detail");
  if(!detail||typeof document.createElement!=="function")return;
- readingReturnFocus=document.activeElement;
  let modal=document.getElementById("readingWindow");
  if(!modal){
+   readingReturnFocus=document.activeElement;
    modal=document.createElement("div");
    modal.id="readingWindow";
    modal.className="reading-window";
    modal.setAttribute("role","dialog");
    modal.setAttribute("aria-modal","true");
    modal.setAttribute("aria-label",t("Music history reader","ဂီတသမိုင်းဖတ်ရှုရန်"));
-   modal.innerHTML='<div class="reading-window-backdrop"></div><div class="reading-window-panel"><div class="reading-window-top"><button type="button" class="secondary reading-window-close" onclick="closeReading()" aria-label="'+t("Close reader","စာဖတ်ဝင်းဒိုးပိတ်ရန်")+'">← '+t("Back","ပြန်ရန်")+'</button><span>'+t("Piano For ALL · History Library","Piano For ALL · သမိုင်းစာကြည့်တိုက်")+'</span></div><div class="reading-window-body" id="readingWindowBody" tabindex="-1"></div></div>';
+   modal.innerHTML='<div class="reading-window-backdrop"></div><div class="reading-window-panel"><div class="reading-window-top"><button type="button" class="secondary reading-window-close" onclick="closeReading()" aria-label="'+t("Back to library","စာရင်းသို့ပြန်ရန်")+'">← '+t("Back","ပြန်ရန်")+'</button><span>'+t("Piano For ALL · History Library","Piano For ALL · သမိုင်းစာကြည့်တိုက်")+'</span><div class="reading-lang"><button type="button" onclick="changeReadingLanguage(\'en\')">EN</button><button type="button" onclick="changeReadingLanguage(\'my\')">မြန်မာ</button></div></div><div class="reading-window-body" id="readingWindowBody" tabindex="-1"></div></div>';
    document.body.appendChild(modal);
  }
  modal.querySelector("#readingWindowBody").replaceChildren(detail);
  document.body.classList.add("reader-window-open");
  modal.querySelector("#readingWindowBody").scrollTop=0;
+ selectReadingTopic(activeReaderTopic);
  modal.querySelector(".reading-window-close").focus();
+}
+function selectReadingTopic(index){
+ const article=document.getElementById("detail");
+ if(!article||typeof article.querySelectorAll!=="function")return;
+ const sections=Array.from(article.querySelectorAll(".reader-topic-section"));
+ if(!Number.isInteger(index)||index<0||index>=sections.length)return;
+ activeReaderTopic=index;
+ sections.forEach((el,i)=>el.classList.toggle("is-inactive-topic",i!==index));
+ article.querySelectorAll("[data-topic-button]").forEach(el=>el.setAttribute("aria-pressed",String(Number(el.dataset.topicButton)===index)));
+ const select=article.querySelector("#readerTopicSelect");
+ if(select)select.value=String(index);
+ const body=document.getElementById("readingWindowBody");
+ if(body)body.scrollTop=0;
+}
+function changeReadingLanguage(next){
+ if(next!=="en"&&next!=="my")return;
+ lang=next;
+ try{localStorage.setItem("pfa-lang",next)}catch(_){}
+ render();
+ openReadingWindow();
+ selectReadingTopic(activeReaderTopic);
 }
 function showEra(id){
  if(!eraChapters[id])return;
+ if(!document.getElementById("readingWindow"))readingOrigin={tab,eraFilter,query};
+ activeReaderTopic=0;
  selectedEra=id;selected=null;
  renderContent();
  openReadingWindow();
@@ -68,6 +96,8 @@ function showEra(id){
 function showComposer(id){
  const found=composers.find(c=>c.id===Number(id));
  if(!found)return;
+ if(!document.getElementById("readingWindow"))readingOrigin={tab,eraFilter,query};
+ activeReaderTopic=0;
  tab="composers";selected=found.id;selectedEra=null;
  render();
  openReadingWindow();
@@ -77,7 +107,9 @@ function closeReading(){
  if(modal)modal.remove();
  document.body?.classList?.remove("reader-window-open");
  selected=null;selectedEra=null;
- renderContent();
+ activeReaderTopic=0;
+ if(readingOrigin){tab=readingOrigin.tab;eraFilter=readingOrigin.eraFilter;query=readingOrigin.query;readingOrigin=null;}
+ render();
  if(readingReturnFocus&&readingReturnFocus.isConnected)readingReturnFocus.focus();
  readingReturnFocus=null;
 }
