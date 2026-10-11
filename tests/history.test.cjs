@@ -126,7 +126,7 @@ test("ten composer illustrations map to matching names without collisions",()=>{
  for(const name of names){
   assert.equal(vm.runInContext("composers.filter(c=>c.name==="+JSON.stringify(name)+").length",ctx),1);
   const html=vm.runInContext("composerPortrait("+JSON.stringify(name)+")",ctx);
-  assert.match(html,/class="composer-portrait"/);
+  assert.match(html,/class="composer-portrait composer-portrait-crop"/);
   assert.match(html,/<img class="composer-portrait-sprite"/);
   assert.match(html,/src="\.\/composer-portraits\.webp\?v=9"/);
   assert.match(html,/style="transform:translate\(-\d+%,-\d+%\)"/);
