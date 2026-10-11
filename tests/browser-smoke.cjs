@@ -23,7 +23,7 @@ const server=http.createServer((req,res)=>{
   await page.goto("http://127.0.0.1:"+server.address().port,{waitUntil:"networkidle"});
   assert.equal(await page.locator("#composerCount").textContent(),"52");
   assert.equal(await page.locator("#eraCount").textContent(),"8");
-  await page.getByRole("button",{name:"Composers"}).click();
+  await page.getByRole("button",{name:"Composers",exact:true}).click();
   await page.getByRole("textbox",{name:"Search composers"}).fill("Mozart");
   assert.equal(await page.getByText("Johann Sebastian Bach").count(),0);
   assert.ok(await page.getByText("Wolfgang Amadeus Mozart").count());
