@@ -29,7 +29,7 @@ function chapterMarkup(kind,record,study) {
     '<p class="reading-intro">'+esc(isEra?t(record.descEn,record.descMy):t(record.en,record.descMy))+'</p>'+
     '<div class="reading-meta">'+study.sections.length+' '+t("study sections","အပိုင်း")+' · '+t("English / Myanmar","အင်္ဂလိပ် / မြန်မာ")+'</div></div></header>'+
     '<div class="reader-columns"><aside class="reader-outline" aria-label="Chapter contents"><h3>'+t("In this chapter","ဤသင်ခန်းစာတွင်")+'</h3>'+outline+'</aside>'+
-    '<div class="reader-main">'+sections+relatedMarkup+
+    '<div class="reader-main">'+sections+extendedContextMarkup(kind,record)+relatedMarkup+
     '<section class="chapter-sources"><h3>'+t("Academic reading and verification","ပညာရပ်ဆိုင်ရာ ကိုးကားရင်းမြစ်များ")+'</h3>'+
     '<p>'+t("Original educational synthesis. These external resources provide historical context and further reading; they are not page-level citations for every statement.","ဤအကြောင်းအရာသည် ကိုယ်ပိုင်ရေးသားထားသော ပညာရေးရှင်းလင်းချက်ဖြစ်သည်။ အောက်ပါရင်းမြစ်များသည် ဆက်လက်လေ့လာရန်ဖြစ်ပြီး စာကြောင်းတိုင်းအတွက် တိုက်ရိုက်စာမျက်နှာကိုးကားချက် မဟုတ်ပါ။")+'</p>'+
     '<ul>'+sourceLinks+'</ul></section>'+
