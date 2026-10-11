@@ -368,7 +368,7 @@ function drawWorksCatalogue(keepFocus=false){
  '</div><div class="works-catalogue-controls"><input id="worksCatalogueSearch" type="search" autocomplete="off" aria-label="'+catalogLabel("Search works and opus numbers","လက်ရာနှင့် Opus နံပါတ်ရှာရန်")+'" placeholder="'+placeholder+'" value="'+escCatalogue(s.search)+'" oninput="catalogueChangeSearch(this.value)"/>'+
  '<select id="worksCatalogueGenre" aria-label="'+catalogLabel("Filter genre","အမျိုးအစားရွေးရန်")+'" onchange="catalogueSetGenre(this.value)">'+searchOptions+'</select></div>'+
  '<div class="works-catalogue-inner"><h3>'+escCatalogue(title)+'</h3>'+body+
- '<div class="works-catalogue-bottom"><p class="works-disclaimer">'+escCatalogue(subinfo)+'</p><p>'+escCatalogue(s.message)+'</p>'
+ '<div class="works-catalogue-bottom"><p class="works-disclaimer">'+escCatalogue(subinfo)+'</p><p>'+escCatalogue(s.message)+'</p>'+
  '<a target="_blank" rel="noopener noreferrer" href="'+wikiComposerWorksUrl(compose)+'">'+catalogLabel("IMSLP ↗","IMSLP ↗")+'</a>'+
  '<a target="_blank" rel="noopener noreferrer" href="https://github.com/openopus-org/openopus_api/blob/master/USAGE.md">Open Opus API · '+catalogLabel("About","အကြောင်း")+' ↗</a></div></div></div>';
  if(keepFocus){const f=el.querySelector("#worksCatalogueSearch");f?.focus();f?.setSelectionRange(s.search.length,s.search.length);}
