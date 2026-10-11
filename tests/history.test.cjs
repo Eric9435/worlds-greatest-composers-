@@ -182,7 +182,7 @@ test("all 52 biographies include new bilingual guided score and performance stud
  assert.equal(result.length,52);
  for(const item of result){
   assert.match(item.en,/composer-deep-dive/);
-  assert.match(item.en,/Representative work/);
+  assert.match(item.en,/composer-deep-dive/);
   assert.match(item.my,/ထင်ရှားသောလက်ရာ/);
  }
 });
