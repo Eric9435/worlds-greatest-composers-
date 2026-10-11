@@ -113,7 +113,7 @@ test("read a complete era chapter and return to timeline",()=>{
  assert.match(els.content.innerHTML,/Academic reading and verification/);
  assert.match(els.content.innerHTML,/Return to chapter library/);
  vm.runInContext('closeReading()',ctx);
- assert.match(els.content.innerHTML,/Music through history/);
+ assert.match(els.content.innerHTML,/<h2>Eras<\/h2>/);
 });
 test("read a full composer chapter in both languages",()=>{
  const {ctx,els}=startApp();
@@ -327,4 +327,19 @@ test("offline collections preserve all Chopin Op. 10/25 études and Op. 28 prelu
  assert.deepEqual([...groups],[12,12,24]);
  const items=vm.runInContext('groupsForFamily(localCatalogueWorks(composers.find(c=>c.name==="Robert Schumann")),"Op.").find(x=>x[0]==="Op. 15")[1].length',ctx);
  assert.equal(items,13);
+});
+
+test("production UI has clean bilingual navigation without instructional labels",()=>{
+ const reader=read("reader.js"),works=read("works-catalogue.js"),app=read("app.js"),html=read("index.html"),css=read("app-theme.css"),sw=read("sw.js");
+ for(const sample of [reader,works,app]){
+  assert.doesNotMatch(sample,/Choose topic — opens here without scrolling|ခေါင်းစဉ်ရွေးပါ — ဆွဲချစရာမလိုဘဲ|Select Op\., BWV, K\., D\., etc\. → number → individual work\.|Op\., BWV, K\., D\. စသည်ကိုရွေးပြီး နံပါတ် →/);
+ }
+ assert.match(reader,/t\("Chapters","အခန်းများ"\)/);
+ assert.match(reader,/t\("Works","လက်ရာများ"\)/);
+ assert.match(app,/t\("Music History","ဂီတသမိုင်း"\)/);
+ assert.match(html,/href="\.\/app-theme\.css"/);
+ assert.match(sw,/\.\/app-theme\.css/);
+ assert.match(css,/prefers-reduced-motion/);
+ assert.match(css,/safe-area-inset-top/);
+ assert.doesNotMatch(html,/Educational original summaries ·/);
 });
