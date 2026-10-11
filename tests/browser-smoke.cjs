@@ -30,6 +30,7 @@ const server=http.createServer((req,res)=>{
   await bachTile.click();
   assert.ok(await page.getByRole("heading",{name:"Johann Sebastian Bach"}).count());
   await page.getByRole("button",{name:"Back to library"}).click();
+  await page.getByRole("button",{name:"Timeline"}).click();
   await page.getByRole("button",{name:"Read full chapter"}).first().click();
   assert.ok(await page.getByRole("heading",{name:"Sources and the limits of evidence"}).count());
   assert.ok(await page.getByText("Music existed long before surviving musical notation.",{exact:false}).count());
