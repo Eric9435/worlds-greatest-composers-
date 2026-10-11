@@ -40,17 +40,17 @@ function showEra(id){
   if(!eraChapters[id])return;
   tab="eras";selectedEra=id;selected=null;
   renderContent();
-  document.getElementById("detail")?.scrollIntoView({behavior:"smooth",block:"start"});
+  document.getElementById("detail")?.scrollIntoView?.({behavior:"smooth",block:"start"});
 }
 function showComposer(id){
   const found=composers.find(c=>c.id===Number(id));
   if(!found)return;
   tab="composers";selected=found.id;selectedEra=null;query="";eraFilter="all";
   render();
-  document.getElementById("detail")?.scrollIntoView({behavior:"smooth",block:"start"});
+  document.getElementById("detail")?.scrollIntoView?.({behavior:"smooth",block:"start"});
 }
 function closeReading(){
   selected=null;selectedEra=null;
   renderContent();
-  document.getElementById("content")?.scrollIntoView({behavior:"smooth",block:"start"});
+  document.getElementById("content")?.scrollIntoView?.({behavior:"smooth",block:"start"});
 }
