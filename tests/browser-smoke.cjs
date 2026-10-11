@@ -86,6 +86,39 @@ const server=http.createServer((req,res)=>{
   await page.getByRole("button",{name:"ကိုးကားချက်"}).click();
   assert.ok(await page.getByText("Open Music Theory (Viva Pressbooks)").count());
   assert.deepEqual(errors,[]);
+  // Exercise online high-resolution portrait enrichment without depending on Wikimedia uptime.
+  const portraitPage=await browser.newPage({viewport:{width:390,height:844}});
+  await portraitPage.route("https://www.wikidata.org/w/api.php?**",async route=>{
+   await route.fulfill({status:200,contentType:"application/json",headers:{"access-control-allow-origin":"*"},
+    body:JSON.stringify({entities:{Q1339:{sitelinks:{enwiki:{title:"Johann Sebastian Bach"}},
+     claims:{P18:[{mainsnak:{datavalue:{value:"Bach-test.png"}}}]}}}})});
+  });
+  await portraitPage.route("https://commons.wikimedia.org/w/api.php?**",async route=>{
+   await route.fulfill({status:200,contentType:"application/json",headers:{"access-control-allow-origin":"*"},
+    body:JSON.stringify({query:{pages:{12:{title:"File:Bach-test.png",imageinfo:[{
+      thumburl:"https://upload.wikimedia.org/mock/Bach-test.png",
+      descriptionurl:"https://commons.wikimedia.org/wiki/File:Bach-test.png",
+      extmetadata:{
+       LicenseShortName:{value:"CC BY-SA 4.0"},
+       Artist:{value:"Example Artist"},
+       LicenseUrl:{value:"https://creativecommons.org/licenses/by-sa/4.0/"}
+      }
+     }]}}}})});
+  });
+  await portraitPage.route("https://upload.wikimedia.org/**",async route=>{
+   await route.fulfill({status:200,contentType:"image/svg+xml",body:fs.readFileSync(path.join(root,"icon.svg"))});
+  });
+  await portraitPage.goto("http://127.0.0.1:"+server.address().port,{waitUntil:"networkidle"});
+  await portraitPage.getByRole("button",{name:"Read about Johann Sebastian Bach"}).scrollIntoViewIfNeeded();
+  await portraitPage.waitForFunction(()=>!!document.querySelector('.composer-visual[data-composer="Johann Sebastian Bach"] .commons-photo-loaded'),null,{timeout:12000});
+  const credited=portraitPage.locator('.composer-visual[data-composer="Johann Sebastian Bach"] .commons-portrait-credit');
+  assert.ok(await credited.count(),"Wikimedia image credit should be present");
+  assert.match(await credited.first().textContent(),/Example Artist/);
+  await portraitPage.getByRole("button",{name:"Read about Johann Sebastian Bach"}).click();
+  await portraitPage.locator("#readingWindow .commons-portrait-source").first().waitFor({timeout:10000});
+  assert.match(await portraitPage.locator("#readingWindow .commons-portrait-license").first().getAttribute("href"),/creativecommons.org\/licenses\/by-sa\/4.0/);
+  await portraitPage.close();
+  console.log("Attribution and remote-image fallback integration passed");
   console.log("Chromium mobile smoke test passed");
  }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error);server.close();process.exitCode=1});
