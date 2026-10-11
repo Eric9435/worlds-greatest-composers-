@@ -161,7 +161,7 @@ if(typeof document!=="undefined"&&typeof document.addEventListener==="function")
  if(!modal)return;
  if(event.key==="Escape"){event.preventDefault();if(document.getElementById("worksCatalogueWindow"))closeWorksCatalogue();else closeReading();return}
  if(event.key!=="Tab")return;
- const focusable=Array.from(modal.querySelectorAll('button:not([disabled]),a[href]:not([hidden]),input:not([disabled]),select:not([disabled]),[tabindex="0"]')).filter(el=>el.getClientRects().length);
+ const focusable=Array.from((document.getElementById('worksCatalogueWindow')||modal).querySelectorAll('button:not([disabled]),a[href]:not([hidden]),input:not([disabled]),select:not([disabled]),[tabindex="0"]')).filter(el=>el.getClientRects().length);
  if(!focusable.length)return;
  const first=focusable[0],last=focusable[focusable.length-1];
  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
