@@ -316,3 +316,11 @@ test("catalogue provides movement detail only when explicitly documented",()=>{
  const none=vm.runInContext('catalogueSupplement["Frédéric Chopin"]',ctx);
  assert.ok(none.every(w=>w.parts===undefined));
 });
+
+test("offline collections preserve all Chopin Op. 10/25 études and Op. 28 preludes as separately numbered pieces",()=>{
+ const {ctx}=startApp();
+ const groups=vm.runInContext('["Op. 10","Op. 25","Op. 28"].map(g=>groupsForFamily(localCatalogueWorks(composers.find(c=>c.name==="Frédéric Chopin")),"Op.").find(x=>x[0]===g)?.[1]?.length||0)',ctx);
+ assert.deepEqual([...groups],[12,12,24]);
+ const items=vm.runInContext('groupsForFamily(localCatalogueWorks(composers.find(c=>c.name==="Robert Schumann")),"Op.").find(x=>x[0]==="Op. 15")[1].length',ctx);
+ assert.equal(items,13);
+});
