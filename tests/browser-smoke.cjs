@@ -151,6 +151,13 @@ const server=http.createServer((req,res)=>{
   await worksPage.locator(".works-work-card").filter({hasText:"Moonlight"}).click();
   assert.ok(await worksPage.locator(".works-detail").getByText("I. Adagio sostenuto").count());
   assert.ok(await worksPage.locator(".works-detail").getByText("III. Presto agitato").count());
+  await worksPage.locator("#worksCatalogueWindow .works-language-toolbar button").filter({hasText:"မြန်မာ"}).click();
+  assert.equal(await worksPage.locator("html").getAttribute("lang"),"my");
+  assert.equal(await worksPage.locator("#worksCatalogueWindow .works-detail").count(),1);
+  await worksPage.locator("#worksCatalogueWindow .works-language-toolbar button").filter({hasText:"EN"}).click();
+  assert.equal(await worksPage.locator("html").getAttribute("lang"),"en");
+  assert.equal(await worksPage.locator("#readingWindowBody").getAttribute("inert"),"");
+
   assert.equal(await worksPage.evaluate(()=>document.body.classList.contains("reader-window-open")),true);
   await worksPage.locator(".works-window-done").click();
   assert.equal(await worksPage.locator("#worksCatalogueWindow").count(),0);
