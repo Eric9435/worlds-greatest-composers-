@@ -352,3 +352,103 @@ const composerChapters = {
     ]
   }
 };
+
+/* Advanced listening and reception sections; original educational text. */
+for(const [name,analysisEn,analysisMy,legacyEn,legacyMy] of [
+  [
+    "Hildegard von Bingen",
+    "Compare the dramatic speech of the Virtues in Ordo Virtutum with a freely unfolding antiphon. Listen for where a long melisma moves the phrase beyond ordinary verbal accent; the melodic contour creates a devotional emphasis rather than a modern functional cadence. Record three phrases and describe their ranges without forcing them into major/minor tonality.",
+    "Ordo Virtutum ၏ ဇာတ်ကောင်သီဆိုမှုနှင့် antiphon သီချင်းကို နှိုင်းယှဉ်ပါ။ Melisma ရှည်သောနေရာတွင် စာသားအလေးပေးပုံကို လေ့လာပါ။ Phrase သုံးခု၏ range ကို ရေးမှတ်ပြီး ခေတ်သစ် major/minor key ဖြင့် အတင်းမခွဲခြားပါနှင့်။",
+    "Her surviving music complicates an oversimplified account of medieval women as absent from formal composition. Nevertheless, documentation of one exceptional abbess cannot establish the everyday practices of all religious women. Ask which archives were preserved, by whom, and whose music was never written down.",
+    "သူမ၏လက်ရာများသည် အလယ်ခေတ်အမျိုးသမီးများ ဂီတရေးဖွဲ့မှုတွင် မပါဝင်ခဲ့ဟူသော အမြင်ကို ပြန်လည်စဉ်းစားစေသည်။ သို့သော် တစ်ဦး၏မှတ်တမ်းဖြင့် အမျိုးသမီးအားလုံး၏ဘဝကို မကိုယ်စားပြုနိုင်ပါ။ မည်သူ့စာမူများသာ ကျန်ရှိခဲ့သလဲ စဉ်းစားပါ။"
+  ],
+  [
+    "Guillaume de Machaut",
+    "In the Mass, listen for structural differences between the Kyrie and a more syllabic text setting. Some passages are governed by repeated rhythmic plans while others proceed with greater surface flexibility. Try drawing a timeline for each voice: where does it enter, sustain a pitch, rest or converge with another voice?",
+    "Mass ၏ Kyrie နှင့် syllabic သီဆိုမှုများကို နှိုင်းယှဉ်ပါ။ အသံလိုင်းတစ်ခုစီ ဝင်ချိန်၊ note ရှည်ချိန်၊ rest နှင့် cadence ကို timeline ဖြင့် ရေးဆွဲနိုင်သည်။ Repeated rhythm နှင့် freely moving line တို့ကို ခွဲခြားနားထောင်ပါ။",
+    "Machaut's work demonstrates that poet-composers could organize their output as an authored collection, not merely anonymous practice. At the same time, historians reconstruct patronage and performance from incomplete surviving materials. Study differences between modern transcriptions and original notation before inferring the intended sound.",
+    "Machaut သည် ကဗျာနှင့် ဂီတကို စုစည်းထိန်းသိမ်းသော creator ၏ ဥပမာဖြစ်သည်။ သို့ရာတွင် performance ကို ခေတ်သစ် transcription မှ တိုက်ရိုက်မခန့်မှန်းသင့်ပါ။ မူရင်း notation နှင့် ယနေ့တီးခတ်ပုံကို နှိုင်းယှဉ်လေ့လာပါ။"
+  ],
+  [
+    "Josquin des Prez",
+    "At the start of Ave Maria … virgo serena, mark each entrance of the opening phrase. Notice how a pair of voices can imitate a figure before another pair continues the idea. By the time all lines participate, musical texture can communicate both motion and a point of arrival. A score helps clarify relationships that the ear may initially miss.",
+    "Ave Maria ၏ အစပိုင်းတွင် opening phrase ကို အသံလိုင်းတစ်ခုစီ ဘယ်လိုအတုယူဝင်လာသလဲ မှတ်သားပါ။ အသံလိုင်းနှစ်လိုင်းစီ အပြန်အလှန် imitation လုပ်ပုံကို score နှင့် ချိတ်ဆက်လေ့လာပါ။ နောက်ဆုံး cadence ကို နားဖြင့် ရှာကြည့်ပါ။",
+    "Josquin's reputation became a benchmark for later writers and performers, but famous names attracted doubtful attributions. A responsible history distinguishes secure works from disputed examples and studies how printing shaped the idea of individual musical genius. The sound of the work remains important even where the author is uncertain.",
+    "Josquin ၏နာမည်ကြီးမှုကြောင့် သူမရေးခဲ့သော လက်ရာများပင် သူ့အမည်ဖြင့် သတ်မှတ်ခံရနိုင်သည်။ Music printing က composer ၏ဂုဏ်သတင်းကို ဘယ်လိုဖန်တီးပေးသလဲ စဉ်းစားပါ။ Attribution မသေချာသောလက်ရာများကို သတိဖြင့်ကိုးကားပါ။"
+  ],
+  [
+    "Giovanni Pierluigi da Palestrina",
+    "Take a short segment of Sicut cervus and identify stepwise motion, leaps and dissonant suspensions. Observe that not every simultaneous sound functions as a triadic chord with a harmonic label. Notice the pacing of imitation and the balance between contrapuntal independence and the listener's ability to hear a textual phrase.",
+    "Sicut cervus ၏ phrase တစ်ခုတွင် stepwise motion၊ leap နှင့် suspension များကို ခွဲခြားပါ။ တစ်ပြိုင်နက်ကြားရသော note အားလုံးကို functional chord label ဖြင့် မသတ်မှတ်သင့်ပါ။ Imitation နှင့် စာသားရှင်းလင်းမှုကြား ဟန်ချက်ကို လေ့လာပါ။",
+    "The later textbook 'Palestrina style' is a historical reception of his practice, not a complete description of it. Counterpoint students can learn from his dissonance handling while recognizing that modern exercises often simplify actual sixteenth-century repertoire. Avoid repeating the unfounded claim that he single-handedly rescued polyphony.",
+    "Palestrina style ဟူသော သင်ကြားရေးစည်းမျဉ်းများသည် မူရင်းလက်ရာထက် ပိုမိုရိုးရှင်းနိုင်သည်။ Dissonance ဆိုင်ရာ နည်းများကို လေ့လာနိုင်သော်လည်း polyphony ကို တစ်ဦးတည်းက ကယ်တင်ခဲ့သည်ဟူသော ပုံပြင်ကို အမှန်တရားအဖြစ် မပြောသင့်ပါ။"
+  ],
+  [
+    "Claudio Monteverdi",
+    "Compare a passage from an early madrigal with a recitative in L'Orfeo. Ask whether the music follows a repeating pulse, how continuo supports speech-like singing, and where harmonic tension marks a dramatic change. Map the alternation between solo utterance, instrumental ritornello and more sustained ensemble writing.",
+    "Madrigal အစောပိုင်းလက်ရာနှင့် L'Orfeo recitative ကို နှိုင်းယှဉ်ပါ။ Continuo က စကားပြောဆန်သီဆိုမှုကို ဘယ်လိုထောက်ပံ့သလဲ စူးစမ်းပါ။ Solo၊ ritornello နှင့် ensemble အကြား contrast ကို timeline ဖြင့် လေ့လာပါ။",
+    "Monteverdi's career makes a neat Renaissance-to-Baroque 'break' historically misleading. Musicians inherited existing counterpoint while adding new dramatic techniques. Discuss how performance settings, theatrical technology and language influenced what could be composed; changes in institutions were as consequential as changes in harmony.",
+    "Monteverdi သည် Renaissance မှ Baroque သို့ ချက်ချင်းပြတ်တောက်ပြောင်းလဲခဲ့ခြင်းမဟုတ်ကြောင်း ပြသသည်။ Counterpoint အဟောင်းနှင့် opera drama အသစ်ကို ပေါင်းစပ်သုံးစွဲခဲ့သည်။ Theatre နှင့် language တို့က composition ကို မည်သို့သက်ရောက်စေသလဲ သုံးသပ်ပါ။"
+  ],
+  [
+    "Antonio Vivaldi",
+    "Listen to the first movement of 'Spring' and mark the returns of the opening ritornello. Then identify episodes that depict birds, streams or changing weather through gesture and instrumental treatment. In a different concerto, test whether ritornello episodes follow the same pattern or modulate through contrasting keys.",
+    "Spring ၏ opening ritornello ပြန်ဝင်လာသည့်နေရာများကို မှတ်သားပါ။ Birdsong၊ stream နှင့် storm ကို violin gesture ဖြင့် ပုံဖော်ထားပုံကို လေ့လာပါ။ အခြား concerto တစ်ပုဒ်တွင် key နှင့် ritornello အရှည်ကွာခြားမှုကို နှိုင်းယှဉ်ပါ။",
+    "Vivaldi's concertos influenced composers well beyond Venice, among them Bach, who arranged several Italian concertos for keyboard. His professional work at the Pietà is also a reminder of the important role of female performers and training institutions in musical history. Do not reduce his varied output to the four seasonal concertos.",
+    "Vivaldi concerto များသည် Bach အပါအဝင် ဥရောပတေးရေးဆရာများကို သက်ရောက်စေခဲ့သည်။ Pietà ရှိ အမျိုးသမီးဂီတပညာရေးသည် သမိုင်းအတွက် အရေးပါသည်။ သူ၏လက်ရာများကို The Four Seasons လေးပုဒ်တည်းဖြင့် မသတ်မှတ်သင့်ပါ။"
+  ],
+  [
+    "Johann Sebastian Bach",
+    "For one fugue from The Well-Tempered Clavier, write down the subject's opening intervals and rhythm; locate later entries and identify episodes that develop fragments. Compare a two-part invention with a chorale prelude to see how the same composer's techniques serve teaching and devotion. Listen for voice independence before drawing chord symbols.",
+    "Well-Tempered Clavier fugue တစ်ပုဒ်မှ subject interval နှင့် rhythm ကို ရေးမှတ်ပါ။ နောက်ထပ်ဝင်လာသော subject နှင့် episode အကြား ကွာခြားချက်ကို လေ့လာပါ။ Invention နှင့် chorale prelude ကို နှိုင်းယှဉ်ကာ voice independence ကို စူးစမ်းပါ။",
+    "Bach became a central figure in later histories partly through nineteenth-century revival and scholarship; that later prominence should not be projected unchanged onto his lifetime. Instrument choices, tuning, articulation and ornamentation remain debated performance questions. Understanding these contexts can make a modern piano interpretation more thoughtful.",
+    "Bach ၏ဂုဏ်သတင်းသည် ၁၉ ရာစု ပြန်လည်ဖျော်ဖြေမှုနှင့် သုတေသနကြောင့် ပိုမိုကျယ်ပြန့်လာသည်။ Tuning၊ articulation နှင့် ornamentation တို့တွင် interpretation မတူနိုင်သည်။ Piano ခေတ်သစ်ဖြင့်တီးရာတွင် historical context ကို သတိထားပါ။"
+  ],
+  [
+    "George Frideric Handel",
+    "Compare the architecture of a da capo aria from an opera with the choral writing of Messiah. In an ABA aria, note where the returning opening material may allow performer ornamentation. In a chorus, trace the staggered entrance of a subject and moments of more direct homophonic delivery. Ask how text repetition intensifies public rhetoric.",
+    "Da capo aria (ABA) နှင့် Messiah chorus ကို နှိုင်းယှဉ်ပါ။ A section ပြန်လာချိန်တွင် ornamentation ထည့်သွင်းနိုင်ပုံနှင့် chorus ၏ imitation/homophony အပြောင်းအလဲကို လေ့လာပါ။ စာသားထပ်ကျော့မှုက drama ကို ဘယ်လိုတိုးစေသလဲ စူးစမ်းပါ။",
+    "Handel adapted to London's audience and business pressures while shaping enduring public musical institutions. A work's original setting could differ markedly from today's large choral performance. Compare the scale and orchestration of historically informed and modern recordings without treating either as a direct transcript of the eighteenth century.",
+    "Handel ၏လက်ရာများသည် London ပရိသတ်နှင့် ဂီတစီးပွားရေးအခြေအနေတို့နှင့် ဆက်စပ်ခဲ့သည်။ ယနေ့ chorus အဖွဲ့ကြီးဖြင့် ဖျော်ဖြေပုံသည် မူရင်းအဖွဲ့အရွယ်အစားနှင့် ကွာခြားနိုင်သည်။ Historical performance နှင့် modern performance များကို နှိုင်းယှဉ်ပါ။"
+  ],
+  [
+    "Joseph Haydn",
+    "In a movement from the Op. 76 quartets, listen for one motive passing between violin, viola and cello while the harmonic background shifts. Compare an exposition to its reprise: are all details repeated, or has the meaning of the theme changed? In Symphony No. 94, analyze the surprise in relation to expectations set by repeated soft phrases.",
+    "Op. 76 quartet ၏ motive ကို violin၊ viola နှင့် cello တို့ ဘယ်လိုအပြန်အလှန်ဖွံ့ဖြိုးသလဲ နားထောင်ပါ။ Exposition နှင့် recapitulation ကို နှိုင်းယှဉ်ပါ။ Surprise Symphony တွင် အေးဆေးသော phrase များနောက်ထပ် forte ပေါ်လာရခြင်းကို စဉ်းစားပါ။",
+    "Haydn's reputation as a 'father' of genres can obscure many earlier contributors. His deeper historical significance lies in sustained experimentation and in the circulation of his works through courts, publishers and public concerts. Investigate how changing patrons and audiences shaped the size and complexity of musical forms.",
+    "Haydn ကို genre တစ်ခု၏ ဖခင်ဟု ခေါ်လေ့ရှိသော်လည်း သူမတိုင်မီ ရေးဖွဲ့သူများကို မမေ့သင့်ပါ။ သူ၏ထူးခြားချက်မှာ form ကို ရှည်လျားစွာ စမ်းသပ်မှုများဖြစ်သည်။ နန်းတွင်းနှင့် public concert အခြေအနေများက ဂီတကို ဘယ်လိုသက်ရောက်စေသလဲ လေ့လာပါ။"
+  ],
+  [
+    "Wolfgang Amadeus Mozart",
+    "Take the Andante of Piano Concerto K. 467 and mark where the solo melody returns, where orchestration changes and how accompaniment maintains the pulse. Contrast this with the finale of the Jupiter Symphony, where melodic ideas combine contrapuntally. For an opera scene, note when simultaneous singing reveals conflicting characters rather than a single shared emotion.",
+    "K. 467 Andante တွင် solo melody ပြန်လာမှု၊ orchestration နှင့် accompaniment pulse ကို မှတ်သားပါ။ Jupiter Symphony finale တွင် melodic idea များ counterpoint ဖြင့် ပေါင်းစပ်ပုံကို လေ့လာပါ။ Opera ensemble တွင် ဇာတ်ကောင်များ၏ ခံစားချက်မတူညီမှုကို တစ်ပြိုင်နက် သီဆိုနိုင်ပုံကို စူးစမ်းပါ။",
+    "The image of Mozart as a miraculous, effortless child genius should be balanced with evidence of training, revision, collaboration and demanding professional work. His operas and concertos were written for concrete performers and occasions. The distinction between apparently spontaneous charm and structural control is one of the most useful ways to study his art.",
+    "Mozart ကို မွေးရာပါပါရမီရှင်အဖြစ်သာ မမြင်ဘဲ ပညာလေ့လာမှု၊ ပြန်လည်ပြင်ဆင်မှုနှင့် အလုပ်ကြိုးစားမှုကိုလည်း ထည့်သွင်းလေ့လာပါ။ Opera နှင့် concerto များကို သီးခြား performer များအတွက် ရေးဖွဲ့ခဲ့သည်။ Melody လှပမှုနှင့် form control နှစ်မျိုးလုံး အရေးပါသည်။"
+  ],
+  [
+    "Ludwig van Beethoven",
+    "Sketch the fifth symphony's opening rhythmic cell and search for related patterns elsewhere in the first movement. Compare its compact opening with the vast formal span of Op. 111, especially the Arietta's variations and gradual rhythmic changes. Notice how altered register, duration and texture can transform familiar material while preserving motivic identity.",
+    "Symphony No. 5 ၏ opening rhythmic cell ကို မှတ်သားပြီး first movement အတွင်း ပြန်လည်ပေါ်လာပုံကို ရှာပါ။ Op. 111 Arietta variation များတွင် rhythm၊ register နှင့် texture ပြောင်းလဲသော်လည်း theme အခြေခံကို ဘယ်လိုထိန်းထားသလဲ နှိုင်းယှဉ်ပါ။",
+    "Beethoven's late works influenced later discussions of individual artistic autonomy, yet his livelihood still depended on patrons, publishing and performing conditions. His deafness affected his life, but it does not provide a simple explanation of every musical innovation. Compare early, middle and late works as overlapping developments, not isolated stylistic boxes.",
+    "Beethoven ၏ အနုပညာသီးခြားလွတ်လပ်မှုကို နောက်ပိုင်းက အထင်ကြီးကြသော်လည်း သူ့ဘဝသည် patron နှင့် publisher များပေါ်လည်း မှီခိုခဲ့သည်။ နားမကြားမှုတစ်ခုတည်းဖြင့် innovation အားလုံးကို မရှင်းလင်းနိုင်ပါ။ Early–middle–late ခေတ်များကို ဆက်သွယ်ဖွံ့ဖြိုးမှုအဖြစ် လေ့လာပါ။"
+  ],
+  [
+    "Franz Schubert",
+    "Choose a song from Winterreise and first read the poem without accompaniment. Then hear how a repeated piano figure changes the atmosphere and how shifts in harmony reveal a different interpretation of familiar words. In Sonata D. 960, pay attention to how broad phrases and surprising bass-register events interact across long spans.",
+    "Winterreise မှ သီချင်းတစ်ပုဒ်၏ ကဗျာကို အရင်ဖတ်ပါ။ နောက်မှ piano repeated figure နှင့် harmony က စာသားအဓိပ္ပာယ်ကို ဘယ်လိုပြောင်းစေသလဲ နားထောင်ပါ။ Sonata D. 960 တွင် melody ရှည်လျားမှုနှင့် bass-register surprise များကို လေ့လာပါ။",
+    "Schubert's posthumous reputation expanded as publishers and performers brought previously neglected works to wider audiences. His intimate Viennese music-making networks matter as much as later concert-hall fame. The boundary between Classical and Romantic is particularly fluid in his output, illustrating limits of rigid period labels.",
+    "Schubert ၏ လက်ရာအချို့သည် ကွယ်လွန်ပြီးမှ ပိုမိုကျယ်ပြန့်စွာ ဖျော်ဖြေခံရသည်။ Vienna ရှိ မိတ်ဆွေဂီတဝိုင်းများသည် သမိုင်းအတွက် အရေးပါသည်။ သူ၏လက်ရာများက Classical နှင့် Romantic ကြား နယ်နိမိတ်ကို တိတိကျကျ ခွဲမရကြောင်း ပြသသည်။"
+  ],
+  [
+    "Frédéric Chopin",
+    "In Ballade No. 1, create a chart of its contrasting lyrical and driven themes, their transformations and the final coda. In an étude, determine the musical phrase beneath a technical pattern rather than practicing notes as pure mechanics. In a nocturne, track the bass line and inner harmonies to understand how rubato can be supported by a stable underlying structure.",
+    "Ballade No. 1 တွင် lyrical theme နှင့် dramatic theme များကို chart ဖြင့် ခွဲခြားပါ။ Étude လေ့ကျင့်ရာတွင် technical pattern အောက်ရှိ phrase ကို ရှာပါ။ Nocturne တွင် rubato နှင့် bass harmony ကို ဘယ်လို ဟန်ချက်ညီစေသလဲ နားထောင်ပါ။",
+    "Chopin changed the artistic status of piano forms such as the étude and mazurka, yet his music remains rooted in specific Polish and Parisian cultural encounters. Performance traditions differ in tempo, ornament and articulation; a historically informed reading tests these decisions against the score and stylistic context. Avoid equating his entire output with delicate sentiment.",
+    "Chopin သည် étude နှင့် mazurka ကို concert music အဆင့်သို့ မြှင့်တင်ခဲ့သည်။ Polish နှင့် Parisian culture နှစ်မျိုးလုံး သက်ရောက်မှုရှိသည်။ Tempo၊ ornament နှင့် articulation ဆိုင်ရာ interpretation များကို score နှင့် နှိုင်းယှဉ်သင့်ပြီး သူ၏ဂီတအားလုံးကို နူးညံ့သော သီချင်းများအဖြစ်သာ မမြင်သင့်ပါ။"
+  ]
+]){
+ const entry=composerChapters[name];
+ if(!entry)throw Error("Study missing: "+name);
+ entry.sections.push(["Close reading and performance practice","လက်ရာအသေးစိတ်နှင့် တီးခတ်ဖော်ပြမှု",analysisEn,analysisMy]);
+ entry.sections.push(["Reception, influence and critical context","သက်ရောက်မှု၊ လက်ခံမှုနှင့် သမိုင်းဆိုင်ရာသုံးသပ်ချက်",legacyEn,legacyMy]);
+}
