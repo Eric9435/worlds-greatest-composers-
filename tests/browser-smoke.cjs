@@ -3,7 +3,7 @@ const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path");
 const root=path.join(__dirname,"..");
-const files=new Set(["index.html","app-theme.css","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","works-catalogue.js","portraits.js","licensed-portraits.js","composer-portraits.webp","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
+const files=new Set(["index.html","app-theme.css","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","works-catalogue.js","portraits.js","licensed-portraits.js","composer-portraits.webp","composer-portraits-42.svg","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
 const server=http.createServer((req,res)=>{
  const file=req.url==="/"?"index.html":decodeURIComponent(req.url.slice(1).split("?")[0]);
  if(!files.has(file)){res.writeHead(404);return res.end();}
@@ -37,6 +37,18 @@ const server=http.createServer((req,res)=>{
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+2),"Mobile layout overflows horizontally");
 
   assert.ok(await page.locator('.composer-visual[data-composer]').count()>30);
+  assert.ok(await page.locator('.era-composer-tile .composer-portrait-illustration').count()>=4,
+    "Early-era composer gallery should have permanent illustrated portraits");
+  const localPortrait=page.locator(".era-composer-tile .composer-portrait-illustration").first();
+  const localImage=await localPortrait.evaluate(async image=>{
+    try{await image.decode()}catch(error){return {error:String(error)}}
+    const frame=image.parentElement.getBoundingClientRect();
+    return {width:image.naturalWidth,height:image.naturalHeight,frameWidth:frame.width,frameHeight:frame.height};
+  });
+  assert.equal(localImage.error,undefined,"SVG portrait failed to load: "+JSON.stringify(localImage));
+  assert.equal(localImage.width,1792);
+  assert.equal(localImage.height,1536);
+  assert.ok(localImage.frameWidth>50&&localImage.frameHeight>50,"Portrait frame is missing");
   const bachTile=page.getByRole("button",{name:"Read about Johann Sebastian Bach"});
   assert.ok(await bachTile.count());
   assert.ok(await bachTile.locator('img.composer-portrait-sprite').count());
@@ -66,6 +78,16 @@ const server=http.createServer((req,res)=>{
   await page.locator("#readingWindow .reading-window-close").click();
   await page.getByRole("button",{name:"EN",exact:true}).click();
   await page.getByRole("button",{name:"Composers",exact:true}).click();
+
+  assert.equal(await page.locator(".composer-gallery-card").count(),52);
+  assert.equal(await page.locator(".composer-gallery-card .composer-portrait-illustration").count(),42);
+  assert.equal(await page.locator(".composer-gallery-card .composer-portrait-sprite").count(),10);
+  const slots=await page.locator(".composer-gallery-card [data-portrait-panel]").evaluateAll(nodes=>nodes.map(node=>Number(node.getAttribute("data-portrait-panel"))));
+  assert.deepEqual([...slots].sort((a,b)=>a-b),Array.from({length:42},(_,i)=>i));
+  const portraitAsset=await page.request.get("http://127.0.0.1:"+server.address().port+"/composer-portraits-42.svg");
+  assert.equal(portraitAsset.status(),200);
+  assert.match(portraitAsset.headers()["content-type"],/image\\/svg\\+xml/);
+  assert.equal((await portraitAsset.text()).match(/<clipPath id="tile/g)?.length,42);
   await page.getByRole("textbox",{name:"Search composers"}).fill("Mozart");
   assert.equal(await page.getByText("Johann Sebastian Bach").count(),0);
   assert.ok(await page.getByText("Wolfgang Amadeus Mozart").count());
