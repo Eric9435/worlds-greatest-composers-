@@ -111,7 +111,7 @@ test("read a complete era chapter and return to timeline",()=>{
  vm.runInContext('showEra("baroque")',ctx);
  assert.match(els.content.innerHTML,/Basso continuo and tonal direction/);
  assert.match(els.content.innerHTML,/Academic reading and verification/);
- assert.match(els.content.innerHTML,/Return to chapter library/);
+ assert.match(els.content.innerHTML,/Back to library/);
  vm.runInContext('closeReading()',ctx);
  assert.match(els.content.innerHTML,/<h2>Eras<\/h2>/);
 });
