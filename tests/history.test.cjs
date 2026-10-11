@@ -89,11 +89,11 @@ test("all 52 distinct composers have genuinely expanded bilingual profiles",()=>
  for(const item of cover){
   unique.add(item.name);
   assert.ok(item.study,item.name+" missing full study");
-  assert.equal(item.study.sections.length,3,item.name);
+  assert.equal(item.study.sections.length,5,item.name);
   const en=item.study.sections.map(s=>s[2]).join(" ");
   const my=item.study.sections.map(s=>s[3]).join(" ");
-  assert.ok(en.length>850,item.name+" English chapter too short");
-  assert.ok(my.length>500,item.name+" Myanmar chapter too short");
+  assert.ok(en.length>1250,item.name+" English chapter too short");
+  assert.ok(my.length>800,item.name+" Myanmar chapter too short");
  }
  assert.equal(unique.size,52);
 });
