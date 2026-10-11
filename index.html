@@ -46,6 +46,17 @@ html[lang="my"] .chapter-section p{line-height:2.1;font-size:17px}
 }
 
 
+
+/* Reliability fix: display real <img> pixels within a clipped square tile.
+   Overrides the former background-image implementation to work consistently
+   on iOS Safari, Android browsers and offline service-worker reloads. */
+.composer-portrait-crop{position:relative;overflow:hidden;background-image:none!important;background-color:#302b38}
+.composer-portrait-crop .composer-portrait-sprite{
+  display:block;position:absolute;top:0;left:0;width:500%;height:200%;
+  max-width:none!important;object-fit:fill;pointer-events:none;
+}
+.composer-portrait-crop.composer-portrait-placeholder{background-image:none!important}
+
 /* Composer gallery: each image is indexed by the matching composer name. */
 .composer-gallery-card{padding:0!important;overflow:hidden;display:flex;flex-direction:column}
 .composer-gallery-card .composer-visual{width:100%;border-radius:0}

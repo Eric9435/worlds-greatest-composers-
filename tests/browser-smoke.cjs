@@ -36,8 +36,19 @@ const server=http.createServer((req,res)=>{
   assert.equal(await page.getByText("Johann Sebastian Bach").count(),0);
   assert.ok(await page.getByText("Wolfgang Amadeus Mozart").count());
 
-  assert.equal(await page.locator('.composer-gallery-card .composer-portrait').count(),1);
-  assert.match(await page.locator('.composer-gallery-card .composer-portrait').getAttribute("style"),/background-position:75% 0%/);
+  assert.equal(await page.locator('.composer-gallery-card .composer-portrait-sprite').count(),1);
+  const portrait=page.locator('.composer-gallery-card .composer-portrait-sprite');
+  assert.match(await portrait.getAttribute("src"),/composer-portraits\.webp\?v=9/);
+  assert.match(await portrait.getAttribute("style"),/translate\(-60%,-0%\)/);
+  const decoded=await portrait.evaluate(async image=>{
+    try{await image.decode()}catch(err){return {error:String(err),src:image.currentSrc}}
+    const rectangle=image.parentElement.getBoundingClientRect();
+    return {complete:image.complete,width:image.naturalWidth,height:image.naturalHeight,rectWidth:rectangle.width,rectHeight:rectangle.height};
+  });
+  assert.deepEqual(decoded.error,undefined,"Image decode failed: "+JSON.stringify(decoded));
+  assert.equal(decoded.complete,true);
+  assert.ok(decoded.width>=500 && decoded.height>=200,"Invalid portrait dimensions: "+JSON.stringify(decoded));
+  assert.ok(decoded.rectWidth>90 && decoded.rectHeight>90,"Invisible portrait frame: "+JSON.stringify(decoded));
   const assetResponse=await page.request.get("http://127.0.0.1:"+server.address().port+"/composer-portraits.webp");
   assert.equal(assetResponse.status(),200);
   assert.match(assetResponse.headers()["content-type"],/image\/webp/);
