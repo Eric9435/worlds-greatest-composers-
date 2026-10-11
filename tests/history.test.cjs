@@ -343,3 +343,29 @@ test("production UI has clean bilingual navigation without instructional labels"
  assert.match(css,/safe-area-inset-top/);
  assert.doesNotMatch(html,/Educational original summaries ·/);
 });
+
+test("all 52 composers have a local offline portrait, including the 42 formerly missing images",()=>{
+ const {ctx}=startApp();
+ const portraits=vm.runInContext('composers.map(c=>({name:c.name,html:composerPortrait(c.name),index:composerIllustrationIndex.get(c.name)}))',ctx);
+ assert.equal(portraits.length,52);
+ const modern=portraits.filter(c=>c.index!==undefined);
+ const originals=portraits.filter(c=>c.index===undefined);
+ assert.equal(modern.length,42);
+ assert.equal(originals.length,10);
+ assert.deepEqual([...modern.map(x=>x.index)],Array.from({length:42},(_,i)=>i));
+ for(const {name,html} of modern){
+  assert.match(html,/composer-portrait-illustration/,"Missing local illustration for "+name);
+  assert.match(html,/composer-portraits-42\.svg\?v=1/);
+  assert.doesNotMatch(html,/Portrait not yet available/,"An initials-only fallback is not an image for "+name);
+  assert.match(html,/artistic illustration/);
+ }
+ for(const x of originals)assert.match(x.html,/composer-portrait-sprite/);
+ const sprite=read("composer-portraits-42.svg");
+ assert.match(sprite,/viewBox="0 0 1792 1536"/);
+ assert.equal((sprite.match(/<clipPath id="tile/g)||[]).length,42);
+ assert.equal((sprite.match(/<g transform="translate\(/g)||[]).length,42);
+ assert.doesNotMatch(sprite,/<script|<foreignObject|xlink:href|<image\b/i);
+ const cache=read("sw.js");
+ assert.match(cache,/composer-portraits-42\.svg\?v=1/);
+ assert.match(cache,/pfa-history-v20/);
+});

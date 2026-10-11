@@ -217,3 +217,22 @@ a{color:var(--app-blue)}
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+
+/* Permanent offline artworks for 42 composers previously showing initials.
+   Seven-by-six SVG contact sheet is clipped to one exact portrait per person. */
+.composer-portrait-illustration-frame{
+  position:relative;overflow:hidden;background:#b3afa9!important;background-image:none!important;
+  isolation:isolate;
+}
+.composer-portrait-illustration{
+  display:block;position:absolute;top:0;left:0;width:700%;height:600%;
+  max-width:none!important;object-fit:fill;pointer-events:none;
+  color:transparent;user-select:none;
+}
+.composer-portrait-illustration-frame.composer-portrait-placeholder{
+  background:#a5a0a7!important;color:#fff;
+}
+.composer-portrait-illustration-frame .commons-portrait{z-index:3;}
+@media(prefers-reduced-motion:reduce){
+  .composer-portrait-illustration,.commons-portrait{transition:none!important}
+}
