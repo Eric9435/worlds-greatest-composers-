@@ -72,8 +72,9 @@ const server=http.createServer((req,res)=>{
   assert.ok(await page.getByRole("img",{name:/Wolfgang Amadeus Mozart.*AI-generated artistic illustration/}).count());
 
   assert.ok(await page.getByText("Piano Concerto No. 21").count());
-  await page.getByRole("button",{name:"မြန်မာ"}).click();
+  await page.locator("#readingWindow .reading-window-lang button[data-lang='my']").click();
   assert.equal(await page.locator("html").getAttribute("lang"),"my");
+  await page.locator("#readingWindow .reading-window-close").click();
   await page.getByRole("button",{name:"ကိုးကားချက်"}).click();
   assert.ok(await page.getByText("Open Music Theory (Viva Pressbooks)").count());
   assert.deepEqual(errors,[]);
