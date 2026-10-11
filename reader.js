@@ -37,21 +37,59 @@ function chapterMarkup(kind,record,study) {
     '<button type="button" class="primary return-button" onclick="closeReading()">← '+t("Return to chapter library","သင်ခန်းစာစာရင်းသို့ပြန်ရန်")+'</button>'+
     '</div></div></article>';
 }
+/* Native-style full-screen reading window: the library never scrolls away. */
+let readingReturnFocus=null;
+function openReadingWindow(){
+ const detail=document.getElementById("detail");
+ if(!detail)return;
+ readingReturnFocus=document.activeElement;
+ let modal=document.getElementById("readingWindow");
+ if(!modal){
+   modal=document.createElement("div");
+   modal.id="readingWindow";
+   modal.className="reading-window";
+   modal.setAttribute("role","dialog");
+   modal.setAttribute("aria-modal","true");
+   modal.setAttribute("aria-label",t("Music history reader","ဂီတသမိုင်းဖတ်ရှုရန်"));
+   modal.innerHTML='<div class="reading-window-backdrop"></div><div class="reading-window-panel"><div class="reading-window-top"><button type="button" class="secondary reading-window-close" onclick="closeReading()" aria-label="'+t("Close reader","စာဖတ်ဝင်းဒိုးပိတ်ရန်")+'">← '+t("Back","ပြန်ရန်")+'</button><span>'+t("Piano For ALL · History Library","Piano For ALL · သမိုင်းစာကြည့်တိုက်")+'</span></div><div class="reading-window-body" id="readingWindowBody" tabindex="-1"></div></div>';
+   document.body.appendChild(modal);
+ }
+ modal.querySelector("#readingWindowBody").replaceChildren(detail);
+ document.body.classList.add("reader-window-open");
+ modal.querySelector("#readingWindowBody").scrollTop=0;
+ modal.querySelector(".reading-window-close").focus();
+}
 function showEra(id){
-  if(!eraChapters[id])return;
-  tab="eras";selectedEra=id;selected=null;
-  renderContent();
-  document.getElementById("detail")?.scrollIntoView?.({behavior:"smooth",block:"start"});
+ if(!eraChapters[id])return;
+ selectedEra=id;selected=null;
+ renderContent();
+ openReadingWindow();
 }
 function showComposer(id){
-  const found=composers.find(c=>c.id===Number(id));
-  if(!found)return;
-  tab="composers";selected=found.id;selectedEra=null;query="";eraFilter="all";
-  render();
-  document.getElementById("detail")?.scrollIntoView?.({behavior:"smooth",block:"start"});
+ const found=composers.find(c=>c.id===Number(id));
+ if(!found)return;
+ selected=found.id;selectedEra=null;
+ renderContent();
+ openReadingWindow();
 }
 function closeReading(){
-  selected=null;selectedEra=null;
-  renderContent();
-  document.getElementById("content")?.scrollIntoView?.({behavior:"smooth",block:"start"});
+ const modal=document.getElementById("readingWindow");
+ if(modal)modal.remove();
+ document.body.classList.remove("reader-window-open");
+ selected=null;selectedEra=null;
+ renderContent();
+ if(readingReturnFocus&&readingReturnFocus.isConnected)readingReturnFocus.focus();
+ readingReturnFocus=null;
 }
+if(typeof document!=="undefined")document.addEventListener("keydown",event=>{
+ if(event.key==="Escape"&&document.getElementById("readingWindow")){event.preventDefault();closeReading();}
+ if(event.key==="Tab"){
+  const modal=document.getElementById("readingWindow");
+  if(!modal)return;
+  const focusable=Array.from(modal.querySelectorAll('button:not([disabled]),a[href],input:not([disabled]),[tabindex="0"]')).filter(el=>el.getClientRects().length);
+  if(!focusable.length)return;
+  const first=focusable[0],last=focusable[focusable.length-1];
+  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+ }
+});
