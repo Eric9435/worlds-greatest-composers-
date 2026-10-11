@@ -32,14 +32,13 @@ function chapterMarkup(kind,record,study) {
     '<h2>'+title+'</h2><p>'+metadata+'</p>'+
     '<p class="reading-intro">'+esc(isEra?t(record.descEn,record.descMy):t(record.en,record.descMy))+'</p>'+
     '<div class="reading-meta">'+enrichedSections.length+' '+t("study sections","အပိုင်း")+' · '+t("English / Myanmar","အင်္ဂလိပ် / မြန်မာ")+'</div></div></header>'+
-    (isEra?'':'<div class="works-catalogue-launch"><button type="button" class="works-launch-btn" onclick="openWorksCatalogue('+record.id+')">♫ '+t("Works Catalogue · Op. / BWV / K. / D.","လက်ရာစာရင်း · Op. / BWV / K. / D.")+' →</button><small>'+t("Numbered works, individual pieces and available movement details","နံပါတ်အလိုက် လက်ရာများ၊ Piece များနှင့် Movement အသေးစိတ်")+'</small></div>')+
-    '<div class="reader-topic-picker"><label for="readerTopicSelect">'+t("Choose topic — opens here without scrolling","ခေါင်းစဉ်ရွေးပါ — ဆွဲချစရာမလိုဘဲ ဤနေရာတွင်ဖွင့်မည်")+'</label><select id="readerTopicSelect" onchange="selectReadingTopic(Number(this.value))">'+pickerOptions+'</select></div>'+
-    '<div class="reader-columns"><aside class="reader-outline" aria-label="Chapter contents"><h3>'+t("In this chapter","ဤသင်ခန်းစာတွင်")+'</h3><input type="search" class="reader-section-search" aria-label="'+t("Search chapter topics","သင်ခန်းစာအကြောင်းအရာရှာရန်")+'" placeholder="'+t("Find a topic…","အကြောင်းအရာရှာရန်…")+'" oninput="filterReadingOutline(this.value)">'+outline+'</aside>'+
+    (isEra?'':'<div class="works-catalogue-launch"><button type="button" class="works-launch-btn" onclick="openWorksCatalogue('+record.id+')">♫ '+t("Works","လက်ရာများ")+' →</button></div>')+
+    '<div class="reader-topic-picker"><label for="readerTopicSelect">'+t("Chapters","အခန်းများ")+'</label><select id="readerTopicSelect" onchange="selectReadingTopic(Number(this.value))">'+pickerOptions+'</select></div>'+
+    '<div class="reader-columns"><aside class="reader-outline" aria-label="Chapter contents"><h3>'+t("Contents","မာတိကာ")+'</h3><input type="search" class="reader-section-search" aria-label="'+t("Search chapters","အခန်းရှာရန်")+'" placeholder="'+t("Search…","ရှာဖွေရန်…")+'" oninput="filterReadingOutline(this.value)">'+outline+'</aside>'+
     '<div class="reader-main">'+sections+extendedContextMarkup(kind,record)+(isEra?'':composerStudySupplement(record))+relatedMarkup+
     '<section class="chapter-sources"><h3>'+t("Academic reading and verification","ပညာရပ်ဆိုင်ရာ ကိုးကားရင်းမြစ်များ")+'</h3>'+
     '<p>'+t("Original educational synthesis. These external resources provide historical context and further reading; they are not page-level citations for every statement.","ဤအကြောင်းအရာသည် ကိုယ်ပိုင်ရေးသားထားသော ပညာရေးရှင်းလင်းချက်ဖြစ်သည်။ အောက်ပါရင်းမြစ်များသည် ဆက်လက်လေ့လာရန်ဖြစ်ပြီး စာကြောင်းတိုင်းအတွက် တိုက်ရိုက်စာမျက်နှာကိုးကားချက် မဟုတ်ပါ။")+'</p>'+
     '<ul>'+sourceLinks+(isEra?'':composerSourceLinks(record.name))+additionalResearchLinks(isEra?{era:record.id,name:''}:record)+'</ul></section>'+
-    '<button type="button" class="primary return-button" onclick="closeReading()">← '+t("Return to chapter library","သင်ခန်းစာစာရင်းသို့ပြန်ရန်")+'</button>'+
     '</div></div></article>';
 }
 /* Immersive, accessible in-app reading window with route restoration. */
@@ -62,7 +61,7 @@ function openReadingWindow(){
   modal.setAttribute("aria-label",t("Music history reader","ဂီတသမိုင်းဖတ်ရှုရန်"));
   modal.innerHTML='<div class="reading-window-backdrop"></div><div class="reading-window-panel"><div class="reading-window-top">'+
    '<button type="button" class="secondary reading-window-close" onclick="closeReading()" aria-label="'+t("Close reader","စာဖတ်ဝင်းဒိုးပိတ်ရန်")+'">← '+t("Back","ပြန်ရန်")+'</button>'+
-   '<span class="reader-window-brand">Piano For ALL · '+t("History Library","သမိုင်းစာကြည့်တိုက်")+'</span>'+
+   '<span class="reader-window-brand">Piano For ALL · '+t("Music History","ဂီတသမိုင်း")+'</span>'+
    '<div class="reading-window-lang" role="group" aria-label="Reading language">'+
    '<button type="button" data-lang="en" onclick="switchReadingLanguage(\'en\')">EN</button>'+
    '<button type="button" data-lang="my" onclick="switchReadingLanguage(\'my\')">မြန်မာ</button>'+
