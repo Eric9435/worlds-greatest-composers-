@@ -4,10 +4,11 @@ function chapterMarkup(kind,record,study) {
   const isEra=kind==="era";
   const title=esc(isEra?t(record.en,record.my):t(record.name,record.my));
   const metadata=esc(isEra?record.dates:record.years+" · "+t((eras.find(e=>e.id===record.era)||{}).en||"", (eras.find(e=>e.id===record.era)||{}).my||""));
-  const outline=study.sections.concat(kind==='composer'?composerBiographicalSections(record).concat(composerStudyExpansion(record,study),advancedComposerLaboratory(record)):[]).map((section,i)=>
-    '<button type="button" class="reader-topic-link" data-topic-button="'+i+'" aria-pressed="'+(i===0?'true':'false')+'" onclick="selectReadingTopic('+i+')">'+(i+1)+'. '+esc(t(section[0],section[1]))+'</button>'
+  const enrichedSections=(kind==="composer"?composerBiographicalSections(record):[])
+    .concat(study.sections,kind==="composer"?composerStudyExpansion(record,study).concat(advancedComposerLaboratory(record)):[]);
+  const outline=enrichedSections.map((section,i)=>
+    '<a href="#chapter-section-'+i+'">'+(i+1)+'. '+esc(t(section[0],section[1]))+'</a>'
   ).join("");
-  const enrichedSections=study.sections.concat(kind==='composer'?composerBiographicalSections(record).concat(composerStudyExpansion(record,study),advancedComposerLaboratory(record)):[]);
   const sections=enrichedSections.map((section,i)=>
     '<section class="chapter-section reader-topic-section '+(i===0?'':'is-inactive-topic')+'" data-topic-index="'+i+'" id="chapter-section-'+i+'">'+
     '<span class="section-number">'+String(i+1).padStart(2,"0")+'</span>'+
@@ -39,65 +40,73 @@ function chapterMarkup(kind,record,study) {
     '<button type="button" class="primary return-button" onclick="closeReading()">← '+t("Return to chapter library","သင်ခန်းစာစာရင်းသို့ပြန်ရန်")+'</button>'+
     '</div></div></article>';
 }
-/* Native-style full-screen reading window: the library never scrolls away. */
-let readingReturnFocus=null;
-let activeReaderTopic=0;
-let readingOrigin=null;
+/* Immersive, accessible in-app reading window with route restoration. */
+let readingReturnFocus=null,readingReturnRoute=null;
+function rememberReadingOrigin(){
+ if(document.getElementById("readingWindow"))return;
+ if(!readingReturnRoute)readingReturnRoute={tab,eraFilter,query};
+ if(!readingReturnFocus)readingReturnFocus=document.activeElement;
+}
 function openReadingWindow(){
  const detail=document.getElementById("detail");
  if(!detail||typeof document.createElement!=="function")return;
  let modal=document.getElementById("readingWindow");
  if(!modal){
-   readingReturnFocus=document.activeElement;
-   modal=document.createElement("div");
-   modal.id="readingWindow";
-   modal.className="reading-window";
-   modal.setAttribute("role","dialog");
-   modal.setAttribute("aria-modal","true");
-   modal.setAttribute("aria-label",t("Music history reader","ဂီတသမိုင်းဖတ်ရှုရန်"));
-   modal.innerHTML='<div class="reading-window-backdrop"></div><div class="reading-window-panel"><div class="reading-window-top"><button type="button" class="secondary reading-window-close" onclick="closeReading()" aria-label="'+t("Back to library","စာရင်းသို့ပြန်ရန်")+'">← '+t("Back","ပြန်ရန်")+'</button><span>'+t("Piano For ALL · History Library","Piano For ALL · သမိုင်းစာကြည့်တိုက်")+'</span><div class="reading-lang"><button type="button" onclick="changeReadingLanguage(\'en\')">EN</button><button type="button" onclick="changeReadingLanguage(\'my\')">မြန်မာ</button></div></div><div class="reading-window-body" id="readingWindowBody" tabindex="-1"></div></div>';
-   document.body.appendChild(modal);
+  modal=document.createElement("div");
+  modal.id="readingWindow";
+  modal.className="reading-window";
+  modal.setAttribute("role","dialog");
+  modal.setAttribute("aria-modal","true");
+  modal.setAttribute("aria-label",t("Music history reader","ဂီတသမိုင်းဖတ်ရှုရန်"));
+  modal.innerHTML='<div class="reading-window-backdrop"></div><div class="reading-window-panel"><div class="reading-window-top">'+
+   '<button type="button" class="secondary reading-window-close" onclick="closeReading()" aria-label="'+t("Close reader","စာဖတ်ဝင်းဒိုးပိတ်ရန်")+'">← '+t("Back","ပြန်ရန်")+'</button>'+
+   '<span class="reader-window-brand">Piano For ALL · '+t("History Library","သမိုင်းစာကြည့်တိုက်")+'</span>'+
+   '<div class="reading-window-lang" role="group" aria-label="Reading language">'+
+   '<button type="button" data-lang="en" onclick="switchReadingLanguage(\'en\')">EN</button>'+
+   '<button type="button" data-lang="my" onclick="switchReadingLanguage(\'my\')">မြန်မာ</button>'+
+   '</div></div><div class="reading-window-body" id="readingWindowBody" tabindex="-1"></div></div>';
+  document.body.appendChild(modal);
  }
  modal.querySelector("#readingWindowBody").replaceChildren(detail);
  document.body.classList.add("reader-window-open");
  modal.querySelector("#readingWindowBody").scrollTop=0;
- selectReadingTopic(activeReaderTopic);
+ updateReadingWindowLanguageButtons();
  modal.querySelector(".reading-window-close").focus();
 }
-function selectReadingTopic(index){
- const article=document.getElementById("detail");
- if(!article||typeof article.querySelectorAll!=="function")return;
- const sections=Array.from(article.querySelectorAll(".reader-topic-section"));
- if(!Number.isInteger(index)||index<0||index>=sections.length)return;
- activeReaderTopic=index;
- sections.forEach((el,i)=>el.classList.toggle("is-inactive-topic",i!==index));
- article.querySelectorAll("[data-topic-button]").forEach(el=>el.setAttribute("aria-pressed",String(Number(el.dataset.topicButton)===index)));
- const select=article.querySelector("#readerTopicSelect");
- if(select)select.value=String(index);
- const body=document.getElementById("readingWindowBody");
- if(body)body.scrollTop=0;
+function updateReadingWindowLanguageButtons(){
+ const modal=document.getElementById("readingWindow");
+ if(!modal)return;
+ modal.querySelectorAll(".reading-window-lang button").forEach(b=>{
+  const active=b.dataset.lang===lang;
+  b.classList.toggle("active",active);
+  b.setAttribute("aria-pressed",String(active));
+ });
 }
-function changeReadingLanguage(next){
- if(next!=="en"&&next!=="my")return;
- lang=next;
- try{localStorage.setItem("pfa-lang",next)}catch(_){}
- render();
- openReadingWindow();
- selectReadingTopic(activeReaderTopic);
+function switchReadingLanguage(next){
+ if(!["en","my"].includes(next))return;
+ const modal=document.getElementById("readingWindow");
+ if(!modal){setLang(next);return}
+ const area=modal.querySelector("#readingWindowBody"),scroll=area.scrollTop;
+ setLang(next);
+ const replacement=document.getElementById("detail");
+ if(replacement)area.replaceChildren(replacement);
+ area.scrollTop=scroll;
+ modal.setAttribute("aria-label",t("Music history reader","ဂီတသမိုင်းဖတ်ရှုရန်"));
+ modal.querySelector(".reading-window-close").textContent="← "+t("Back","ပြန်ရန်");
+ modal.querySelector(".reading-window-close").setAttribute("aria-label",t("Close reader","စာဖတ်ဝင်းဒိုးပိတ်ရန်"));
+ updateReadingWindowLanguageButtons();
 }
 function showEra(id){
  if(!eraChapters[id])return;
- if(!document.getElementById("readingWindow"))readingOrigin={tab,eraFilter,query};
- activeReaderTopic=0;
- selectedEra=id;selected=null;
+ rememberReadingOrigin();
+ tab="eras";selectedEra=id;selected=null;
  renderContent();
  openReadingWindow();
 }
 function showComposer(id){
  const found=composers.find(c=>c.id===Number(id));
  if(!found)return;
- if(!document.getElementById("readingWindow"))readingOrigin={tab,eraFilter,query};
- activeReaderTopic=0;
+ rememberReadingOrigin();
  tab="composers";selected=found.id;selectedEra=null;
  render();
  openReadingWindow();
@@ -107,21 +116,28 @@ function closeReading(){
  if(modal)modal.remove();
  document.body?.classList?.remove("reader-window-open");
  selected=null;selectedEra=null;
- activeReaderTopic=0;
- if(readingOrigin){tab=readingOrigin.tab;eraFilter=readingOrigin.eraFilter;query=readingOrigin.query;readingOrigin=null;}
- render();
+ const previous=readingReturnRoute;
+ readingReturnRoute=null;
+ if(previous){tab=previous.tab;eraFilter=previous.eraFilter;query=previous.query;render();}
+ else renderContent();
  if(readingReturnFocus&&readingReturnFocus.isConnected)readingReturnFocus.focus();
+ else document.querySelector?.(".tabs button.active")?.focus?.();
  readingReturnFocus=null;
 }
+function filterReadingOutline(term){
+ const modal=document.getElementById("readingWindow");
+ if(!modal)return;
+ const q=String(term).trim().toLocaleLowerCase();
+ modal.querySelectorAll(".reader-outline a").forEach(a=>{a.hidden=!!q&&!a.textContent.toLocaleLowerCase().includes(q)});
+}
 if(typeof document!=="undefined"&&typeof document.addEventListener==="function")document.addEventListener("keydown",event=>{
- if(event.key==="Escape"&&document.getElementById("readingWindow")){event.preventDefault();closeReading();}
- if(event.key==="Tab"){
-  const modal=document.getElementById("readingWindow");
-  if(!modal)return;
-  const focusable=Array.from(modal.querySelectorAll('button:not([disabled]),a[href],input:not([disabled]),[tabindex="0"]')).filter(el=>el.getClientRects().length);
-  if(!focusable.length)return;
-  const first=focusable[0],last=focusable[focusable.length-1];
-  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
-  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
- }
+ const modal=document.getElementById("readingWindow");
+ if(!modal)return;
+ if(event.key==="Escape"){event.preventDefault();closeReading();return}
+ if(event.key!=="Tab")return;
+ const focusable=Array.from(modal.querySelectorAll('button:not([disabled]),a[href]:not([hidden]),input:not([disabled]),[tabindex="0"]')).filter(el=>el.getClientRects().length);
+ if(!focusable.length)return;
+ const first=focusable[0],last=focusable[focusable.length-1];
+ if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+ else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
 });
