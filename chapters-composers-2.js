@@ -352,3 +352,102 @@ Object.assign(composerChapters,{
     ]
   }
 });
+
+/* Advanced analytical and historical context for every study in this set. */
+for(const [name,en,my,legacyEn,legacyMy] of [
+  [
+    "Robert Schumann",
+    "In Carnaval, identify the short movements associated with different imagined personalities, then ask what recurring gestures link the cycle. In Kinderszenen, inspect the phrase, inner-voice movement and cadence of Träumerei without treating the work as a mere sentimental tune. Compare how piano textures support a literary idea differently from his songs.",
+    "Carnaval တွင် character အလိုက် motive နှင့် gesture များ ပြောင်းလဲပုံကို လေ့လာပါ။ Kinderszenen ၏ Träumerei တွင် phrase၊ inner voice နှင့် cadence ကို ခွဲခြားပါ။ Piano cycle နှင့် Lied တို့၌ စာပေအဓိပ္ပာယ်ကို မည်သို့ဖော်ပြထားသလဲ နှိုင်းယှဉ်ပါ။",
+    "Schumann's critical writings promoted emerging composers while shaping nineteenth-century tastes. His partnership with Clara demands recognition of her independent artistry, pedagogy and performing career. Modern historical study should also avoid interpreting all the music simply through the lens of his illnesses; musical designs must be heard and analyzed on their own terms.",
+    "Schumann ၏ဂီတဝေဖန်ရေးစာများက တေးရေးဆရာသစ်များကို လူသိများစေခဲ့သည်။ Clara Schumann ၏ သီးခြားအနုပညာနှင့် ဆရာဘဝကိုလည်း ထည့်သွင်းလေ့လာသင့်သည်။ ကျန်းမာရေးပြဿနာတစ်ခုတည်းဖြင့် လက်ရာအားလုံး၏အဓိပ္ပာယ်ကို မရှင်းလင်းသင့်ပါ။"
+  ],
+  [
+    "Franz Liszt",
+    "In the B-minor Sonata, identify one short motive and trace its changes in tempo, contour, register and harmonic context. Contrast the sonata's integrated span with the sectional atmosphere of a symphonic poem. In a Transcendental Étude, listen to bass movement and melodic hierarchy beneath octave and arpeggio display; pianistic spectacle is only one layer of the design.",
+    "B-minor Sonata မှ motive တစ်ခုကို ရွေး၍ tempo၊ register နှင့် harmony ပြောင်းလဲပုံကို မှတ်သားပါ။ Symphonic poem နှင့် form ကွာခြားမှုကို နှိုင်းယှဉ်ပါ။ Transcendental Étude တွင် octave နှင့် arpeggio အပြင် bass နှင့် melody hierarchy ကို နားထောင်ပါ။",
+    "Liszt's public image as a virtuoso is inseparable from the rise of touring celebrities and modern recital culture. He also supported younger musicians and arranged earlier works to circulate them to new audiences. Assess both the ethical complications and creative possibilities of transcription: it changes timbre while reimagining the musical argument for a new medium.",
+    "Liszt သည် touring pianist နှင့် solo recital ယဉ်ကျေးမှုကို ပုံဖော်ခဲ့ပြီး အခြား composer များကိုလည်း ထောက်ပံ့ခဲ့သည်။ Transcription များဖြင့် လက်ရာအဟောင်းများကို ပရိသတ်သစ်ထံ ပို့ဆောင်နိုင်ခဲ့သည်။ မူရင်း timbre ပြောင်းလဲသော်လည်း အနုပညာအဓိပ္ပာယ်အသစ် ဖြစ်ပေါ်နိုင်သည်။"
+  ],
+  [
+    "Johannes Brahms",
+    "Compare the rhythmic layering of a late intermezzo with the orchestral breadth of Symphony No. 4. Try reducing the opening motive to its smallest interval or rhythm, then find that cell in new melodic positions. In the symphony's finale, listen for successive changes over a recurring harmonic-bass framework and mark where the texture becomes unexpectedly thin.",
+    "Late intermezzo ၏ rhythm အလွှာများနှင့် Symphony No. 4 ၏ orchestra texture ကို နှိုင်းယှဉ်ပါ။ Opening motive ကို interval တိုအဖြစ် ခွဲပြီး ပြန်ပေါ်လာပုံကို ရှာပါ။ Finale တွင် bass-harmonic pattern ထပ်ကျော့မှုနှင့် texture ပြောင်းလဲမှုကို နားထောင်ပါ။",
+    "Brahms was often contrasted polemically with the 'New German School', yet both camps engaged inherited traditions and contemporary innovation. Later theorists have highlighted the progressive implications of his developing variation. This reception history illustrates how words such as conservative and modern can distort music when used as fixed categories.",
+    "Brahms ကို conservative ဟု အလွယ်တကူသတ်မှတ်လေ့ရှိသော်လည်း သူ၏ developing variation တွင် ဆန်းသစ်မှုများ ရှိသည်။ နောက်ပိုင်း theorist များက သူ၏နည်းပညာကို ပြန်လည်အကဲဖြတ်ခဲ့ကြသည်။ Label တစ်ခုတည်းဖြင့် ဂီတကို မသတ်မှတ်သင့်ပါ။"
+  ],
+  [
+    "Claude Debussy",
+    "Take Voiles and identify how whole-tone and other pitch collections affect the sensation of harmonic direction. Compare the carefully controlled resonance of piano preludes with the evolving instrumental colors of La mer. Listen for phrase organization through timbre, register and repeated figures when a clear dominant–tonic plan is not apparent.",
+    "Voiles တွင် whole-tone collection က harmonic direction ကို ဘယ်လိုပြောင်းလဲစေသလဲ ရှာပါ။ Piano Préludes ၏ resonance နှင့် La mer ၏ orchestral timbre ကို နှိုင်းယှဉ်ပါ။ Dominant–tonic plan မရှင်းသောနေရာတွင် register နှင့် repeated figure ဖြင့် form ကို နားထောင်ပါ။",
+    "Debussy's engagement with non-Western musical performances and symbolist art has generated much scholarship about cultural contact and appropriation. Influence should not be described as simple imitation: ask what he heard, what he transformed and which historical power relations shaped the encounter. His work contributed to later reconsiderations of pitch and color.",
+    "Debussy သည် ပြင်ပယဉ်ကျေးမှုဂီတများနှင့် တွေ့ဆုံခဲ့ပြီး ယဉ်ကျေးမှုဆက်ဆံရေးအပေါ် သုတေသနများ ရှိသည်။ အခြားစတိုင်ကို တိုက်ရိုက်ကူးယူသည်ဟု မဆိုဘဲ မည်သို့ပြောင်းလဲအသုံးပြုသလဲ စူးစမ်းပါ။ သူ၏ timbre အယူအဆများက နောက်ပိုင်းဂီတကို သက်ရောက်စေခဲ့သည်။"
+  ],
+  [
+    "Sergei Rachmaninoff",
+    "Follow the first movement of Piano Concerto No. 2 from the tolling piano introduction toward the entrance and later return of broad melodies. Analyze where the orchestra carries the theme and where the piano assumes a textural, rather than obviously melodic, role. In the Paganini Rhapsody, chart variations by tempo, texture and degree of transformation.",
+    "Piano Concerto No. 2 ၏ အဖွင့် chord များမှ lyrical theme ပေါ်လာပုံကို နားထောင်ပါ။ Theme ကို piano သို့မဟုတ် orchestra ဘယ်သူဦးဆောင်သလဲ စူးစမ်းပါ။ Paganini Rhapsody တွင် variation အလိုက် tempo နှင့် texture ပြောင်းလဲမှုကို ဇယားပြုလုပ်ပါ။",
+    "His twentieth-century performing fame sometimes eclipsed his reputation as a composer in modernist historical narratives. Today's repertory reflects both the popularity of his concertos and continuing interest in less frequently played pieces. Study the practical demands of the touring virtuoso's career alongside his late composing style, rather than assuming that a Romantic language was simply outdated.",
+    "Rachmaninoff ၏ pianist အဖြစ် အောင်မြင်မှုကြောင့် composer အခန်းကဏ္ဍကို တခါတရံ လျော့ပေါ့မြင်ကြသည်။ Modernism ခေတ်တွင် Romantic harmony သုံးသူတစ်ဦးအဖြစ် ဆက်လက်လုပ်ကိုင်ခဲ့သည်။ Concert tour နှင့် composition အကြား အချိန်အခက်အခဲကိုလည်း လေ့လာပါ။"
+  ],
+  [
+    "Igor Stravinsky",
+    "Try tapping the repeated chord accents in the 'Augurs of Spring' section of The Rite of Spring and notice how the accent pattern resists a comfortable regular grouping. Compare these blocks with the more restrained construction of Symphony of Psalms. In a neoclassical work, identify which earlier formal conventions are retained and which have been deliberately transformed.",
+    "Rite of Spring ၏ Augurs of Spring တွင် repeated chord accent များကို လက်ဖြင့်ရိုက်ကြည့်ပြီး meter မတည်ငြိမ်မှုကို ခံစားပါ။ Symphony of Psalms နှင့် texture ကွာခြားမှုကို နှိုင်းယှဉ်ပါ။ Neoclassical လက်ရာများတွင် ရှေး form အချို့ကို ဘယ်လိုပြောင်းလဲသုံးသလဲ စူးစမ်းပါ။",
+    "The notorious early reception of The Rite of Spring is often simplified into a single story of scandal, although eyewitness sources differ. Stravinsky's later stylistic turns show that innovation need not follow a single narrative of increasing dissonance. Ballet, collaboration and public performance conditions were central to how these works were heard.",
+    "Rite of Spring ၏ အစောပိုင်းလက်ခံမှုကို ရုန်းရင်းဆန်ခတ်ပွဲတစ်ခုတည်းအဖြစ် ပြောလေ့ရှိသော်လည်း သက်သေမှတ်တမ်းများ ကွာခြားကြသည်။ Stravinsky သည် style များစွာပြောင်းလဲခဲ့ပြီး ballet နဲ့ performance condition များသည် အရေးပါသည်။"
+  ],
+  [
+    "John Cage",
+    "In a performance of 4′33″, write down the environment sounds by time and source; compare observations from two different rooms. Then examine a prepared-piano score to distinguish precise instructions from improvisation. Consider whether your listening expectations change when sounds are framed as part of a concert, even though no conventional melody is played.",
+    "4′33″ ကို မတူသောနေရာနှစ်ခုတွင် နားထောင်ကာ ပတ်ဝန်းကျင်အသံနှင့် အချိန်ကို ရေးမှတ်ပါ။ Prepared-piano score တွင် တိကျသော instruction နှင့် chance element ကို ခွဲခြားပါ။ Concert ဖြစ်သောကြောင့် အသံတစ်ခု၏အဓိပ္ပာယ် ဘယ်လိုပြောင်းသလဲ စဉ်းစားပါ။",
+    "Cage influenced experimental composition, sound art and performance studies, but not all of his work advocates the absence of compositional control. His collaborations reveal a wider artistic ecology that includes dance and visual media. Discussions of chance should distinguish the process used to make a score from what happens unpredictably during performance.",
+    "Cage သည် experimental music၊ sound art နှင့် performance study များကို သက်ရောက်စေခဲ့သည်။ Chance သုံးသည်ဆိုတိုင်း composition control မရှိဟု မဆိုလိုပါ။ Dance နှင့် visual art ပူးပေါင်းမှုများကိုပါ လေ့လာရမည်။"
+  ],
+  [
+    "Philip Glass",
+    "Count the repeated figures in a short passage from Glassworks and note where a new pitch or duration enters the pattern. Compare that gradual process with the unusual scale and theatrical structure of Einstein on the Beach. Repeat your listening at different levels of attention: the surface may feel unchanged even while its internal relationships alter.",
+    "Glassworks မှ pattern တိုတစ်ခုကို ရေတွက်ပြီး pitch သို့မဟုတ် duration အသစ်ဝင်လာချိန်ကို မှတ်သားပါ။ Einstein on the Beach ၏ theatre structure နှင့် နှိုင်းယှဉ်ပါ။ ထပ်ကျော့သလိုကြားရသော်လည်း အတွင်း rhythm/harmony ပြောင်းလဲမှုကို သတိထားပါ။",
+    "Glass helped bring process-based composition into opera houses, film and broad public circulation. The use of repetitive methods does not make all minimalist composers identical; compare his harmonic trajectories and textures with Reich's phase-related processes and Pärt's tintinnabuli. Production, amplification and staging may be important parts of the result.",
+    "Glass သည် minimalist technique ကို opera နှင့် film သို့ ချဲ့ထွင်ခဲ့သည်။ Reich ၏ phase process နှင့် Pärt ၏ tintinnabuli တို့နှင့် မတူညီသော composition နည်းရှိသည်။ Stage design နှင့် amplification တို့က performance ကို သက်ရောက်စေသည်။"
+  ],
+  [
+    "Arvo Pärt",
+    "In Für Alina, map the relation between the stepwise melodic voice and triad notes on the other staff. Listen to the decay and overlapping resonance after each attack; pauses can become part of the phrase. Compare the relatively intimate piano texture with the wider instrumental space of Tabula Rasa without assuming that all simplicity has the same emotional meaning.",
+    "Für Alina တွင် stepwise melody နှင့် triad note များ၏ ဆက်စပ်မှုကို score ဖြင့် လေ့လာပါ။ Note တစ်ခုချင်းစီပြီးနောက် resonance ကျန်နေပုံနှင့် silence ကို နားထောင်ပါ။ Tabula Rasa ၏ instrumental texture နှင့် နှိုင်းယှဉ်ပါ။",
+    "Pärt's music has reached religious and secular audiences alike, and his apparent sparseness invites different spiritual or aesthetic interpretations. Tintinnabuli is a specific compositional relationship, not a synonym for any slow, consonant piece. Contextual study should consider manuscript, performance duration and the composer's shift from earlier techniques.",
+    "Pärt ၏ဂီတကို ဘာသာရေးနှင့် လူမှုရေးပရိသတ်နှစ်ဖက်လုံး နားထောင်ကြသည်။ Tintinnabuli သည် နှေးကွေးသောဂီတတိုင်း၏ အမည်မဟုတ်ဘဲ သီးခြားရေးဖွဲ့နည်းဖြစ်သည်။ သူ၏ style ပြောင်းလဲမှုနှင့် performance duration ကိုလည်း လေ့လာပါ။"
+  ],
+  [
+    "Guillaume Dufay",
+    "Listen to the ceremonial motet Nuper rosarum flores with a diagram of each voice's phrases and recurring rhythmic units. Notice how structural proportions can exist beyond what is immediately obvious to a first-time listener. Compare a chanson with the motet to hear differing expectations about text, function, texture and ensemble.",
+    "Nuper rosarum flores ကို နားထောင်ကာ အသံလိုင်းတစ်ခုစီ၏ phrase နှင့် rhythm unit ကို diagram ဖြင့် လေ့လာပါ။ Chanson နှင့် motet ကို နှိုင်းယှဉ်ကာ အသုံးပြုနေရာနှင့် texture ကွာခြားမှုကို စူးစမ်းပါ။",
+    "Dufay's career illustrates the cross-regional mobility of musicians, complicating simplified national histories. Debate about precise compositional structures reminds us to separate measurable musical relationships from speculative symbolism. He stands at an important point of continuity and transition in the fifteenth century, not at a sudden stylistic rupture.",
+    "Dufay ၏ အလုပ်လမ်းကြောင်းသည် နယ်စပ်ကျော် ဂီတအပြန်အလှန်ကို ပြသသည်။ Musical structure နှင့် သင်္ကေတအဓိပ္ပာယ်ကို ခွဲခြားသုံးသပ်သင့်သည်။ ၁၅ ရာစုတွင် Medieval နှင့် Renaissance ဆက်စပ်မှုကို နားလည်ရန် အရေးပါသည်။"
+  ],
+  [
+    "Orlando di Lasso",
+    "Compare Lagrime di San Pietro with one of Lasso's lighter chansons, paying attention to how the pace of harmonic change and vocal entrances matches the text. Mark passages of close imitation and sudden collective declamation. You will hear why the same composer can employ expressive techniques that vary sharply according to occasion.",
+    "Lagrime di San Pietro နှင့် ပေါ့ပါးသော chanson တစ်ပုဒ်ကို နှိုင်းယှဉ်ပါ။ Harmony၊ imitation နှင့် homophonic declamation ပြောင်းလဲမှုက စာသားခံစားချက်နှင့် ဘယ်လိုဆက်စပ်သလဲ လေ့လာပါ။",
+    "Lasso's enormous surviving output attests to the versatility expected of a leading court composer. Multiple languages and genres demand sensitivity to different performance functions; a sacred cycle and a courtly song were not interchangeable. Modern recordings may illuminate these differences through tempo and ensemble choices, but also reshape them.",
+    "Lasso ၏လက်ရာများသည် နန်းတွင်း composer တစ်ဦး၏ genre ကျယ်ပြန့်မှုကို ပြသသည်။ ဘာသာရေး cycle နှင့် court song တို့၏ ရည်ရွယ်ချက်မတူပါ။ Tempo နှင့် ensemble ရွေးချယ်မှုများက ယနေ့နားထောင်ပုံကို ပြောင်းလဲစေနိုင်သည်။"
+  ],
+  [
+    "Jean-Baptiste Lully",
+    "Listen to a French overture and notate the contrast between the slow dotted-rhythm opening and quicker imitative middle section. In Armide, observe when vocal declamation follows the contour of French spoken language rather than an Italian-style showpiece melody. Watch how dance scenes and orchestral entries maintain dramatic continuity.",
+    "French overture ၏ dotted rhythm အဖွင့်နှင့် အလယ်ပိုင်း imitation ကို နှိုင်းယှဉ်ပါ။ Armide တွင် French speech accent ကို သီဆိုမှုနှင့် ဘယ်လိုချိတ်ထားသလဲ စူးစမ်းပါ။ Dance နှင့် orchestra section များက drama ကို ထောက်ပံ့ပုံကို လေ့လာပါ။",
+    "Lully's position at Louis XIV's court tied artistic practice closely to institutional privilege and royal authority. French theatrical traditions developed their own priorities rather than serving as unsuccessful copies of Italian opera. Interpretation should consider dance, gesture, pronunciation and the size and disposition of court ensembles.",
+    "Lully ၏ နန်းတွင်းရာထူးသည် Louis XIV ၏ အာဏာနှင့် ဆက်စပ်ခဲ့သည်။ French opera သည် Italian opera ကို မအောင်မြင်စွာ ကူးယူခြင်းမဟုတ်ဘဲ ကိုယ်ပိုင် theatrical tradition ဖြစ်သည်။ Dance၊ pronunciation နှင့် ensemble အရွယ်အစားကို လေ့လာပါ။"
+  ],
+  [
+    "Henry Purcell",
+    "In Dido's Lament, write out the descending ground-bass pattern and mark its repeated cycles while the singer's phrases change. Note how dissonant moments and suspensions heighten the text's grief. Contrast this with the more theatrical sequence of dances and songs in The Fairy-Queen, where music serves a different dramatic purpose.",
+    "Dido's Lament ၏ descending ground bass ကို ရေးမှတ်ပြီး ထပ်ကျော့သည့်အကြိမ်များကို မှတ်သားပါ။ Singer ၏ phrase နှင့် dissonance က ဝမ်းနည်းမှုကို ဘယ်လိုတိုးစေသလဲ လေ့လာပါ။ The Fairy-Queen ၏ dance/song များနှင့် နှိုင်းယှဉ်ပါ။",
+    "Purcell's music became central to later narratives of English musical identity, but his career also reveals deep exchange with French and Italian practices. Historical performance choices about continuo, vocal ornament and theatre staging significantly affect interpretation. Avoid treating Dido's Lament as the whole of his achievement.",
+    "Purcell ကို English music ၏ အရေးပါသူအဖြစ် ဖော်ပြကြသော်လည်း French နှင့် Italian style များ၏ သက်ရောက်မှုလည်း ရှိသည်။ Continuo၊ ornament နှင့် theatre staging မတူသော performance များကို နှိုင်းယှဉ်ပါ။ Dido's Lament တစ်ပုဒ်တည်းဖြင့် သူ၏လက်ရာကို မသတ်မှတ်သင့်ပါ။"
+  ]
+]){
+ const x=composerChapters[name];if(!x)throw Error('Unknown composer '+name);
+ x.sections.push(['Close reading and performance practice','လက်ရာအသေးစိတ်နှင့် တီးခတ်ဖော်ပြမှု',en,my]);
+ x.sections.push(['Reception, influence and critical context','သက်ရောက်မှု၊ လက်ခံမှုနှင့် သမိုင်းဆိုင်ရာသုံးသပ်ချက်',legacyEn,legacyMy]);
+}
