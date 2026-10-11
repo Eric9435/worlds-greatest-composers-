@@ -18,6 +18,7 @@ function startApp(){
  vm.runInContext(read("chapters-composers-3.js"),ctx,{filename:"chapters-composers-3.js"});
  vm.runInContext(read("chapters-composers-4.js"),ctx,{filename:"chapters-composers-4.js"});
  vm.runInContext(read("reader.js"),ctx,{filename:"reader.js"});
+ vm.runInContext(read("portraits.js"),ctx,{filename:"portraits.js"});
  vm.runInContext(read("app.js"),ctx,{filename:"app.js"});
  vm.runInContext(read("history.js"),ctx,{filename:"history.js"});
  return {ctx,els,storage,document};
@@ -115,4 +116,46 @@ test("read a full composer chapter in both languages",()=>{
  vm.runInContext('setLang("my")',ctx);
  assert.match(els.content.innerHTML,/ဘဝနှင့် သမိုင်းနောက်ခံ/);
  assert.match(els.content.innerHTML,/Symphony No. 5/);
+});
+
+test("ten composer illustrations map to matching names without collisions",()=>{
+ const {ctx}=startApp();
+ const names=vm.runInContext("Object.keys(composerPortraitPositions)",ctx);
+ assert.equal(names.length,10);
+ assert.equal(new Set(names).size,10);
+ for(const name of names){
+  assert.equal(vm.runInContext("composers.filter(c=>c.name==="+JSON.stringify(name)+").length",ctx),1);
+  const html=vm.runInContext("composerPortrait("+JSON.stringify(name)+")",ctx);
+  assert.match(html,/class="composer-portrait"/);
+  assert.match(html,/background-position:\d+% \d+%/);
+  assert.match(html,/AI-generated artistic illustration/);
+ }
+ const coords=vm.runInContext("Object.values(composerPortraitPositions).map(v=>v.join(','))",ctx);
+ assert.equal(new Set(coords).size,10);
+});
+test("unillustrated composer renders a neutral initial placeholder, never another composer's face",()=>{
+ const {ctx}=startApp();
+ const markup=vm.runInContext('composerPortrait("Hildegard von Bingen","hero")',ctx);
+ assert.match(markup,/composer-portrait-placeholder/);
+ assert.match(markup,/HV/);
+ assert.doesNotMatch(markup,/background-position/);
+});
+test("composer card and expanded biography display matching portrait illustrations",()=>{
+ const {ctx,els}=startApp();
+ vm.runInContext('setTab("composers");setSearch("Mozart")',ctx);
+ assert.match(els.content.innerHTML,/Wolfgang Amadeus Mozart/);
+ assert.match(els.content.innerHTML,/background-position:75% 0%/);
+ vm.runInContext('setSearch("");showComposer(composers.find(c=>c.name==="Johann Sebastian Bach").id)',ctx);
+ assert.match(els.content.innerHTML,/Johann Sebastian Bach/);
+ assert.match(els.content.innerHTML,/background-position:0% 0%/);
+ assert.match(els.content.innerHTML,/AI-generated artistic illustration/);
+});
+test("WebP asset is valid and included in production offline cache",()=>{
+ const asset=fs.readFileSync(path.join(root,"composer-portraits.webp"));
+ assert.ok(asset.length>2500 && asset.length<100000);
+ assert.equal(asset.toString("ascii",0,4),"RIFF");
+ assert.equal(asset.toString("ascii",8,12),"WEBP");
+ assert.match(read("sw.js"),/composer-portraits\.webp/);
+ assert.match(read("sw.js"),/portraits\.js/);
+ assert.match(read("index.html"),/portraits\.js/);
 });

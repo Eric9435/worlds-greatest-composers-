@@ -56,3 +56,9 @@ Project is independent from WortWeg 370.
 Open a period in **Timeline → Read full chapter** or a composer in **Composers → Read profile**. Each chapter includes a table of contents, multiple sections in both languages and a separately labelled academic reading list. Readings can be used offline after the relevant cache has downloaded. All 52 composer profiles are checked for a distinct substantial bilingual chapter in automated tests.
 
 The written explanations are original educational syntheses. The linked academic sources support further learning but have **not** been checked as sentence-level citations for each composer; fact-checking and professional language editing are important next editorial stages.
+
+## Illustrated composer portraits
+
+Ten original AI-generated composer portrait *illustrations* are displayed in the composer library and in each matching biography: Johann Sebastian Bach, George Frideric Handel, Joseph Haydn, Wolfgang Amadeus Mozart, Ludwig van Beethoven, Franz Schubert, Frédéric Chopin, Franz Liszt, Johannes Brahms and Claude Debussy. The portraits are artistic reconstructions and must not be presented as authenticated historical likenesses or documentary photographs. The remaining 42 composers have initial-based placeholders rather than potentially incorrect images.
+
+Portrait mapping is defined in `portraits.js`. All ten portraits are stored in a single optimized 5×2 WebP asset (`composer-portraits.webp`) for low-bandwidth delivery and offline caching. The generated portraits are optimized for in-app thumbnails and may appear soft when enlarged. To add later portraits, update both the sprite asset and name-to-cell mapping; never re-use a portrait for a different composer.

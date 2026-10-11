@@ -3,13 +3,13 @@ const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path");
 const root=path.join(__dirname,"..");
-const files=new Set(["index.html","app.js","reader.js","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
+const files=new Set(["index.html","app.js","reader.js","portraits.js","composer-portraits.webp","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
 const server=http.createServer((req,res)=>{
  const file=req.url==="/"?"index.html":decodeURIComponent(req.url.slice(1).split("?")[0]);
  if(!files.has(file)){res.writeHead(404);return res.end();}
  fs.readFile(path.join(root,file),(err,bytes)=>{
   if(err){res.writeHead(404);return res.end();}
-  res.writeHead(200,{"content-type":file.endsWith(".html")?"text/html; charset=utf-8":file.endsWith(".js")?"text/javascript; charset=utf-8":file.endsWith(".svg")?"image/svg+xml":"application/manifest+json"});
+  res.writeHead(200,{"content-type":file.endsWith(".html")?"text/html; charset=utf-8":file.endsWith(".js")?"text/javascript; charset=utf-8":file.endsWith(".svg")?"image/svg+xml":file.endsWith(".webp")?"image/webp":"application/manifest+json"});
   res.end(bytes);
  });
 });
@@ -35,7 +35,16 @@ const server=http.createServer((req,res)=>{
   await page.getByRole("textbox",{name:"Search composers"}).fill("Mozart");
   assert.equal(await page.getByText("Johann Sebastian Bach").count(),0);
   assert.ok(await page.getByText("Wolfgang Amadeus Mozart").count());
+
+  assert.equal(await page.locator('.composer-gallery-card .composer-portrait').count(),1);
+  assert.match(await page.locator('.composer-gallery-card .composer-portrait').getAttribute("style"),/background-position:75% 0%/);
+  const assetResponse=await page.request.get("http://127.0.0.1:"+server.address().port+"/composer-portraits.webp");
+  assert.equal(assetResponse.status(),200);
+  assert.match(assetResponse.headers()["content-type"],/image\/webp/);
+  assert.equal((await assetResponse.body()).subarray(8,12).toString(),"WEBP");
   await page.getByRole("button",{name:"Read profile"}).click();
+  assert.ok(await page.getByRole("img",{name:/Wolfgang Amadeus Mozart.*AI-generated artistic illustration/}).count());
+
   assert.ok(await page.getByText("Piano Concerto No. 21").count());
   await page.getByRole("button",{name:"မြန်မာ"}).click();
   assert.equal(await page.locator("html").getAttribute("lang"),"my");

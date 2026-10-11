@@ -19,6 +19,7 @@ jobs:
           node --check chapters-composers-3.js
           node --check chapters-composers-4.js
           node --check reader.js
+          node --check portraits.js
           node --check app.js
           node --check history.js
           node --check sw.js
