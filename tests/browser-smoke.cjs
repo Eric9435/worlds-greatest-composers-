@@ -36,11 +36,14 @@ const server=http.createServer((req,res)=>{
   await page.getByRole("button",{name:"Read full chapter"}).first().click();
   assert.ok(await page.getByRole("heading",{name:"Sources and the limits of evidence"}).count());
   assert.ok(await page.getByText("Music existed long before surviving musical notation.",{exact:false}).count());
-  await page.locator("#readingWindow .reading-window-close").click();
-  await page.getByRole("button",{name:"မြန်မာ"}).click();
-  await page.getByRole("button",{name:"Read full chapter"}).first().click();
+  assert.equal(await page.locator("#readingWindow #readerTopicSelect").count(),1);
+  await page.locator("#readingWindow #readerTopicSelect").selectOption("1");
+  assert.equal(await page.locator("#readingWindow .reader-topic-section:not(.is-inactive-topic)").count(),1);
+  assert.equal(await page.locator("#readingWindow .reader-topic-section[data-topic-index='1'].is-inactive-topic").count(),0);
+  await page.locator("#readingWindow .reading-lang button").nth(1).click();
   assert.equal(await page.locator("html").getAttribute("lang"),"my");
-  assert.ok(await page.getByRole("heading",{name:"အထောက်အထားနှင့် သမိုင်းလေ့လာမှုကန့်သတ်ချက်"}).count());
+  assert.equal(await page.locator("#readingWindow #readerTopicSelect").inputValue(),"1");
+  assert.equal(await page.locator("#readingWindow .reader-topic-section:not(.is-inactive-topic)").count(),1);
   await page.locator("#readingWindow .reading-window-close").click();
   await page.getByRole("button",{name:"EN",exact:true}).click();
   await page.getByRole("button",{name:"Composers",exact:true}).click();
