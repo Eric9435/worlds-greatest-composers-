@@ -220,3 +220,42 @@ test("composer chapter renders additional advanced analytical sections in biling
  vm.runInContext('setLang("my")',ctx);
  assert.match(els.content.innerHTML,/စာမူ၊ edition နှင့် မူရင်းအထောက်အထား/);
 });
+
+test("every one of the 52 composers has two substantive, unique bilingual biographical essays",()=>{
+ const {ctx}=startApp();
+ const data=vm.runInContext("composers.map(c=>({name:c.name,essay:composerBiographicalStudies[c.name],sections:composerBiographicalSections(c)}))",ctx);
+ assert.equal(data.length,52);
+ const texts=[];
+ for(const {name,essay,sections} of data){
+  assert.ok(Array.isArray(essay),"Missing biography for "+name);
+  assert.equal(essay.length,4,"Missing bilingual fields for "+name);
+  assert.ok(essay[0].length>350,"Career paragraph too short: "+name);
+  assert.ok(essay[2].length>350,"Compositional paragraph too short: "+name);
+  assert.ok(essay[1].length>100,"Myanmar career paragraph too short: "+name);
+  assert.ok(essay[3].length>100,"Myanmar works paragraph too short: "+name);
+  assert.equal(sections.length,2);
+  for(const text of essay) assert.doesNotMatch(text,/<script|javascript:/i,"Unsafe biography markup "+name);
+  texts.push(essay[0],essay[2]);
+ }
+ assert.equal(new Set(texts).size,104,"Biographies must be individually written, not duplicates");
+});
+test("long biography reader exposes a one-topic-at-a-time selector, no anchor jumps",()=>{
+ const {ctx,els}=startApp();
+ vm.runInContext('showComposer(composers.find(c=>c.name==="Wolfgang Amadeus Mozart").id)',ctx);
+ assert.match(els.content.innerHTML,/readerTopicSelect/);
+ assert.match(els.content.innerHTML,/reader-topic-link/);
+ assert.match(els.content.innerHTML,/is-inactive-topic/);
+ assert.match(els.content.innerHTML,/Biographical study: career/);
+ assert.match(els.content.innerHTML,/Mozart/);
+ assert.doesNotMatch(els.content.innerHTML,/href="#chapter-section-/);
+});
+test("verified specialist biography books and composer archives display for their composers",()=>{
+ const {ctx}=startApp();
+ const ids=vm.runInContext("Object.keys(composerSpecialistReading)",ctx);
+ assert.ok(ids.length>=11);
+ for(const name of ids){
+  const result=vm.runInContext("composerSourceLinks("+JSON.stringify(name)+")",ctx);
+  assert.match(result,/https:\/\//);
+  assert.match(result,/noopener noreferrer/);
+ }
+});
