@@ -4,7 +4,7 @@ function chapterMarkup(kind,record,study) {
   const isEra=kind==="era";
   const title=esc(isEra?t(record.en,record.my):t(record.name,record.my));
   const metadata=esc(isEra?record.dates:record.years+" · "+t((eras.find(e=>e.id===record.era)||{}).en||"", (eras.find(e=>e.id===record.era)||{}).my||""));
-  const enrichedSections=(kind==="composer"?composerBiographicalSections(record):[])
+  const enrichedSections=(kind==="composer"?composerBiographicalSections(record).concat(composerChronologySections(record)):[])
     .concat(study.sections,kind==="composer"?composerStudyExpansion(record,study).concat(advancedComposerLaboratory(record)):[]);
   const outline=enrichedSections.map((section,i)=>
     '<button type="button" class="reader-topic-link" data-topic-index="'+i+'" aria-pressed="'+String(i===0)+'" onclick="selectReadingTopic('+i+')">'+
@@ -14,7 +14,7 @@ function chapterMarkup(kind,record,study) {
     '<section class="chapter-section reader-topic-section '+(i===0?'':'is-inactive-topic')+'" data-topic-index="'+i+'" id="chapter-section-'+i+'">'+
     '<span class="section-number">'+String(i+1).padStart(2,"0")+'</span>'+
     '<h3>'+esc(t(section[0],section[1]))+'</h3>'+
-    '<p>'+esc(t(section[2],section[3]))+'</p></section>'
+    '<p class="'+(section[4]?"composer-atlas-paragraph":"")+'">'+esc(t(section[2],section[3]))+'</p></section>'
   ).join("");
   const pickerOptions=enrichedSections.map((section,i)=>'<option value="'+i+'">'+(i+1)+'. '+esc(t(section[0],section[1]))+'</option>').join("");
   const related=isEra?composers.filter(c=>c.era===record.id).slice(0,18):[];
