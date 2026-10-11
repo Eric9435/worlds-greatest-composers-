@@ -102,6 +102,11 @@
    img.referrerPolicy="no-referrer";
    img.onload=()=>{
     portrait.classList.add("commons-photo-loaded");
+    // Accessible image and credit replace the stale low-resolution illustration.
+    const original=portrait.querySelector(".composer-portrait-sprite");
+    if(original)original.setAttribute("aria-hidden","true");
+    const oldDisclaimer=visual.querySelector(".portrait-disclaimer");
+    if(oldDisclaimer)oldDisclaimer.textContent="Wikimedia Commons · "+metadata.license;
     const label=document.createElement("span");
     label.className="commons-portrait-credit";
     label.textContent=(metadata.artist+" · "+metadata.license).slice(0,170);
