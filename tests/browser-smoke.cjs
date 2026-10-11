@@ -23,6 +23,13 @@ const server=http.createServer((req,res)=>{
   await page.goto("http://127.0.0.1:"+server.address().port,{waitUntil:"networkidle"});
   assert.equal(await page.locator("#composerCount").textContent(),"52");
   assert.equal(await page.locator("#eraCount").textContent(),"8");
+  assert.ok(await page.locator('.era-composer-tile').count()>15);
+  const bachTile=page.getByRole("button",{name:"Read about Johann Sebastian Bach"});
+  assert.ok(await bachTile.count());
+  assert.ok(await bachTile.locator('img.composer-portrait-sprite').count());
+  await bachTile.click();
+  assert.ok(await page.getByRole("heading",{name:"Johann Sebastian Bach"}).count());
+  await page.getByRole("button",{name:"Back to library"}).click();
   await page.getByRole("button",{name:"Read full chapter"}).first().click();
   assert.ok(await page.getByRole("heading",{name:"Sources and the limits of evidence"}).count());
   assert.ok(await page.getByText("Music existed long before surviving musical notation.",{exact:false}).count());
