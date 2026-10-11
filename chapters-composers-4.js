@@ -352,3 +352,102 @@ Object.assign(composerChapters,{
     ]
   }
 });
+
+/* Distinct analytical and contextual chapters for modern and contemporary composers. */
+for(const [name,en,my,legacyEn,legacyMy] of [
+  [
+    "Alexander Scriabin",
+    "Compare the harmonic pacing and pianistic texture of Sonata No. 5 with an earlier Chopin-influenced prelude. Identify recurrent chord shapes and transformations of a small motive, rather than assigning conventional chord functions everywhere. A performance should maintain clarity of register and long-term tension despite the dense writing and apparently free gestures.",
+    "Sonata No. 5 နှင့် အစောပိုင်း prelude ကို နှိုင်းယှဉ်ကာ harmony နှင့် piano texture ပြောင်းလဲပုံကို လေ့လာပါ။ Traditional chord function တစ်ခုတည်းဖြင့် မခွဲခြားဘဲ recurring pitch group နှင့် motive transformation ကို စူးစမ်းပါ။",
+    "Scriabin's speculative writings and projected multimedia works have attracted great interest, sometimes at the expense of the surviving musical evidence. Avoid treating his spiritual philosophy as a literal explanation for every chord. His distinctive piano language contributed to later explorations of post-tonal harmony and the expressive potential of instrumental color.",
+    "Scriabin ၏ ဝိညာဉ်ရေးအယူအဆများကို စိတ်ဝင်စားကြသော်လည်း chord တိုင်း၏အဓိပ္ပာယ်ကို ထိုအတွေးတစ်ခုတည်းဖြင့် မရှင်းလင်းသင့်ပါ။ သူ၏ post-tonal harmony နှင့် piano timbre စမ်းသပ်မှုများသည် နောက်ပိုင်းရေးဖွဲ့မှုများကို သက်ရောက်စေခဲ့သည်။"
+  ],
+  [
+    "Arnold Schoenberg",
+    "Compare a section of Pierrot lunaire with Suite for Piano Op. 25. In the latter, locate a row form through pitch-class relationships, but also record phrase boundaries, register and rhythm. In Pierrot, attend to the interaction of Sprechstimme with instrumental gestures and note how expressive structure exists without familiar tonal cadences.",
+    "Pierrot lunaire နှင့် Piano Suite Op. 25 ကို နှိုင်းယှဉ်ပါ။ Twelve-tone row ကို pitch class ဖြင့် ရှာပြီး phrase၊ rhythm နှင့် register ကိုပါ သုံးသပ်ပါ။ Pierrot တွင် Sprechstimme နှင့် instrumental gesture ဆက်စပ်မှုကို နားထောင်ပါ။",
+    "Schoenberg's migration under Nazi persecution and his influential teaching are central to twentieth-century cultural history. His methods sparked sharply polarized debates about musical modernity, but no single theoretical system defines all his compositions. Study both his late Romantic heritage and his subsequent innovations to understand continuity as well as rupture.",
+    "Schoenberg သည် Nazi နှိပ်စက်မှုမှ ထွက်ပြေးရွှေ့ပြောင်းခဲ့ရပြီး music theory သင်ကြားမှုတွင် အရေးပါခဲ့သည်။ Twelve-tone method တစ်ခုတည်းဖြင့် လက်ရာအားလုံးကို မဖော်ပြနိုင်ပါ။ Late Romantic အခြေခံနှင့် modern innovation ဆက်စပ်မှုကို လေ့လာပါ။"
+  ],
+  [
+    "Maurice Ravel",
+    "In Boléro, write down which instruments take successive turns with the nearly unchanged melody and rhythm. The increase in intensity largely comes from orchestral accumulation rather than complex thematic development. Compare this process with a movement from Gaspard de la nuit where pianistic resonance and virtuoso figuration create dramatic color within a different formal design.",
+    "Boléro တွင် melody နှင့် rhythm ထပ်ကျော့နေချိန် instrumental timbre ပြောင်းလဲမှုကို ရေးမှတ်ပါ။ Crescendo သည် theme development ထက် orchestra accumulation ကြောင့် ဖြစ်လာသည်။ Gaspard de la nuit တွင် piano resonance နှင့် virtuoso texture ပုံစံမတူမှုကို နှိုင်းယှဉ်ပါ။",
+    "Ravel's legacy includes exceptional orchestration and piano writing as well as orchestral arrangements that changed the circulation of earlier music. His engagement with jazz and dance genres invites questions about artistic exchange and context. Compare historical recordings and contemporary performances to hear the consequences of tempo, pedaling and orchestral balance.",
+    "Ravel ၏ orchestration နှင့် piano writing သည် နောက်ပိုင်း composer များကို သက်ရောက်စေခဲ့သည်။ Jazz နှင့် dance style အပြန်အလှန်ကို သမိုင်းနောက်ခံဖြင့် လေ့လာပါ။ Tempo၊ pedaling နှင့် orchestral balance မတူသော performance များကို နှိုင်းယှဉ်ပါ။"
+  ],
+  [
+    "Béla Bartók",
+    "In Mikrokosmos, select a small exercise with an unfamiliar mode or asymmetric meter and identify the principle before playing it. Compare this compact construction with the arch-like large-scale relationships of Music for Strings, Percussion and Celesta. Listen to the piano as a percussive instrument while tracking how tonal focus differs from a conventional major-key étude.",
+    "Mikrokosmos ၏ exercise တစ်ပုဒ်တွင် mode သို့မဟုတ် asymmetric meter ကို ပထမဆုံးစူးစမ်းပါ။ Music for Strings, Percussion and Celesta ၏ arch-like form နှင့် နှိုင်းယှဉ်ပါ။ Piano ကို percussive instrument အဖြစ် အသုံးပြုပုံကို နားထောင်ပါ။",
+    "Bartók's ethnomusicological documentation was unusually systematic for its time and helped challenge simplistic national folklore categories. Yet research practices and relationships between collectors and communities should still be examined critically. His dual work as scholar and composer demonstrates that detailed listening to traditional performance can lead to structural innovation rather than decorative borrowing.",
+    "Bartók ၏ folk music သုတေသနသည် စနစ်ကျမှုကြောင့် ထင်ရှားသည်။ သို့သော် သုတေသီနှင့် ဒေသခံဂီတပညာရှင်တို့၏ ဆက်ဆံရေးကိုလည်း ပြန်လည်သုံးသပ်သင့်သည်။ ရိုးရာဂီတကို အလေးအနက်လေ့လာခြင်းက composition နည်းအသစ်များ ဖြစ်ပေါ်စေနိုင်သည်။"
+  ],
+  [
+    "Florence Price",
+    "Listen to Symphony No. 1 and mark contrasting rhythmic types, melodic gestures and orchestral textures across the movement structure. Compare passages associated with dance or spiritual expression to more conventionally symphonic development. Identify the actual compositional transitions rather than deciding in advance which sounds are 'folk' or 'classical'.",
+    "Symphony No. 1 တွင် rhythm၊ melody နှင့် orchestral texture အမျိုးမျိုးကို movement အလိုက် ရေးမှတ်ပါ။ Dance သို့မဟုတ် spiritual ဆန်သောအပိုင်းများနှင့် symphonic development ကို နှိုင်းယှဉ်ပါ။ အသံကြားရုံဖြင့် genre ကို အလွယ်တကူ မသတ်မှတ်ပါနှင့်။",
+    "Price's growing presence in present-day concert programs reflects archival recovery and reassessment of racial exclusion in the historical canon. Her achievement should not be reduced to being a 'first': her compositional technique deserves the same sustained analytical attention as that of male and white contemporaries. Performance history profoundly affects which music becomes familiar.",
+    "Florence Price ၏လက်ရာများကို ယနေ့ ပြန်လည်ဖျော်ဖြေမှု တိုးလာခြင်းသည် သမိုင်းတွင် လူမျိုးရေးခွဲခြားမှုကို ပြန်လည်သုံးသပ်စေသည်။ ပထမဆုံးအောင်မြင်သူဟူသော အချက်သာမဟုတ်ဘဲ composition technique ကိုပါ အလေးအနက်လေ့လာသင့်သည်။"
+  ],
+  [
+    "Sergei Prokofiev",
+    "Compare the keyboard rhythm in Piano Concerto No. 3 with the sharply characterized orchestral episodes of Romeo and Juliet. Mark how harmonic dissonance may sit beneath a surprisingly singable melody. The contrast between percussive articulation and gentle lyricism reveals more about his style than descriptions focused only on speed and difficulty.",
+    "Piano Concerto No. 3 ၏ rhythm နှင့် Romeo and Juliet ballet ၏ character scene များကို နှိုင်းယှဉ်ပါ။ Dissonance အောက်တွင် lyrical melody များပေါ်လာပုံကို နားထောင်ပါ။ Fast passage သာမဟုတ်ဘဲ percussive articulation နှင့် lyricism contrast ကို လေ့လာပါ။",
+    "Prokofiev's career was affected by the politics of Soviet cultural administration as well as by film and theatre collaboration. His stylistic range—from satirical to lyrical—resists a purely modernist or purely national label. When discussing his career, distinguish documented artistic decisions from speculative claims about motivations under political pressure.",
+    "Prokofiev ၏အလုပ်သည် ဆိုဗီယက်ယဉ်ကျေးမှုမူဝါဒ၊ film နှင့် theatre အဖွဲ့အစည်းများ၏ သက်ရောက်မှုရှိခဲ့သည်။ Satirical နှင့် lyrical style နှစ်မျိုးလုံး ပါဝင်သည်။ နိုင်ငံရေးဖိအားအောက်ရှိ သူ၏ဆုံးဖြတ်ချက်များကို အထောက်အထားဖြင့်သာ ရှင်းလင်းသင့်သည်။"
+  ],
+  [
+    "Dmitri Shostakovich",
+    "Choose a movement from 24 Preludes and Fugues Op. 87 and map fugal entries before examining its harmonic setting. Compare the movement's controlled counterpoint with a large symphony's abrupt thematic and dynamic contrasts. In String Quartet No. 8, listen for the DSCH-derived motive and its changing emotional and textural surroundings.",
+    "Op. 87 fugue တစ်ပုဒ်၏ subject entry များကို map ပြုလုပ်ပြီး harmony ကို ဆက်လက်သုံးသပ်ပါ။ Symphony ၏ dynamic contrast နှင့် နှိုင်းယှဉ်ပါ။ String Quartet No. 8 တွင် DSCH-derived motive ကို ရှာပြီး texture ပြောင်းလဲမှုကို နားထောင်ပါ။",
+    "Shostakovich's reception is deeply entangled with conflicting accounts of his relationship to Soviet authority. Avoid claiming that a particular musical gesture carries one indisputable political code without corroboration. His chamber works, film scores and symphonies also reveal distinct professional audiences and compositional circumstances.",
+    "Shostakovich နှင့် ဆိုဗီယက်အာဏာပိုင်များ၏ ဆက်ဆံရေးအပေါ် သုတေသီများ အမြင်မတူကြသည်။ Musical motif တစ်ခုကို လျှို့ဝှက်နိုင်ငံရေးအဓိပ္ပာယ်တစ်ခုတည်းဟု အတည်မပြုသင့်ပါ။ Chamber၊ film နှင့် symphony အလုပ်များ၏ ပရိသတ်ကွာခြားမှုကိုလည်း လေ့လာပါ။"
+  ],
+  [
+    "Olivier Messiaen",
+    "In a passage from Vingt regards sur l'Enfant-Jésus, identify recurring melodic or chordal symbols and their transformations through register and duration. Compare the sense of suspended time with the unusual ensemble writing of Quartet for the End of Time. Try notating a short nonretrogradable rhythm to understand the composer's treatment of rhythmic symmetry.",
+    "Vingt regards မှ theme ပြန်ပေါ်လာမှု၊ register နှင့် duration ပြောင်းလဲမှုကို လေ့လာပါ။ Quartet for the End of Time ၏ time suspension နှင့် နှိုင်းယှဉ်ပါ။ Nonretrogradable rhythm တိုတစ်ခုကို ရေးကြည့်ပြီး rhythmic symmetry ကို နားလည်ပါ။",
+    "Messiaen's influence as a teacher and organist helped disseminate ideas about rhythm, mode and timbre to later generations. His Catholic imagery and perceptions of color are significant but should be connected to audible techniques and scores. Birdsong transcriptions also raise questions about what is transformed when sounds from nature become notated music.",
+    "Messiaen ၏ teaching နှင့် organ work များက mode၊ rhythm နှင့် timbre အယူအဆများကို နောက်ပိုင်းသို့ ပြန့်ပွားစေခဲ့သည်။ ဘာသာရေးနှင့် အရောင်အယူအဆများကို score evidence နှင့် ချိတ်ဆက်သင့်သည်။ ငှက်သံမှ notation သို့ ပြောင်းလဲမှုကိုလည်း စူးစမ်းပါ။"
+  ],
+  [
+    "Benjamin Britten",
+    "In The Young Person's Guide to the Orchestra, identify which instrumental family presents each variation and how the Purcell theme changes character. Compare this lucid pedagogical design with the more psychologically complex vocal scenes of Peter Grimes. Notice how a repeated gesture can become disturbing when orchestral balance and dramatic surroundings change.",
+    "Young Person's Guide တွင် တူရိယာအဖွဲ့တစ်ခုစီ၏ variation ကို ခွဲခြားပါ။ Purcell theme ကို form မပျက်ဘဲ ဘယ်လိုပြောင်းလဲသလဲ နားထောင်ပါ။ Peter Grimes ၏ psychological drama နှင့် orchestral balance ကို နှိုင်းယှဉ်ပါ။",
+    "Britten's career demonstrates how festival institutions, opera production and artistic partnerships can shape national musical life. Many of his works explore vulnerability, community and ethical conflict, yet specific dramatic meanings depend on texts and staging. Study librettos, orchestration and performance together instead of seeking simple biographical equivalents for each character.",
+    "Britten ၏ festival နှင့် opera institution များသည် ဗြိတိန်ဂီတဘဝကို သက်ရောက်စေခဲ့သည်။ သူ၏ drama များတွင် လူမှုရေးနှင့် စိတ်ပိုင်းဆိုင်ရာ ပြဿနာများပါဝင်သော်လည်း ဇာတ်ကောင်တစ်ဦးစီကို composer ၏ဘဝနှင့် တိုက်ရိုက်မတူညီသင့်ပါ။ Libretto နှင့် orchestra ကိုပါ လေ့လာပါ။"
+  ],
+  [
+    "György Ligeti",
+    "In Désordre, write down the left-hand and right-hand pulse groupings separately and notice how their interaction creates a changing rhythmic perception. Compare this with Atmosphères, where dense individual lines produce a slowly evolving sound mass. In both cases, precise local organization shapes a larger surface that can sound disorienting.",
+    "Désordre တွင် လက်ဝဲနှင့် လက်ယာ pulse group များကို သီးခြား ရေးမှတ်ပါ။ Atmosphères ၏ dense sound mass နှင့် နှိုင်းယှဉ်ပါ။ အတွင်းဖွဲ့စည်းမှုတိကျသော်လည်း နားထောင်သူအတွက် ရှုပ်ထွေးသလိုခံစားရပုံကို လေ့လာပါ။",
+    "Ligeti influenced later composers through both his textural innovations and his rhythmically complex piano études. His language changed substantially over his career and engaged musical ideas from several traditions. One should avoid treating the technique of micropolyphony as the only defining feature of his achievement.",
+    "Ligeti ၏ micropolyphony နှင့် piano étude rhythm များသည် နောက်ပိုင်းရေးဖွဲ့သူများကို သက်ရောက်စေခဲ့သည်။ သို့သော် သူ၏ style သည် တစ်သက်တာအတွင်း ပြောင်းလဲခဲ့ပြီး micropolyphony တစ်ခုတည်းဖြင့် မသတ်မှတ်သင့်ပါ။"
+  ],
+  [
+    "Steve Reich",
+    "Play or follow a short excerpt from Piano Phase and mark where two initially synchronized patterns gradually diverge. Describe the new resultant rhythms heard between them, then compare this audible process with Music for 18 Musicians, where pulse and changing harmonic sections organize a larger form. Listening for process can make subtle change easier to perceive.",
+    "Piano Phase တွင် pattern နှစ်ခု synchronization မှ အချိန်ခွာသွားပုံကို မှတ်သားပါ။ Resultant rhythm အသစ်များကို နားထောင်ပါ။ Music for 18 Musicians တွင် pulse နှင့် harmony section အကြီးများကို နှိုင်းယှဉ်ပါ။",
+    "Reich's innovations helped broaden experimental composition's institutional audience. Different Trains also shows that repeated processes can interact with testimony and history rather than existing as abstract mathematical exercises. Compare his approach with Glass's patterns and Cage's chance procedures; their common labels conceal significantly different compositional priorities.",
+    "Reich ၏ process music သည် experimental music ပရိသတ်ကို ချဲ့ထွင်ခဲ့သည်။ Different Trains တွင် historical testimony နှင့် repetitive technique ကို ပေါင်းစပ်ထားသည်။ Glass နှင့် Cage တို့၏ method များနှင့် ခွဲခြားလေ့လာပါ။"
+  ],
+  [
+    "Kaija Saariaho",
+    "In NoaNoa, listen for where the flute's breath noises, pitched tones and electronic sounds overlap or diverge. In L'Amour de loin, observe how orchestral timbre and slowly shifting sonority sustain a scene across vocal phrases. Try describing a passage through its spectrum, attack and decay rather than only through melody and chords.",
+    "NoaNoa တွင် flute ၏ breath noise၊ pitched tone နှင့် electronic sound များ ပေါင်းစပ်ပုံကို နားထောင်ပါ။ L'Amour de loin တွင် vocal phrase အကြား orchestral timbre ရှည်လျားစွာ တည်ဆောက်ပုံကို သုံးသပ်ပါ။ Melody အပြင် attack/decay ကိုပါ ဖော်ပြပါ။",
+    "Saariaho's contribution crosses composition, electroacoustic research and opera, challenging stereotypes about who belongs in the historical canon. Technology in her work serves artistic expression rather than novelty alone. Because live electronics and performance spaces can vary, compare recordings cautiously and attend to the relationship between score and sounding realization.",
+    "Saariaho ၏ဂီတသည် electroacoustic research၊ opera နှင့် composition ကို ပေါင်းစပ်ပြီး သမိုင်း canon အတွင်း အမျိုးသမီး composer များ၏နေရာကို ပြန်လည်သုံးသပ်စေသည်။ Electronics သည် အသံအသစ်ပြရန်သာ မဟုတ်ဘဲ expression အတွက် အသုံးပြုသည်။"
+  ],
+  [
+    "Unsuk Chin",
+    "In the Piano Concerto, mark a rapidly changing gesture as it travels between the soloist and different orchestral sections. Listen for how rhythm, density and timbre organize the larger narrative even when a simple repeated theme is hard to find. Compare a virtuosic passage with a quieter one to understand how contrast shapes form.",
+    "Piano Concerto တွင် gesture တစ်ခုကို soloist မှ orchestra section အမျိုးမျိုးသို့ အပြန်အလှန်ရွှေ့ပုံကို နားထောင်ပါ။ Rhythm၊ density နှင့် timbre များက theme ထပ်ကျော့ခြင်းမရှိသော်လည်း form ကို ဘယ်လိုဖန်တီးသလဲ စူးစမ်းပါ။",
+    "Chin's international career shows the complex pathways of contemporary musical training, ensembles and festivals. Her work should not be reduced to a simplistic East–West synthesis; it demands close attention to its own instrumental techniques and compositional designs. Diverse present-day practices resist a single narrative of inevitable stylistic progress.",
+    "Unsuk Chin ၏နိုင်ငံတကာအလုပ်သည် contemporary music ၏ training နှင့် festival network များကို ပြသသည်။ East–West fusion ဟုသာ အလွယ်တကူမဖော်ပြဘဲ သီးခြား instrumental technique နှင့် form ကို လေ့လာသင့်သည်။ ၂၁ ရာစုဂီတတွင် စတိုင်မျိုးစုံရှိသည်။"
+  ]
+]){
+ const x=composerChapters[name];if(!x)throw Error('Unknown composer '+name);
+ x.sections.push(['Close reading and performance practice','လက်ရာအသေးစိတ်နှင့် တီးခတ်ဖော်ပြမှု',en,my]);
+ x.sections.push(['Reception, influence and critical context','သက်ရောက်မှု၊ လက်ခံမှုနှင့် သမိုင်းဆိုင်ရာသုံးသပ်ချက်',legacyEn,legacyMy]);
+}
