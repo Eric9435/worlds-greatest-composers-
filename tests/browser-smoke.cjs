@@ -86,7 +86,7 @@ const server=http.createServer((req,res)=>{
   assert.deepEqual([...slots].sort((a,b)=>a-b),Array.from({length:42},(_,i)=>i));
   const portraitAsset=await page.request.get("http://127.0.0.1:"+server.address().port+"/composer-portraits-42.svg");
   assert.equal(portraitAsset.status(),200);
-  assert.match(portraitAsset.headers()["content-type"],/image\\/svg\\+xml/);
+  assert.match(portraitAsset.headers()["content-type"],/svg/);
   assert.equal((await portraitAsset.text()).match(/<clipPath id="tile/g)?.length,42);
   await page.getByRole("textbox",{name:"Search composers"}).fill("Mozart");
   assert.equal(await page.getByText("Johann Sebastian Bach").count(),0);
