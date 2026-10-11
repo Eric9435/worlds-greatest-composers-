@@ -17,6 +17,8 @@ function startApp(){
  vm.runInContext(read("chapters-composers-2.js"),ctx,{filename:"chapters-composers-2.js"});
  vm.runInContext(read("chapters-composers-3.js"),ctx,{filename:"chapters-composers-3.js"});
  vm.runInContext(read("chapters-composers-4.js"),ctx,{filename:"chapters-composers-4.js"});
+ vm.runInContext(read("extended-context.js"),ctx,{filename:"extended-context.js"});
+ vm.runInContext(read("composer-expansion.js"),ctx,{filename:"composer-expansion.js"});
  vm.runInContext(read("reader.js"),ctx,{filename:"reader.js"});
  vm.runInContext(read("portraits.js"),ctx,{filename:"portraits.js"});
  vm.runInContext(read("app.js"),ctx,{filename:"app.js"});
@@ -160,4 +162,40 @@ test("WebP asset is valid and included in production offline cache",()=>{
  assert.match(read("sw.js"),/composer-portraits\.webp\?v=9/);
  assert.match(read("sw.js"),/portraits\.js/);
  assert.match(read("index.html"),/portraits\.js/);
+});
+
+test("timeline shows composer portrait tiles for each era and opens selected biography",()=>{
+ const {ctx,els}=startApp();
+ vm.runInContext('setTab("eras")',ctx);
+ assert.match(els.content.innerHTML,/era-composer-gallery/);
+ assert.match(els.content.innerHTML,/Johann Sebastian Bach/);
+ assert.match(els.content.innerHTML,/Wolfgang Amadeus Mozart/);
+ assert.match(els.content.innerHTML,/composer-portrait-sprite/);
+ assert.match(els.content.innerHTML,/showComposer\(\d+\)/);
+ vm.runInContext('showComposer(composers.find(c=>c.name==="Wolfgang Amadeus Mozart").id)',ctx);
+ assert.match(els.content.innerHTML,/Piano Concerto No. 21/);
+});
+
+test("all 52 biographies include new bilingual guided score and performance study",()=>{
+ const {ctx}=startApp();
+ const result=vm.runInContext('composers.map(c=>({name:c.name,en:(lang="en",composerStudySupplement(c)),my:(lang="my",composerStudySupplement(c))}))',ctx);
+ assert.equal(result.length,52);
+ for(const item of result){
+  assert.match(item.en,/composer-deep-dive/);
+  assert.match(item.en,/composer-deep-dive/);
+  assert.match(item.my,/ထင်ရှားသောလက်ရာ/);
+ }
+});
+
+test("all 52 composer chapters include four extra bilingual score and research studies",()=>{
+ const {ctx}=startApp();
+ const count=vm.runInContext('composers.filter(c=>composerStudyExpansion(c,composerChapters[c.name]).length===4).length',ctx);
+ assert.equal(count,52);
+ const sample=vm.runInContext('composerStudyExpansion(composers.find(c=>c.name==="Johann Sebastian Bach"),composerChapters["Johann Sebastian Bach"])',ctx);
+ for(const section of sample){assert.equal(section.length,4);assert.ok(section[2].length>250);assert.ok(section[3].length>80)}
+});
+test("all eight eras receive original bilingual contextual history",()=>{
+ const {ctx}=startApp();
+ assert.equal(vm.runInContext("Object.keys(extendedEraNotes).length",ctx),8);
+ assert.equal(vm.runInContext('eras.filter(e=>extendedContextMarkup("era",e).includes("academic-context")).length',ctx),8);
 });

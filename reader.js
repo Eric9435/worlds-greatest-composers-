@@ -4,10 +4,11 @@ function chapterMarkup(kind,record,study) {
   const isEra=kind==="era";
   const title=esc(isEra?t(record.en,record.my):t(record.name,record.my));
   const metadata=esc(isEra?record.dates:record.years+" · "+t((eras.find(e=>e.id===record.era)||{}).en||"", (eras.find(e=>e.id===record.era)||{}).my||""));
-  const outline=study.sections.map((section,i)=>
+  const outline=study.sections.concat(kind==='composer'?composerStudyExpansion(record,study):[]).map((section,i)=>
     '<a href="#chapter-section-'+i+'">'+(i+1)+'. '+esc(t(section[0],section[1]))+'</a>'
   ).join("");
-  const sections=study.sections.map((section,i)=>
+  const enrichedSections=study.sections.concat(kind==='composer'?composerStudyExpansion(record,study):[]);
+  const sections=enrichedSections.map((section,i)=>
     '<section class="chapter-section" id="chapter-section-'+i+'">'+
     '<span class="section-number">'+String(i+1).padStart(2,"0")+'</span>'+
     '<h3>'+esc(t(section[0],section[1]))+'</h3>'+
@@ -27,9 +28,9 @@ function chapterMarkup(kind,record,study) {
     '<header class="reading-header '+(isEra?'':'composer-reading-header')+'">'+(isEra?'':composerPortrait(record.name,'hero'))+'<div class="reading-heading"><span class="eyebrow">'+t(isEra?"HISTORICAL CHAPTER":"COMPOSER CHAPTER",isEra?"သမိုင်းခေတ် သင်ခန်းစာ":"တေးရေးဆရာ သင်ခန်းစာ")+'</span>'+
     '<h2>'+title+'</h2><p>'+metadata+'</p>'+
     '<p class="reading-intro">'+esc(isEra?t(record.descEn,record.descMy):t(record.en,record.descMy))+'</p>'+
-    '<div class="reading-meta">'+study.sections.length+' '+t("study sections","အပိုင်း")+' · '+t("English / Myanmar","အင်္ဂလိပ် / မြန်မာ")+'</div></div></header>'+
+    '<div class="reading-meta">'+enrichedSections.length+' '+t("study sections","အပိုင်း")+' · '+t("English / Myanmar","အင်္ဂလိပ် / မြန်မာ")+'</div></div></header>'+
     '<div class="reader-columns"><aside class="reader-outline" aria-label="Chapter contents"><h3>'+t("In this chapter","ဤသင်ခန်းစာတွင်")+'</h3>'+outline+'</aside>'+
-    '<div class="reader-main">'+sections+relatedMarkup+
+    '<div class="reader-main">'+sections+extendedContextMarkup(kind,record)+(isEra?'':composerStudySupplement(record))+relatedMarkup+
     '<section class="chapter-sources"><h3>'+t("Academic reading and verification","ပညာရပ်ဆိုင်ရာ ကိုးကားရင်းမြစ်များ")+'</h3>'+
     '<p>'+t("Original educational synthesis. These external resources provide historical context and further reading; they are not page-level citations for every statement.","ဤအကြောင်းအရာသည် ကိုယ်ပိုင်ရေးသားထားသော ပညာရေးရှင်းလင်းချက်ဖြစ်သည်။ အောက်ပါရင်းမြစ်များသည် ဆက်လက်လေ့လာရန်ဖြစ်ပြီး စာကြောင်းတိုင်းအတွက် တိုက်ရိုက်စာမျက်နှာကိုးကားချက် မဟုတ်ပါ။")+'</p>'+
     '<ul>'+sourceLinks+'</ul></section>'+
