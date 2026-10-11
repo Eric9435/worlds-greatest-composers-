@@ -61,6 +61,9 @@ refs.push(
 ["Kaija Saariaho — IRCAM Composer Resource","https://resources.ircam.fr/en/composer/kaija-saariaho/biography","Institutional biographical research and selective bibliography."],
 ["Unsuk Chin — Boosey & Hawkes Composer Biography","https://www.boosey.com/pages/cr/composer/composer_main?composerid=2754&langid=1&site-lang=en&ttype=biography","Publisher's detailed composer biography and catalog orientation."]
 );
+refs.push(["Open Opus — free curated composer and works catalogue","https://www.openopus.org/","Public-domain metadata available via https://api.openopus.org/; coverage is curated and not guaranteed exhaustive. Genres, Opus and catalogue references are grouped by the work title."],
+["Open Opus API documentation","https://github.com/openopus-org/openopus_api/blob/master/USAGE.md","Work list and individual work metadata endpoints; no user registration required."],
+["IMSLP / Petrucci Music Library — composer and score search","https://imslp.org/","Browse composer catalogues and score editions; downloadable score copyright varies by jurisdiction."]);
 let lang=localStorage.getItem("pfa-lang")==="my"?"my":"en",tab="eras",query="",eraFilter="all",selected=null,selectedEra=null;
 const t=(en,my)=>lang==="en"?en:my;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
