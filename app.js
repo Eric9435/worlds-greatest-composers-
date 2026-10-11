@@ -40,6 +40,12 @@ const refs=[
 ["Grove Music Online (Oxford Music)","https://www.oxfordmusiconline.com/","Scholarly reference resource; institutional access may be required."],
 ["IMSLP / Petrucci Music Library","https://imslp.org/","Scores; check jurisdiction-specific copyright status before reuse."]
 ];
+refs.push(
+["Understanding Music: Past and Present — University of North Georgia Press","https://oer.galileo.usg.edu/arts-textbooks/1/","Open-access music history textbook, chapters on medieval, Renaissance, Baroque, Classical, Romantic and twentieth-century music. CC BY-SA 4.0."],
+["Understanding Music: Past and Present — Open Textbook Library","https://open.umn.edu/opentextbooks/textbooks/understanding-music-past-and-present","Bibliography, chapter outline, license and independent textbook reviews."],
+["Yale University — Listening to Music (MUSI 112)","https://oyc.yale.edu/music/musi-112","University lecture series on listening, fugue, sonata form, opera, Baroque, Romantic and twentieth-century music."],
+["University of North Georgia Press — Understanding Music","https://ung.edu/university-press/books/understanding-music-past-and-present.php","Official publisher page and free digital edition."]
+);
 let lang=localStorage.getItem("pfa-lang")==="my"?"my":"en",tab="eras",query="",eraFilter="all",selected=null,selectedEra=null;
 const t=(en,my)=>lang==="en"?en:my;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
