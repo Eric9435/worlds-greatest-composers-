@@ -174,3 +174,14 @@ test("timeline shows composer portrait tiles for each era and opens selected bio
  vm.runInContext('showComposer(composers.find(c=>c.name==="Wolfgang Amadeus Mozart").id)',ctx);
  assert.match(els.content.innerHTML,/Piano Concerto No. 21/);
 });
+
+test("all 52 biographies include new bilingual guided score and performance study",()=>{
+ const {ctx}=startApp();
+ const result=vm.runInContext('composers.map(c=>({name:c.name,en:composerStudySupplement(c),my:(lang="my",composerStudySupplement(c))}))',ctx);
+ assert.equal(result.length,52);
+ for(const item of result){
+  assert.match(item.en,/composer-deep-dive/);
+  assert.match(item.en,/Representative work/);
+  assert.match(item.my,/ထင်ရှားသောလက်ရာ/);
+ }
+});
