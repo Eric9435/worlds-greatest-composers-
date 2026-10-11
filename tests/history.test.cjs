@@ -161,3 +161,15 @@ test("WebP asset is valid and included in production offline cache",()=>{
  assert.match(read("sw.js"),/portraits\.js/);
  assert.match(read("index.html"),/portraits\.js/);
 });
+
+test("timeline shows composer portrait tiles for each era and opens selected biography",()=>{
+ const {ctx,els}=startApp();
+ vm.runInContext('setTab("eras")',ctx);
+ assert.match(els.content.innerHTML,/era-composer-gallery/);
+ assert.match(els.content.innerHTML,/Johann Sebastian Bach/);
+ assert.match(els.content.innerHTML,/Wolfgang Amadeus Mozart/);
+ assert.match(els.content.innerHTML,/composer-portrait-sprite/);
+ assert.match(els.content.innerHTML,/showComposer\(\d+\)/);
+ vm.runInContext('showComposer(composers.find(c=>c.name==="Wolfgang Amadeus Mozart").id)',ctx);
+ assert.match(els.content.innerHTML,/Piano Concerto No. 21/);
+});
