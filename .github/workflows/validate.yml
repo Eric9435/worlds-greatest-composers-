@@ -1,7 +1,7 @@
-name: Validate static application
+name: Validate music history application
 on:
   push:
-    branches: [main]
+    branches: [main, fix/history-production-release]
   pull_request:
 jobs:
   validate:
@@ -13,19 +13,23 @@ jobs:
           node-version: '22'
       - name: Check JavaScript syntax
         run: |
+          node --check app.js
           node --check history.js
           node --check sw.js
-      - name: Check app assets and HTML references
+          node --check tests/history.test.cjs
+          node --check tests/browser-smoke.cjs
+      - name: Run music history regression tests
+        run: node --test tests/history.test.cjs
+  chromium:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright and Chromium
         run: |
-          node - <<'NODE'
-          const fs=require('fs');
-          const html=fs.readFileSync('index.html','utf8');
-          for(const f of ['history.js','sw.js','manifest.webmanifest']){
-            if(!fs.existsSync(f)) throw Error('Missing '+f);
-            if(!html.includes(f)) throw Error('Not referenced in index: '+f);
-          }
-          const sw=fs.readFileSync('sw.js','utf8');
-          for(const f of ['history.js']) if(!sw.includes(f)) throw Error('Not cached: '+f);
-          JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));
-          console.log('Static checks passed');
-          NODE
+          npm install --no-save playwright@1.56.0
+          npx playwright install --with-deps chromium
+      - name: Run real mobile-browser smoke test
+        run: node tests/browser-smoke.cjs
