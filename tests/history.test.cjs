@@ -20,7 +20,7 @@ test("startup renders a complete history view with 8 eras and 52 composers",()=>
  const {ctx,els}=startApp();
  assert.equal(els.eraCount.textContent,8);
  assert.equal(els.composerCount.textContent,52);
- assert.match(els.content.innerHTML,/Ancient & Early Traditions/);
+ assert.match(els.content.innerHTML,/Ancient &amp; Early Traditions/);
  assert.equal(vm.runInContext("composers.length",ctx),52);
 });
 test("English and Myanmar switching works and saves language",()=>{
