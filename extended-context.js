@@ -40,3 +40,13 @@ function composerStudySupplement(record){
  '<h4>'+t("Interpretation and historical perspective","တီးခတ်ပုံနှင့် သမိုင်းနောက်ခံ")+'</h4>'+
  '<p>'+t("Compare two contrasting performances of ","ကွဲပြားသော ဖျော်ဖြေမှုနှစ်မျိုးကို နှိုင်းယှဉ်ရန် — ")+work+'. '+t("Consider tempo, articulation, balance and expressive timing. Separate features audible in the work from choices made by modern performers, and consult scholarly editions or reliable catalogues when checking dates and attribution.","Tempo၊ articulation၊ balance နှင့် expressive timing တို့ကို နှိုင်းယှဉ်ပါ။ လက်ရာထဲတွင် အမှန်တကယ်ပါသောအချက်နှင့် ခေတ်သစ်ဖျော်ဖြေသူ၏ ရွေးချယ်မှုကို ခွဲခြားပြီး ရက်စွဲနှင့် မူရင်းရေးသားသူကို scholarly edition များဖြင့် စစ်ဆေးပါ။")+'</p></section>';
 }
+
+/* Compatibility for expanded reader chapters; returns additional original sections. */
+function composerStudyExpansion(record,study){
+ const guide=eraAnalysisGuides[record.era]||eraAnalysisGuides.contemporary;
+ return [
+ ["Historical and stylistic context","သမိုင်းနှင့် ဂီတစတိုင်",record.name+" ("+record.years+") is studied here in relation to "+record.era+"-period practices. "+record.en+" Historical claims should be checked against specialist catalogues and primary sources.",record.my+" ("+record.years+") ၏ လက်ရာများကို "+record.era+" ခေတ်ဂီတနောက်ခံနှင့် ဆက်စပ်လေ့လာပါ။ "+record.descMy+" သမိုင်းအချက်အလက်များကို scholarly catalogue များဖြင့် ပြန်လည်စစ်ဆေးသင့်သည်။"],
+ ["Analytical listening","ဂီတသုံးသပ်နားထောင်ခြင်း","Begin with "+record.work+". "+guide[1]+" Record three audible observations about the opening, central contrast and ending.",record.work+" ကို အခြေခံနားထောင်ပါ။ "+guide[3]+" အစပိုင်း၊ အလယ်ပိုင်းကွဲပြားမှုနှင့် အဆုံးသတ်အကြောင်း မှတ်ချက်သုံးခုရေးပါ။"],
+ ["Performance and critical comparison","ဖျော်ဖြေပုံ နှိုင်းယှဉ်ခြင်း","Compare two performances of "+record.work+". Identify choices in tempo, articulation, dynamics and phrasing, and distinguish interpretive preferences from verifiable facts.",""+record.work+" ၏ ဖျော်ဖြေမှုနှစ်မျိုးကို နှိုင်းယှဉ်ပါ။ Tempo၊ articulation၊ dynamics နှင့် phrasing ကို လေ့လာပြီး အတည်ပြုနိုင်သော အချက်နှင့် အမြင်ကို ခွဲခြားပါ။"]
+ ];
+}
