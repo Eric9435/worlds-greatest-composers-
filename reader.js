@@ -70,6 +70,7 @@ function openReadingWindow(){
  }
  modal.querySelector("#readingWindowBody").replaceChildren(detail);
  document.body.classList.add("reader-window-open");
+ document.querySelector?.("main")?.setAttribute?.("inert","");
  modal.querySelector("#readingWindowBody").scrollTop=0;
  updateReadingWindowLanguageButtons();
  selectReadingTopic(selectedReadingTopic);
@@ -120,6 +121,7 @@ function closeReading(){
  const modal=document.getElementById("readingWindow");
  if(modal)modal.remove();
  document.body?.classList?.remove("reader-window-open");
+ document.querySelector?.("main")?.removeAttribute?.("inert");
  selected=null;selectedEra=null;selectedReadingTopic=0;
  const previous=readingReturnRoute;
  readingReturnRoute=null;
