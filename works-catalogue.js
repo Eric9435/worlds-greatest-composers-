@@ -245,13 +245,13 @@ function catalogueGoBack(){
  const s=catalogueState;
  if(s.view==="detail")catalogueChangeView("works",s.family,s.group);
  else if(s.view==="works")catalogueChangeView("groups",s.family);
- else if(s.view==="groups")catalogueChangeView("families");
+ else if(s.view==="groups"||s.view==="search")catalogueChangeView("families");
  else closeWorksCatalogue();
 }
 function catalogueChangeSearch(value){
  catalogueState.search=String(value||"").slice(0,90);
- catalogueState.view="search";
- drawWorksCatalogue(true);
+ catalogueState.view=catalogueState.search.trim()?"search":"families";
+ drawWorksCatalogue(Boolean(catalogueState.search));
 }
 function catalogueSetGenre(value){
  catalogueState.genre=String(value||"all");
