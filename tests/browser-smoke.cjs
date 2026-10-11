@@ -40,7 +40,7 @@ const server=http.createServer((req,res)=>{
   await page.locator("#readingWindow #readerTopicSelect").selectOption("1");
   assert.equal(await page.locator("#readingWindow .reader-topic-section:not(.is-inactive-topic)").count(),1);
   assert.equal(await page.locator("#readingWindow .reader-topic-section[data-topic-index='1'].is-inactive-topic").count(),0);
-  await page.locator("#readingWindow .reading-lang button").nth(1).click();
+  await page.locator("#readingWindow .reading-window-lang button").nth(1).click();
   assert.equal(await page.locator("html").getAttribute("lang"),"my");
   assert.equal(await page.locator("#readingWindow #readerTopicSelect").inputValue(),"1");
   assert.equal(await page.locator("#readingWindow .reader-topic-section:not(.is-inactive-topic)").count(),1);
