@@ -42,7 +42,7 @@ function chapterMarkup(kind,record,study) {
     '</div></div></article>';
 }
 /* Immersive, accessible in-app reading window with route restoration. */
-let readingReturnFocus=null,readingReturnRoute=null;
+let readingReturnFocus=null,readingReturnRoute=null,selectedReadingTopic=0;
 function rememberReadingOrigin(){
  if(document.getElementById("readingWindow"))return;
  if(!readingReturnRoute)readingReturnRoute={tab,eraFilter,query};
@@ -72,6 +72,7 @@ function openReadingWindow(){
  document.body.classList.add("reader-window-open");
  modal.querySelector("#readingWindowBody").scrollTop=0;
  updateReadingWindowLanguageButtons();
+ selectReadingTopic(selectedReadingTopic);
  modal.querySelector(".reading-window-close").focus();
 }
 function updateReadingWindowLanguageButtons(){
@@ -91,15 +92,31 @@ function switchReadingLanguage(next){
  setLang(next);
  const replacement=document.getElementById("detail");
  if(replacement)area.replaceChildren(replacement);
+ selectReadingTopic(selectedReadingTopic);
  area.scrollTop=scroll;
  modal.setAttribute("aria-label",t("Music history reader","ဂီတသမိုင်းဖတ်ရှုရန်"));
  modal.querySelector(".reading-window-close").textContent="← "+t("Back","ပြန်ရန်");
  modal.querySelector(".reading-window-close").setAttribute("aria-label",t("Close reader","စာဖတ်ဝင်းဒိုးပိတ်ရန်"));
  updateReadingWindowLanguageButtons();
 }
+function selectReadingTopic(index){
+ const modal=document.getElementById("readingWindow");
+ const article=modal?.querySelector("#detail")||document.getElementById("detail");
+ if(!article||typeof article.querySelectorAll!=="function")return;
+ const sections=Array.from(article.querySelectorAll(".reader-topic-section"));
+ if(!Number.isInteger(index)||index<0||index>=sections.length)return;
+ selectedReadingTopic=index;
+ sections.forEach((el,i)=>el.classList.toggle("is-inactive-topic",i!==index));
+ article.querySelectorAll("[data-topic-button]").forEach(btn=>btn.setAttribute("aria-pressed",String(Number(btn.dataset.topicButton)===index)));
+ const picker=article.querySelector("#readerTopicSelect");
+ if(picker)picker.value=String(index);
+ const area=modal?.querySelector("#readingWindowBody");
+ if(area)area.scrollTop=0;
+}
 function showEra(id){
  if(!eraChapters[id])return;
  rememberReadingOrigin();
+ selectedReadingTopic=0;
  tab="eras";selectedEra=id;selected=null;
  renderContent();
  openReadingWindow();
@@ -108,6 +125,7 @@ function showComposer(id){
  const found=composers.find(c=>c.id===Number(id));
  if(!found)return;
  rememberReadingOrigin();
+ selectedReadingTopic=0;
  tab="composers";selected=found.id;selectedEra=null;
  render();
  openReadingWindow();
@@ -116,7 +134,7 @@ function closeReading(){
  const modal=document.getElementById("readingWindow");
  if(modal)modal.remove();
  document.body?.classList?.remove("reader-window-open");
- selected=null;selectedEra=null;
+ selected=null;selectedEra=null;selectedReadingTopic=0;
  const previous=readingReturnRoute;
  readingReturnRoute=null;
  if(previous){tab=previous.tab;eraFilter=previous.eraFilter;query=previous.query;render();}
@@ -152,7 +170,7 @@ if(typeof document!=="undefined"&&typeof document.addEventListener==="function")
  if(!modal)return;
  if(event.key==="Escape"){event.preventDefault();closeReading();return}
  if(event.key!=="Tab")return;
- const focusable=Array.from(modal.querySelectorAll('button:not([disabled]),a[href]:not([hidden]),input:not([disabled]),[tabindex="0"]')).filter(el=>el.getClientRects().length);
+ const focusable=Array.from(modal.querySelectorAll('button:not([disabled]),a[href]:not([hidden]),input:not([disabled]),select:not([disabled]),[tabindex="0"]')).filter(el=>el.getClientRects().length);
  if(!focusable.length)return;
  const first=focusable[0],last=focusable[focusable.length-1];
  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
