@@ -186,3 +186,16 @@ test("all 52 biographies include new bilingual guided score and performance stud
   assert.match(item.my,/ထင်ရှားသောလက်ရာ/);
  }
 });
+
+test("all 52 composer chapters include four extra bilingual score and research studies",()=>{
+ const {ctx}=startApp();
+ const count=vm.runInContext('composers.filter(c=>composerStudyExpansion(c,composerChapters[c.name]).length===4).length',ctx);
+ assert.equal(count,52);
+ const sample=vm.runInContext('composerStudyExpansion(composers.find(c=>c.name==="Johann Sebastian Bach"),composerChapters["Johann Sebastian Bach"])',ctx);
+ for(const section of sample){assert.equal(section.length,4);assert.ok(section[2].length>250);assert.ok(section[3].length>80)}
+});
+test("all eight eras receive original bilingual contextual history",()=>{
+ const {ctx}=startApp();
+ assert.equal(vm.runInContext("Object.keys(extendedEraNotes).length",ctx),8);
+ assert.equal(vm.runInContext('eras.filter(e=>extendedContextMarkup("era",e).includes("academic-context")).length',ctx),8);
+});
