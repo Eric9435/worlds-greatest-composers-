@@ -17,6 +17,7 @@ function startApp(){
  vm.runInContext(read("chapters-composers-2.js"),ctx,{filename:"chapters-composers-2.js"});
  vm.runInContext(read("chapters-composers-3.js"),ctx,{filename:"chapters-composers-3.js"});
  vm.runInContext(read("chapters-composers-4.js"),ctx,{filename:"chapters-composers-4.js"});
+ vm.runInContext(read("extended-context.js"),ctx,{filename:"extended-context.js"});
  vm.runInContext(read("reader.js"),ctx,{filename:"reader.js"});
  vm.runInContext(read("portraits.js"),ctx,{filename:"portraits.js"});
  vm.runInContext(read("app.js"),ctx,{filename:"app.js"});
