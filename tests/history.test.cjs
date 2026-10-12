@@ -367,7 +367,7 @@ test("all 52 composers have a local offline portrait, including the 42 formerly 
  assert.doesNotMatch(sprite,/<script|<foreignObject|xlink:href|<image\b/i);
  const cache=read("sw.js");
  assert.match(cache,/composer-portraits-42\.svg\?v=1/);
- assert.match(cache,/pfa-history-v23/);
+ assert.match(cache,/pfa-history-v24/);
 });
 
 test("Piano For ALL poster-inspired identity is applied consistently and works in both languages",()=>{
@@ -417,11 +417,24 @@ test("Piano For ALL poster-inspired identity is applied consistently and works i
  }
  assert.equal(manifest.theme_color,"#067f7d");
  assert.equal(manifest.background_color,"#f8fbf9");
- assert.match(cache,/pfa-history-v23/);
+ assert.match(cache,/pfa-history-v24/);
  assert.match(cache,/\.\/pfa-brand-mark\.svg/);
  assert.match(cache,/\.\/pfa-brand-theme\.css/);
  assert.match(els.heroText.textContent,/Greatest Composers/);
  vm.runInContext('setLang("my")',ctx);
  assert.match(els.heroTitle.textContent,/ဂီတသမိုင်း/);
  assert.match(els.heroText.textContent,/ကမ္ဘာ့ထင်ရှားသော/);
+});
+
+test("iOS polish keeps the official poster and adds readable Myanmar mobile styles",()=>{
+ const html=read("index.html"),css=read("ios-mobile-polish.css"),sw=read("sw.js");
+ assert.match(html,/href="\.\/ios-mobile-polish\.css"/);
+ assert.match(html,/src="\.\/pfa-home-poster\.webp"/);
+ assert.match(css,/@media\(max-width:730px\)/);
+ assert.match(css,/:lang\(my\) \.card h3/);
+ assert.match(css,/\.pfa-poster-hero \.stats/);
+ assert.match(css,/\.tabs button/);
+ assert.match(css,/\.card/);
+ assert.match(sw,/pfa-history-v24/);
+ assert.match(sw,/ios-mobile-polish\.css/);
 });

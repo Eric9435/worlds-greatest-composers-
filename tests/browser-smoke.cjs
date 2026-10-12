@@ -3,7 +3,7 @@ const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path");
 const root=path.join(__dirname,"..");
-const files=new Set(["index.html","app-theme.css","pfa-brand-theme.css","pfa-brand-mark.svg","pfa-brand-original.webp","pfa-home-poster.webp","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","works-catalogue.js","portraits.js","licensed-portraits.js","composer-portraits.webp","composer-portraits-42.svg","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
+const files=new Set(["index.html","app-theme.css","pfa-brand-theme.css","ios-mobile-polish.css","pfa-brand-mark.svg","pfa-brand-original.webp","pfa-home-poster.webp","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","works-catalogue.js","portraits.js","licensed-portraits.js","composer-portraits.webp","composer-portraits-42.svg","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
 const server=http.createServer((req,res)=>{
  const file=req.url==="/"?"index.html":decodeURIComponent(req.url.slice(1).split("?")[0]);
  if(!files.has(file)){res.writeHead(404);return res.end();}
@@ -27,6 +27,10 @@ const server=http.createServer((req,res)=>{
   assert.equal(await page.getByRole("heading",{name:"Music History"}).count(),1);
   assert.equal(await page.locator('link[href="./app-theme.css"]').count(),1);
   assert.equal(await page.locator('link[href="./pfa-brand-theme.css"]').count(),1);
+  assert.equal(await page.locator('link[href="./ios-mobile-polish.css"]').count(),1);
+  const mobilePolish=await page.request.get("http://127.0.0.1:"+server.address().port+"/ios-mobile-polish.css");
+  assert.equal(mobilePolish.status(),200);
+  assert.ok((await mobilePolish.text()).includes(":lang(my) .card h3"));
   assert.equal(await page.locator('meta[name="theme-color"]').getAttribute("content"),"#067f7d");
   assert.equal(await page.getByRole("link",{name:"Piano For ALL home"}).count(),1);
   assert.equal(await page.locator(".pfa-official-poster").count(),1);
