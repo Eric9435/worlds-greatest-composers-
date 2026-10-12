@@ -1,12 +1,12 @@
 {
   "name": "World's Greatest Composers by Piano For ALL",
   "short_name": "Composers",
-  "description": "Bilingual English–Myanmar music history: eight eras and 52 concise composer profiles",
+  "description": "English–Myanmar music history with 8 eras, 52 composer biographies and Piano For ALL branding.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f5f6fa",
-  "theme_color": "#151a31",
+  "background_color": "#f8fbf9",
+  "theme_color": "#067f7d",
   "lang": "en",
   "icons": [
     {
