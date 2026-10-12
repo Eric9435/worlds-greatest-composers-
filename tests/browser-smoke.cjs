@@ -78,7 +78,7 @@ const server=http.createServer((req,res)=>{
   const themeResponse=await page.request.get("http://127.0.0.1:"+server.address().port+"/app-theme.css");
   assert.equal(themeResponse.status(),200);
   assert.match(themeResponse.headers()["content-type"],/text\/css/);
-  assert.equal(await page.locator(".hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(255, 255, 255)");
+  assert.equal(await page.locator(".hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(229, 250, 255)");
   assert.equal(await page.getByText("Choose topic — opens here without scrolling").count(),0);
   assert.equal(await page.getByText("ဆွဲချစရာမလိုဘဲ", {exact:false}).count(),0);
   assert.ok(await page.locator(".top").evaluate(x=>getComputedStyle(x).backdropFilter.includes("blur")),"Native-like header blur should be enabled");
