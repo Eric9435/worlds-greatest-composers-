@@ -238,9 +238,11 @@ const server=http.createServer((req,res)=>{
   await worksPage.getByRole("textbox",{name:"Search composers"}).fill("Beethoven");
   await worksPage.locator(".composer-catalogue-link").first().click();
   assert.equal(await worksPage.locator("#worksCatalogueWindow[role=dialog]").count(),1);
-  assert.equal(await worksPage.locator(".works-window-done").evaluate(x=>getComputedStyle(x).color),"rgb(6, 127, 125)");
-  assert.equal(await worksPage.locator(".works-catalogue-hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(255, 255, 255)");
   await worksPage.getByText("3 Open Opus entries").first().waitFor();
+  await worksPage.waitForFunction(()=>{
+    const control=document.querySelector("#worksCatalogueWindow .works-window-done");
+    return control&&control.isConnected&&getComputedStyle(control).color==="rgb(6, 127, 125)";
+  },null,{timeout:10000});
   assert.equal(await worksPage.locator("#worksCatalogueWindow").getByText("Select Op., BWV, K., D., etc.",{exact:false}).count(),0);
   assert.equal(await worksPage.locator("#worksCatalogueWindow .works-catalogue-hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(255, 255, 255)");
   await worksPage.locator(".works-family-card").filter({hasText:"Op."}).first().click();
