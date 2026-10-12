@@ -14,13 +14,6 @@ body{font-synthesis:none}
 .toggle button{border-radius:11px;min-height:44px;padding:9px 14px;font-weight:730}
 .toggle button.active{background:#fff;color:#075f5c;box-shadow:0 2px 7px rgba(21,59,55,.09)}
 .hero.pfa-poster-hero{box-shadow:var(--pfa-ui-shadow);border-color:#e1ebe7}
-.pfa-poster-hero .stats{justify-content:center;gap:10px;background:#fff;padding:14px}
-.pfa-poster-hero .stat{
- background:#f1f8f6;min-width:100px;padding:9px 15px;border-radius:13px;
- border:1px solid #e1eeea;text-align:center
-}
-.pfa-poster-hero .stat b{font-size:21px;line-height:1.1;letter-spacing:-.04em}
-.pfa-poster-hero .stat span{font-size:12px;line-height:1.45}
 .tabs{
  border-radius:17px;background:#e8f1ee;padding:4px;
  border:1px solid #e0eae7;gap:3px
@@ -62,10 +55,6 @@ body{font-synthesis:none}
  .toggle button{padding:8px 11px;min-height:42px;font-size:13px;border-radius:10px}
  .hero.pfa-poster-hero{margin-top:16px;border-radius:18px;overflow:hidden}
  .pfa-official-poster{aspect-ratio:1500/571;width:100%;height:auto}
- .pfa-poster-hero .stats{padding:10px 12px 12px;gap:9px}
- .pfa-poster-hero .stat{flex:0 1 100px;min-width:0;padding:7px 10px;border-radius:12px}
- .pfa-poster-hero .stat b{font-size:20px}
- .pfa-poster-hero .stat span{font-size:11px}
  .tabs{margin:18px 0 21px;gap:2px;padding:4px;border-radius:15px;overflow:visible}
  .tabs button{min-width:0;flex:1 1 0;min-height:44px;padding:9px 5px;font-size:12.5px;white-space:normal;line-height:1.35}
  #content{padding-top:0}

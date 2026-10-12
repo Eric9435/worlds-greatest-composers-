@@ -21,8 +21,8 @@ const server=http.createServer((req,res)=>{
   const errors=[];
   page.on("pageerror",err=>errors.push(err.message));
   await page.goto("http://127.0.0.1:"+server.address().port,{waitUntil:"networkidle"});
-  assert.equal(await page.locator("#composerCount").textContent(),"52");
-  assert.equal(await page.locator("#eraCount").textContent(),"8");
+  assert.equal(await page.locator("#composerCount, #eraCount, #eraLabel, #composerLabel, .pfa-poster-hero .stats").count(),0);
+  assert.equal(await page.locator(".pfa-official-poster").count(),1);
   assert.ok(await page.locator('.era-composer-tile').count()>15);
   assert.equal(await page.getByRole("heading",{name:"Music History"}).count(),1);
   assert.equal(await page.locator('link[href="./app-theme.css"]').count(),1);
