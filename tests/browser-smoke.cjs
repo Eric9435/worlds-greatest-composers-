@@ -3,7 +3,7 @@ const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path");
 const root=path.join(__dirname,"..");
-const files=new Set(["index.html","app-theme.css","pfa-brand-theme.css","pfa-brand-mark.svg","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","works-catalogue.js","portraits.js","licensed-portraits.js","composer-portraits.webp","composer-portraits-42.svg","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
+const files=new Set(["index.html","app-theme.css","pfa-brand-theme.css","pfa-brand-mark.svg","pfa-brand-original.webp","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","works-catalogue.js","portraits.js","licensed-portraits.js","composer-portraits.webp","composer-portraits-42.svg","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
 const server=http.createServer((req,res)=>{
  const file=req.url==="/"?"index.html":decodeURIComponent(req.url.slice(1).split("?")[0]);
  if(!files.has(file)){res.writeHead(404);return res.end();}
@@ -37,6 +37,18 @@ const server=http.createServer((req,res)=>{
   });
   assert.equal(brandRender.error,undefined,"The supplied Piano For ALL logo did not render: "+JSON.stringify(brandRender));
   assert.ok(brandRender.width>100&&brandRender.visibleWidth>=30,"Header brand mark is not visible");
+  assert.match(await brandLogo.getAttribute("src"),/pfa-brand-original\.webp/);
+  assert.equal(brandRender.width,320,"Header must use the original uploaded artwork, not a traced logo");
+  assert.equal(brandRender.height,365);
+  const originalPhoto=await page.request.get("http://127.0.0.1:"+server.address().port+"/pfa-brand-original.webp");
+  assert.equal(originalPhoto.status(),200);
+  assert.match(originalPhoto.headers()["content-type"],/image\/webp/);
+  const originalBytes=await originalPhoto.body();
+  assert.equal(originalBytes.length,9402);
+  assert.equal(originalBytes.subarray(0,4).toString("ascii"),"RIFF");
+  assert.equal(originalBytes.subarray(8,12).toString("ascii"),"WEBP");
+  const cachedSource=await page.request.get("http://127.0.0.1:"+server.address().port+"/sw.js");
+  assert.match(await cachedSource.text(),/pfa-brand-original\.webp/);
   const heroBrand=page.locator(".brand-hero-symbol img");
   assert.ok(await heroBrand.evaluate(async image=>{try{await image.decode();return image.getBoundingClientRect().width>60}catch(_){return false}}),
     "Hero must display the Piano For ALL logo");
@@ -48,6 +60,15 @@ const server=http.createServer((req,res)=>{
   const logoResponse=await page.request.get("http://127.0.0.1:"+server.address().port+"/pfa-brand-mark.svg");
   assert.equal(logoResponse.status(),200);
   assert.match(logoResponse.headers()["content-type"],/image\/svg\+xml/);
+  assert.match(await logoResponse.text(),/data:image\/webp;base64,/);
+  const installedIcon=await page.evaluate(async ()=>{
+    const image=new Image();image.src="/icon.svg";
+    try{await image.decode()}catch(error){return {error:String(error)}}
+    return {width:image.naturalWidth,height:image.naturalHeight};
+  });
+  assert.equal(installedIcon.error,undefined,"PWA app icon failed to decode");
+  assert.equal(installedIcon.width,512);
+  assert.equal(installedIcon.height,512);
   const themeResponse=await page.request.get("http://127.0.0.1:"+server.address().port+"/app-theme.css");
   assert.equal(themeResponse.status(),200);
   assert.match(themeResponse.headers()["content-type"],/text\/css/);
@@ -217,9 +238,11 @@ const server=http.createServer((req,res)=>{
   await worksPage.getByRole("textbox",{name:"Search composers"}).fill("Beethoven");
   await worksPage.locator(".composer-catalogue-link").first().click();
   assert.equal(await worksPage.locator("#worksCatalogueWindow[role=dialog]").count(),1);
-  assert.equal(await worksPage.locator(".works-window-done").evaluate(x=>getComputedStyle(x).color),"rgb(6, 127, 125)");
-  assert.equal(await worksPage.locator(".works-catalogue-hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(255, 255, 255)");
   await worksPage.getByText("3 Open Opus entries").first().waitFor();
+  await worksPage.waitForFunction(()=>{
+    const control=document.querySelector("#worksCatalogueWindow .works-window-done");
+    return control&&control.isConnected&&getComputedStyle(control).color==="rgb(6, 127, 125)";
+  },null,{timeout:10000});
   assert.equal(await worksPage.locator("#worksCatalogueWindow").getByText("Select Op., BWV, K., D., etc.",{exact:false}).count(),0);
   assert.equal(await worksPage.locator("#worksCatalogueWindow .works-catalogue-hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(255, 255, 255)");
   await worksPage.locator(".works-family-card").filter({hasText:"Op."}).first().click();
