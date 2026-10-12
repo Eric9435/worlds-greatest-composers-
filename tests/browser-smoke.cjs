@@ -30,7 +30,7 @@ const server=http.createServer((req,res)=>{
   assert.equal(await page.locator('link[href="./ios-mobile-polish.css"]').count(),1);
   const mobilePolish=await page.request.get("http://127.0.0.1:"+server.address().port+"/ios-mobile-polish.css");
   assert.equal(mobilePolish.status(),200);
-  assert.match(await mobilePolish.text(),/:lang\\(my\\) \\.card h3/);
+  assert.ok((await mobilePolish.text()).includes(":lang(my) .card h3"));
   assert.equal(await page.locator('meta[name="theme-color"]').getAttribute("content"),"#067f7d");
   assert.equal(await page.getByRole("link",{name:"Piano For ALL home"}).count(),1);
   assert.equal(await page.locator(".pfa-official-poster").count(),1);
