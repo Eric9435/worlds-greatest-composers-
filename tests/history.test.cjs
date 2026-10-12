@@ -391,7 +391,7 @@ test("Piano For ALL poster-inspired identity is applied consistently and works i
  assert.match(icon,/data:image\/webp;base64,/);
  const logoBytes=fs.readFileSync(path.join(root,"pfa-brand-original.webp"));
  const gitBlobHash=require("node:crypto").createHash("sha1")
-  .update("blob "+logoBytes.length+"\\0")
+  .update("blob "+logoBytes.length+"\0")
   .update(logoBytes).digest("hex");
  assert.equal(logoBytes.length,9402);
  assert.equal(logoBytes.subarray(0,4).toString("ascii"),"RIFF");
