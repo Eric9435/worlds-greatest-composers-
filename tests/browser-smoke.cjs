@@ -3,7 +3,7 @@ const assert=require("node:assert/strict");
 const {chromium}=require("playwright");
 const http=require("node:http"),fs=require("node:fs"),path=require("node:path");
 const root=path.join(__dirname,"..");
-const files=new Set(["index.html","app-theme.css","pfa-brand-theme.css","pfa-brand-mark.svg","pfa-brand-original.webp","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","works-catalogue.js","portraits.js","licensed-portraits.js","composer-portraits.webp","composer-portraits-42.svg","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
+const files=new Set(["index.html","app-theme.css","pfa-brand-theme.css","pfa-brand-mark.svg","pfa-brand-original.webp","pfa-home-poster.webp","app.js","extended-context.js","composer-expansion.js","advanced-musicology.js","biographies-a.js","biographies-b.js","biographies-c.js","biographies-d.js","biography-sources.js","composer-atlas-1.js","composer-atlas-2.js","composer-atlas-3.js","composer-atlas-4.js","composer-chronology.js","reader.js","works-catalogue.js","portraits.js","licensed-portraits.js","composer-portraits.webp","composer-portraits-42.svg","history.js","chapters-eras.js","chapters-composers-1.js","chapters-composers-2.js","chapters-composers-3.js","chapters-composers-4.js","sw.js","manifest.webmanifest","icon.svg"]);
 const server=http.createServer((req,res)=>{
  const file=req.url==="/"?"index.html":decodeURIComponent(req.url.slice(1).split("?")[0]);
  if(!files.has(file)){res.writeHead(404);return res.end();}
@@ -29,7 +29,8 @@ const server=http.createServer((req,res)=>{
   assert.equal(await page.locator('link[href="./pfa-brand-theme.css"]').count(),1);
   assert.equal(await page.locator('meta[name="theme-color"]').getAttribute("content"),"#067f7d");
   assert.equal(await page.getByRole("link",{name:"Piano For ALL home"}).count(),1);
-  assert.equal(await page.locator(".brand-hero-motto").textContent(),"More musicBrighter tomorrows");
+  assert.equal(await page.locator(".pfa-official-poster").count(),1);
+  assert.equal(await page.locator(".poster-full-link").getAttribute("href"),"./pfa-home-poster.webp");
   const brandLogo=page.locator(".brand-mark");
   const brandRender=await brandLogo.evaluate(async image=>{
     try{await image.decode()}catch(error){return {error:String(error)}}
@@ -49,9 +50,14 @@ const server=http.createServer((req,res)=>{
   assert.equal(originalBytes.subarray(8,12).toString("ascii"),"WEBP");
   const cachedSource=await page.request.get("http://127.0.0.1:"+server.address().port+"/sw.js");
   assert.match(await cachedSource.text(),/pfa-brand-original\.webp/);
-  const heroBrand=page.locator(".brand-hero-symbol img");
+  const heroBrand=page.locator(".pfa-official-poster");
+  assert.equal(await heroBrand.getAttribute("src"),"./pfa-home-poster.webp");
+  const posterResponse=await page.request.get("http://127.0.0.1:"+server.address().port+"/pfa-home-poster.webp");
+  assert.equal(posterResponse.status(),200);
+  assert.match(posterResponse.headers()["content-type"],/image\/webp/);
+  assert.equal((await posterResponse.body()).length,59792);
   assert.ok(await heroBrand.evaluate(async image=>{try{await image.decode();return image.getBoundingClientRect().width>60}catch(_){return false}}),
-    "Hero must display the Piano For ALL logo");
+    "Hero must display the uploaded Piano For ALL poster");
   assert.equal(await page.locator(".tabs button.active").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(6, 127, 125)");
   assert.equal(await page.locator(".era-actions .primary").first().evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(6, 127, 125)");
   const brandThemeResponse=await page.request.get("http://127.0.0.1:"+server.address().port+"/pfa-brand-theme.css");
@@ -72,7 +78,7 @@ const server=http.createServer((req,res)=>{
   const themeResponse=await page.request.get("http://127.0.0.1:"+server.address().port+"/app-theme.css");
   assert.equal(themeResponse.status(),200);
   assert.match(themeResponse.headers()["content-type"],/text\/css/);
-  assert.equal(await page.locator(".hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(255, 255, 255)");
+  assert.equal(await page.locator(".hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(229, 250, 255)");
   assert.equal(await page.getByText("Choose topic — opens here without scrolling").count(),0);
   assert.equal(await page.getByText("ဆွဲချစရာမလိုဘဲ", {exact:false}).count(),0);
   assert.ok(await page.locator(".top").evaluate(x=>getComputedStyle(x).backdropFilter.includes("blur")),"Native-like header blur should be enabled");
@@ -173,9 +179,9 @@ const server=http.createServer((req,res)=>{
   const desk=await browser.newPage({viewport:{width:1280,height:800}});
   await desk.goto("http://127.0.0.1:"+server.address().port,{waitUntil:"networkidle"});
   assert.equal(await desk.getByRole("heading",{name:"Music History"}).count(),1);
-  assert.equal(await desk.locator(".hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(255, 255, 255)");
-  assert.ok(await desk.locator(".brand-hero-symbol img").evaluate(x=>x.getBoundingClientRect().width>=150),
-    "Desktop branding mark should be prominently displayed");
+  assert.equal(await desk.locator(".hero").evaluate(x=>getComputedStyle(x).backgroundColor),"rgb(229, 250, 255)");
+  assert.ok(await desk.locator(".pfa-official-poster").evaluate(x=>x.getBoundingClientRect().width>=600),
+    "Desktop poster should be prominently displayed");
   assert.equal(await desk.locator(".footer").evaluate(x=>getComputedStyle(x,"::before").height),"29px");
   assert.ok(await desk.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),"Desktop layout overflows horizontally");
   await desk.close();

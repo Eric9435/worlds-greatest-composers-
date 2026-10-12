@@ -256,3 +256,29 @@ a{color:var(--pfa-deep)}
 @media(prefers-reduced-motion:reduce){
   .card,.era-composer-tile{transition:none!important}
 }
+
+/* The official Piano For ALL education poster replaces the former illustrated hero.
+ * Keep the original 1500:571 artwork intact on desktop and iPhone; preserve accessible
+ * bilingual heading nodes for the existing app, without rendering duplicate poster text.
+ */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.hero.pfa-poster-hero{
+  padding:0!important;overflow:hidden;background:#e5faff!important;
+  border:1px solid #cfe6e7;box-shadow:0 8px 32px #05484914;
+  border-radius:20px;margin-top:22px;
+}
+.pfa-poster-hero::before,.pfa-poster-hero::after{display:none!important}
+.poster-full-link{display:block;width:100%;line-height:0;cursor:zoom-in;position:relative;z-index:1}
+.pfa-official-poster{display:block;width:100%;height:auto;aspect-ratio:1500/571;object-fit:contain}
+.pfa-poster-hero .stats{
+  margin:0;display:flex;justify-content:center;gap:12px;
+  padding:12px 16px 15px;background:#f8fffe;
+  border-top:1px solid #d9ecec;color:#143e3d;
+}
+.pfa-poster-hero .stat{min-width:116px;text-align:center;background:#e6f6f4;color:#125d5c}
+.pfa-poster-hero .stat b{color:#075e5d}
+@media(max-width:730px){
+ .hero.pfa-poster-hero{padding:0!important;margin-top:14px;border-radius:18px}
+ .pfa-poster-hero .stats{padding:9px 10px 11px;gap:8px}
+ .pfa-poster-hero .stat{min-width:95px;padding:8px 11px}
+}

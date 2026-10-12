@@ -367,7 +367,7 @@ test("all 52 composers have a local offline portrait, including the 42 formerly 
  assert.doesNotMatch(sprite,/<script|<foreignObject|xlink:href|<image\b/i);
  const cache=read("sw.js");
  assert.match(cache,/composer-portraits-42\.svg\?v=1/);
- assert.match(cache,/pfa-history-v22/);
+ assert.match(cache,/pfa-history-v23/);
 });
 
 test("Piano For ALL poster-inspired identity is applied consistently and works in both languages",()=>{
@@ -380,9 +380,20 @@ test("Piano For ALL poster-inspired identity is applied consistently and works i
  const {ctx,els}=startApp();
  assert.match(html,/class="brand brand-identity"/);
  assert.match(html,/class="brand-mark" src="\.\/pfa-brand-original\.webp"/);
- assert.match(html,/class="brand-hero-symbol"/);
- assert.match(html,/More music/);
- assert.match(html,/Brighter tomorrows/);
+ assert.match(html,/class="hero pfa-poster-hero"/);
+ assert.match(html,/class="pfa-official-poster" src="\.\/pfa-home-poster\.webp"/);
+ assert.match(html,/width="1500" height="571"/);
+ const posterBytes=fs.readFileSync(path.join(root,"pfa-home-poster.webp"));
+ assert.equal(posterBytes.length,59792);
+ assert.equal(posterBytes.subarray(0,4).toString("ascii"),"RIFF");
+ assert.equal(posterBytes.subarray(8,12).toString("ascii"),"WEBP");
+ const posterHash=require("node:crypto").createHash("sha1")
+  .update("blob "+posterBytes.length+"\0").update(posterBytes).digest("hex");
+ assert.equal(posterHash,"7979d64da6aa9ea4faa8c79c8d750e167eefbc79");
+ assert.match(cache,/pfa-home-poster\.webp/);
+ assert.match(css,/\.pfa-official-poster/);
+ assert.match(html,/Harmonizing Dreams/);
+ assert.match(html,/Academic Piano Class/);
  assert.match(html,/href="\.\/pfa-brand-theme\.css"/);
  assert.match(html,/content="#067f7d"/);
  assert.match(logo,/<path fill="#141414"/);
@@ -406,7 +417,7 @@ test("Piano For ALL poster-inspired identity is applied consistently and works i
  }
  assert.equal(manifest.theme_color,"#067f7d");
  assert.equal(manifest.background_color,"#f8fbf9");
- assert.match(cache,/pfa-history-v22/);
+ assert.match(cache,/pfa-history-v23/);
  assert.match(cache,/\.\/pfa-brand-mark\.svg/);
  assert.match(cache,/\.\/pfa-brand-theme\.css/);
  assert.match(els.heroText.textContent,/Greatest Composers/);
