@@ -367,7 +367,7 @@ test("all 52 composers have a local offline portrait, including the 42 formerly 
  assert.doesNotMatch(sprite,/<script|<foreignObject|xlink:href|<image\b/i);
  const cache=read("sw.js");
  assert.match(cache,/composer-portraits-42\.svg\?v=1/);
- assert.match(cache,/pfa-history-v21/);
+ assert.match(cache,/pfa-history-v22/);
 });
 
 test("Piano For ALL poster-inspired identity is applied consistently and works in both languages",()=>{
@@ -379,7 +379,7 @@ test("Piano For ALL poster-inspired identity is applied consistently and works i
  const cache=read("sw.js");
  const {ctx,els}=startApp();
  assert.match(html,/class="brand brand-identity"/);
- assert.match(html,/class="brand-mark" src="\.\/pfa-brand-mark\.svg"/);
+ assert.match(html,/class="brand-mark" src="\.\/pfa-brand-original\.webp"/);
  assert.match(html,/class="brand-hero-symbol"/);
  assert.match(html,/More music/);
  assert.match(html,/Brighter tomorrows/);
@@ -387,6 +387,18 @@ test("Piano For ALL poster-inspired identity is applied consistently and works i
  assert.match(html,/content="#067f7d"/);
  assert.match(logo,/<path fill="#141414"/);
  assert.match(logo,/<path fill="#087f7e"/);
+ assert.match(logo,/data:image\/webp;base64,/);
+ assert.match(icon,/data:image\/webp;base64,/);
+ const logoBytes=fs.readFileSync(path.join(root,"pfa-brand-original.webp"));
+ const gitBlobHash=require("node:crypto").createHash("sha1")
+  .update("blob "+logoBytes.length+"\\0")
+  .update(logoBytes).digest("hex");
+ assert.equal(logoBytes.length,9402);
+ assert.equal(logoBytes.subarray(0,4).toString("ascii"),"RIFF");
+ assert.equal(logoBytes.subarray(8,12).toString("ascii"),"WEBP");
+ assert.equal(gitBlobHash,"aad3e8c2df048b84e0c55241348b959c972b2a6b");
+ assert.match(html,/rel="preload" as="image" href="\.\/pfa-brand-original\.webp"/);
+ assert.match(cache,/pfa-brand-original\.webp/);
  assert.match(icon,/Piano For ALL/);
  assert.match(css,/--pfa-teal:#067f7d/);
  for(const marker of [".hero",".tabs button.active",".reading-header",".works-catalogue-hero",".composer-gallery-card",".footer::before"]){
@@ -394,7 +406,7 @@ test("Piano For ALL poster-inspired identity is applied consistently and works i
  }
  assert.equal(manifest.theme_color,"#067f7d");
  assert.equal(manifest.background_color,"#f8fbf9");
- assert.match(cache,/pfa-history-v21/);
+ assert.match(cache,/pfa-history-v22/);
  assert.match(cache,/\.\/pfa-brand-mark\.svg/);
  assert.match(cache,/\.\/pfa-brand-theme\.css/);
  assert.match(els.heroText.textContent,/Greatest Composers/);
