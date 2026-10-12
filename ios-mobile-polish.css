@@ -26,7 +26,7 @@ body{font-synthesis:none}
  border:1px solid #e0eae7;gap:3px
 }
 .tabs button{min-height:45px;font-size:14px;font-weight:740;letter-spacing:-.015em;border-radius:13px;padding:10px 11px}
-.tabs button.active{background:#087f7d;color:#fff;box-shadow:0 3px 9px #075f5f21}
+.tabs button.active{background:var(--pfa-teal);color:#fff;box-shadow:0 3px 9px #075f5f21}
 #content{padding-top:5px}
 #content>h2{font-size:clamp(24px,3vw,30px);letter-spacing:-.045em;line-height:1.25;margin:20px 0 17px}
 .grid{gap:14px}
