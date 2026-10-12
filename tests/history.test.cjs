@@ -7,7 +7,7 @@ const path=require("node:path");
 const root=path.join(__dirname,"..");
 const read=name=>fs.readFileSync(path.join(root,name),"utf8");
 function startApp(){
- const ids=["en","my","subtitle","heroTitle","heroText","eraCount","composerCount","eraLabel","composerLabel","copyright","tabs","content"];
+ const ids=["en","my","subtitle","heroTitle","heroText","copyright","tabs","content"];
  const els=Object.fromEntries(ids.map(id=>[id,{innerHTML:"",textContent:"",classList:{toggle(){}},setAttribute(){}}]));
  const storage=new Map();
  const document={documentElement:{lang:"en"},activeElement:null,getElementById:id=>els[id]||null,querySelector:()=>({focus(){},setSelectionRange(){}})};
@@ -33,8 +33,8 @@ function startApp(){
 }
 test("startup renders a complete history view with 8 eras and 52 composers",()=>{
  const {ctx,els}=startApp();
- assert.equal(els.eraCount.textContent,8);
- assert.equal(els.composerCount.textContent,52);
+ assert.equal(vm.runInContext("eras.length",ctx),8);
+ assert.equal(vm.runInContext("composers.length",ctx),52);
  assert.match(els.content.innerHTML,/Ancient &amp; Early Traditions/);
  assert.equal(vm.runInContext("composers.length",ctx),52);
 });
@@ -437,4 +437,19 @@ test("iOS polish keeps the official poster and adds readable Myanmar mobile styl
  assert.match(css,/\.card/);
  assert.match(sw,/pfa-history-v24/);
  assert.match(sw,/ios-mobile-polish\.css/);
+});
+
+test("hero shows poster without duplicate count cards while preserving language controls",()=>{
+ const html=read("index.html");
+ assert.match(html,/class="hero pfa-poster-hero"/);
+ assert.match(html,/pfa-home-poster\\.webp/);
+ assert.doesNotMatch(html,/id="eraCount"|id="composerCount"|id="eraLabel"|id="composerLabel"/);
+ assert.doesNotMatch(html,/<div class="stats">/);
+ const {ctx,els}=startApp();
+ assert.equal(vm.runInContext("eras.length",ctx),8);
+ assert.equal(vm.runInContext("composers.length",ctx),52);
+ assert.match(els.tabs.innerHTML,/ခေတ်စဉ်/);
+ assert.match(els.tabs.innerHTML,/တေးရေးဆရာ/);
+ vm.runInContext('setLang("my")',ctx);
+ assert.match(els.tabs.innerHTML,/ခေတ်စဉ်/);
 });
