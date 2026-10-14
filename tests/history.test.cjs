@@ -381,7 +381,7 @@ test("all 52 composers have a local offline portrait, including the 42 formerly 
  assert.doesNotMatch(sprite,/<script|<foreignObject|xlink:href|<image\b/i);
  const cache=read("sw.js");
  assert.match(cache,/composer-portraits-42\.svg\?v=1/);
- assert.match(cache,/pfa-history-v25/);
+ assert.match(cache,/pfa-history-v26/);
 });
 
 test("Piano For ALL poster-inspired identity is applied consistently and works in both languages",()=>{
@@ -431,7 +431,7 @@ test("Piano For ALL poster-inspired identity is applied consistently and works i
  }
  assert.equal(manifest.theme_color,"#067f7d");
  assert.equal(manifest.background_color,"#f8fbf9");
- assert.match(cache,/pfa-history-v25/);
+ assert.match(cache,/pfa-history-v26/);
  assert.match(cache,/\.\/pfa-brand-mark\.svg/);
  assert.match(cache,/\.\/pfa-brand-theme\.css/);
  assert.match(els.heroText.textContent,/Greatest Composers/);
@@ -449,7 +449,7 @@ test("iOS polish keeps the official poster and adds readable Myanmar mobile styl
  assert.match(css,/\.hero\.pfa-poster-hero/);
  assert.match(css,/\.tabs button/);
  assert.match(css,/\.card/);
- assert.match(sw,/pfa-history-v25/);
+ assert.match(sw,/pfa-history-v26/);
  assert.match(sw,/ios-mobile-polish\.css/);
 });
 
