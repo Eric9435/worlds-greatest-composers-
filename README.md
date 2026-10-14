@@ -23,7 +23,7 @@ English–Myanmar music-history web application, optimized for mobile screens an
 
 These links offer additional study and do not establish claim-level citations for all existing composer summaries. Book content and copyrighted musical recordings are not reproduced.
 
-## Local development
+The header includes an accessible English/Myanmar **Back to Home** link that returns to the main [Piano For ALL academy](https://piano-for-all.onrender.com/) website. This navigation uses a normal same-tab hyperlink, including when client-side JavaScript fails.\n\n## Local development
 
 Run `python3 -m http.server 8000` from the repository root, then visit http://localhost:8000.
 
@@ -39,7 +39,7 @@ GitHub Actions checks syntax, data-driven behavior and a mobile-sized Chromium b
 
 Production: https://piano-for-all-composers.onrender.com
 Render is configured as a static site with automatic deployment from branch `main`, publish path `.`.
-Versioned service worker cache `pfa-history-v7` allows repeat-visit offline use. A browser may need a reload after upgrades.
+Versioned service worker cache `pfa-history-v26` allows repeat-visit offline use. A browser may need a reload after upgrades.
 
 ## Data and privacy
 
