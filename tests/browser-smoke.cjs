@@ -32,7 +32,20 @@ const server=http.createServer((req,res)=>{
   assert.equal(mobilePolish.status(),200);
   assert.ok((await mobilePolish.text()).includes(":lang(my) .card h3"));
   assert.equal(await page.locator('meta[name="theme-color"]').getAttribute("content"),"#067f7d");
-  assert.equal(await page.getByRole("link",{name:"Piano For ALL home"}).count(),1);
+  assert.equal(await page.getByRole("link",{name:"Music History home"}).count(),1);
+  const academyHome=page.locator(".academy-return-link");
+  assert.equal(await academyHome.count(),1,"History must link back to the main Piano For ALL academy");
+  assert.equal(await academyHome.getAttribute("href"),"https://piano-for-all.onrender.com/");
+  assert.equal(await academyHome.getAttribute("target"),null,"Back to Home should open in the current tab");
+  assert.equal(await academyHome.getByText("Back to Home").isVisible(),true);
+  const academyTapTarget=await academyHome.boundingBox();
+  assert.ok(academyTapTarget && academyTapTarget.height>=44,"Back to Home must be at least 44px tall on iPhone");
+  await page.locator("#my").click();
+  assert.equal(await academyHome.getByText("ပင်မစာမျက်နှာသို့").isVisible(),true,"Myanmar label must follow language choice");
+  assert.equal(await academyHome.getByText("Back to Home").isVisible(),false);
+  await page.locator("#en").click();
+  assert.equal(await academyHome.getByText("Back to Home").isVisible(),true);
+
   assert.equal(await page.locator(".pfa-official-poster").count(),1);
   assert.equal(await page.locator(".poster-full-link").getAttribute("href"),"./pfa-home-poster.webp");
   const brandLogo=page.locator(".brand-mark");
