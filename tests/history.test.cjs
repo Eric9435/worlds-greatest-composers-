@@ -31,6 +31,20 @@ function startApp(){
  vm.runInContext(read("history.js"),ctx,{filename:"history.js"});
  return {ctx,els,storage,document};
 }
+
+test("Music History includes a bilingual same-tab return link to the academy home",()=>{
+ const html=read("index.html"),styles=read("ios-mobile-polish.css"),worker=read("sw.js");
+ assert.match(html,/<nav class="academy-return"/);
+ assert.match(html,/<a class="academy-return-link" href="https:\/\/piano-for-all\.onrender\.com\/"/);
+ assert.match(html,/<span class="back-label-en">Back to Home<\/span>/);
+ assert.match(html,/<span class="back-label-my" lang="my">ပင်မစာမျက်နှာသို့<\/span>/);
+ assert.doesNotMatch(html, /class="academy-return-link"[^>]*target="_blank"/);
+ assert.match(styles, /\.academy-return-link\{[^}]*min-height:46px/);
+ assert.match(styles, /html\[lang="my"\] \.academy-return \.back-label-en\{display:none\}/);
+ assert.match(styles, /html\[lang="my"\] \.academy-return \.back-label-my\{display:inline/);
+ assert.match(worker, /pfa-history-v26/);
+});
+
 test("startup renders a complete history view with 8 eras and 52 composers",()=>{
  const {ctx,els}=startApp();
  assert.equal(vm.runInContext("eras.length",ctx),8);
