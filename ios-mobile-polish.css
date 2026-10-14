@@ -84,3 +84,31 @@ body{font-synthesis:none}
 @media(prefers-reduced-motion:reduce){
  .card,.tabs button{transition:none!important}
 }
+
+
+/* History reader → academy home. A real link works even if JS or the PWA is offline. */
+.academy-return{display:flex;justify-content:flex-start;align-items:center;margin:14px 0 0}
+.academy-return-link{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  min-height:46px;padding:10px 15px 10px 11px;border:1px solid #d7e6df;
+  border-radius:14px;background:rgba(255,255,255,.96);color:#075f5c;
+  font-size:13px;font-weight:750;letter-spacing:-.012em;line-height:1.5;
+  text-decoration:none;box-shadow:0 2px 12px rgba(14,75,64,.045);
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.academy-return-link:hover{border-color:#a9d4c5;background:#e9f6f1;color:#07524c}
+.academy-return-link:active{transform:scale(.985)}
+.academy-return-icon{flex:0 0 auto}
+.academy-return .back-label-my{display:none}
+html[lang="my"] .academy-return .back-label-en{display:none}
+html[lang="my"] .academy-return .back-label-my{display:inline;letter-spacing:0;line-height:1.75}
+.academy-return + .hero.pfa-poster-hero{margin-top:13px}
+@media(max-width:730px){
+  .academy-return{margin:13px 0 0}
+  .academy-return-link{min-height:46px;padding:10px 14px 10px 10px;font-size:13px}
+  .academy-return + .hero.pfa-poster-hero{margin-top:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .academy-return-link{transition:none}
+  .academy-return-link:active{transform:none}
+}
